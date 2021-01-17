@@ -1,4 +1,4 @@
-let location1 = {x:5,y:5};
+let location1 = {x:4,y:4};
 let direction = "f";
 // fr,fl,bl,br
 
@@ -20,16 +20,25 @@ function stepDiagonally(location,direction){
   let newLocation = {};
   if(direction === "fr" && location.y!==8 && location.x!==8){
     newLocation = {x:(location.x+1),y:(location.y+1)};
+    // return newLocation
   }else  if(direction === "br" && location.y!==1 && location.x!==8){
     newLocation = {x:(location.x+1),y:(location.y-1)};
+    // return newLocation
   }else  if(direction === "bl" && location.y!==1&& location.x!==1){
     newLocation = {x:(location.x-1),y:(location.y-1)};
+    // return newLocation
   }else  if(direction === "fl"&& location.y!==8 && location.x!==1){
     newLocation = {x:(location.x-1),y:(location.y+1)};
+    // return newLocation
   }else{
     console.log('יצאת מחוץ ללוח')
   }
-  return newLocation;
+
+  // if(newLocation == ){
+    return newLocation
+
+  // }; 
+  
 
 }
 // stepDiagonally(location1, 'bl');
@@ -117,11 +126,28 @@ function checkOptionalmovements(type,location){
     }else{
       optionalmovements.push(stepStraight(location,'f'));
     }
-  }
+  }else if(type == 'knight'){
+    let newLocation;
+    newLocation = stepStraight(location,'f');
+    optionalmovements.push(stepDiagonally(newLocation,'fr'),stepDiagonally(newLocation,'fl'));
+    newLocation = stepStraight(location,'r');
+    optionalmovements.push(stepDiagonally(newLocation,'fr'),stepDiagonally(newLocation,'br'));
+    newLocation = stepStraight(location,'b');
+    optionalmovements.push(stepDiagonally(newLocation,'br'),stepDiagonally(newLocation,'bl'));
+    newLocation = stepStraight(location,'l');
+    console.log(newLocation)
+    optionalmovements.push(stepDiagonally(newLocation,'bl'),stepDiagonally(newLocation,'fl'));
+  }else if(type == 'queen'){
+
+
+  
   console.log(optionalmovements)
 }
 
-checkOptionalmovements('pawn',location1);
+checkOptionalmovements('knight',location1);
+
+
+
 
 
 
