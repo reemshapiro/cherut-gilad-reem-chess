@@ -46,7 +46,7 @@
            else{color= 'black'}
             for(j=1;j<9;j++){
                
-             html +=`<div id=${i},${j} class='board ${color}'>${i},${j}</div>`
+             html +=`<div id=${i},${j} class='board ${color}' onclick='movePiece(event)'>${i},${j}</div>`
              if (color == 'black'){
                  color = 'white'
              }  

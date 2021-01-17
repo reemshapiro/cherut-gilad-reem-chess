@@ -1,5 +1,13 @@
 "use strict";
 
-function movePiece(selectedPiece, selectedLocation) {}
+var selectedLocation = "4,4";
+var selectedPiece;
 
-document.getElementById("1,1").classList.add = "pawn";
+function movePiece(event, selectedPiece, selectedLocation) {
+  console.log(event.target.id);
+  document.getElementById('4,4').classList.add("pawn");
+  document.getElementById("1,1").classList.remove("pawn");
+  console.log(2559);
+}
+
+document.getElementById("1,1").classList.add("pawn"); // movePiece(selectedPiece,selectedLocation)
