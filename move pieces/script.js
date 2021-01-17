@@ -1,15 +1,17 @@
 let selectedLocation="4,4"
-let selectedPiece='4,4'
+let selectedPiece="4,4"
 
-function movePiece(event,selectedPiece,selectedLocation){
+function movePiece(event,selectedLocation){
     selectedLocation=event.target.id
     document.getElementById(selectedLocation).innerHTML+= `<div class="pawn" id=${selectedLocation} onclick="selectPiece(event)"></div>`
-    document.getElementById(selectedPiece).innerHTML="";
-console.log(2559)
+    document.getElementById(selectedPiece).innerHTML=" ";
+    console.log('חיצוני')
 }
 function selectPiece(event){
-    selectedPiece=event.target.id
+    selectedPiece=event.target.id;
+    event.cancelBubble = true;
+    console.log('פנימי')
 }
-document.getElementById("1,1").classList.add("pawn");
+document.getElementById("1,1").innerHTML+= `<div class="pawn" id=${selectedLocation} onclick="selectPiece(event)"></div>`
 
 // movePiece(selectedPiece,selectedLocation)
