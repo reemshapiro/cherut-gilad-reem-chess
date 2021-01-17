@@ -1,9 +1,9 @@
-let location1 = {x:5,y:1};
+let location1 = {x:1,y:1};
 let direction = "f";
 // fr,fl,bl,br
 
 function stepStraight(location,direction){
-  let newLocation;
+  let newLocation = {};
   // console.log(newLocation);
   (direction === "f" && location.y!==8) ? newLocation = {x:location.x,y:(location.y+1)} :
     (direction === "r" && location.x!==8) ? newLocation = {x:(location.x+1),y:location.y} : 
@@ -21,7 +21,7 @@ function stepStraight(location,direction){
 
 function stepDiagonally(location,direction){
   let newLocation = {};
-  if(direction === "fr" && location.y!==8 && location.x!==8){
+  if(direction === "fr" && location==location && location.y!==8 && location.x!==8 ){
     newLocation = {x:(location.x+1),y:(location.y+1)};
     // return newLocation
   }else if(direction === "br" && location.y!==1 && location.x!==8){
@@ -90,12 +90,12 @@ function stepOverDiagonalRow(location,direction){
       locations.push(newLocation);
     } 
   }else if(direction === "bl" && location.y!==1&& location.x!==1){
-    for (let i = location.y-1; 0 < i-1; i--) {
+    for (let i = location.y-1; 0 < i; i--) {
       newLocation = stepDiagonally(newLocation,direction);
       locations.push(newLocation);
     } 
   }else if(direction === "fl"&& location.y!==8 && location.x!==1){
-    for (let i = location.x-1; 0 < i-1; i--) {
+    for (let i = location.x-1; 0 < i; i--) {
       newLocation = stepDiagonally(newLocation,direction);
       locations.push(newLocation);
     } 
@@ -124,6 +124,7 @@ function checkOptionalmovements(type,location){
     var bl = stepOverDiagonalRow(location,'bl');
     var fl = stepOverDiagonalRow(location,'fl');
     optionalmovements = fr.concat(br,bl,fl);
+    optionalmovements = optionalmovements.filter(obg=> Object.keys(obg).length !==0 && obg.x == obg.x);
   }else if(type == 'pawn'){
     let newLocation;
     if(location.y == 2){
@@ -143,8 +144,8 @@ function checkOptionalmovements(type,location){
     newLocation = stepStraight(location,'b');
     optionalmovements.push(stepDiagonally(newLocation,'br'),stepDiagonally(newLocation,'bl'));
     newLocation = stepStraight(location,'l');
-    console.log(newLocation)
     optionalmovements.push(stepDiagonally(newLocation,'bl'),stepDiagonally(newLocation,'fl'));
+    optionalmovements = optionalmovements.filter(obg=> Object.keys(obg).length !==0 && obg.x == obg.x);
   }else if(type == 'queen'){
     let f = stepOverRow(location,'f');
     let r = stepOverRow(location,'r');
@@ -172,7 +173,7 @@ function checkOptionalmovements(type,location){
   console.log(optionalmovements)
 }
 
-checkOptionalmovements('king',location1);
+checkOptionalmovements('queen',location1);
 
 
 
