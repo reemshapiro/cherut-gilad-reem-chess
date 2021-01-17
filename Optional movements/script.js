@@ -1,4 +1,4 @@
-let location1 = {x:1,y:1};
+let location1 = {x:2,y:1};
 let direction = "f";
 // fr,fl,bl,br
 
@@ -173,9 +173,7 @@ function checkOptionalmovements(type,location){
   console.log(optionalmovements)
 }
 
-checkOptionalmovements('queen',location1);
-
-
+checkOptionalmovements('knight',location1);
 
 
 
