@@ -1,7 +1,7 @@
 let selectedLocation="4,4"
 let selectedPiece='4,4'
 
-function movePiece(event,selectedPiece,selectedLocation){
+function movePiece(event,,selectedLocation){
     selectedLocation=event.target.id
     document.getElementById(selectedLocation).innerHTML+= `<div class="pawn" id=${selectedLocation} onclick="selectPiece(event)"></div>`
     document.getElementById(selectedPiece).innerHTML="";
