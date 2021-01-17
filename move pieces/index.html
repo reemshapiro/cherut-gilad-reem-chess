@@ -25,16 +25,16 @@
       
      }
 .pawn{
-    /* border-radius: 50%;
+    border-radius: 50%;
     width: 30px;
-    height: 30px; */
+    height: 30px;
     background-color: blueviolet;
 
 }
 
     </style>
     <div id="root"></div>
-    <!-- <div class="pawn"></div> -->
+ 
 
     <script>
         createBoard()
@@ -46,7 +46,7 @@
            else{color= 'black'}
             for(j=1;j<9;j++){
                
-             html +=`<div id=${i},${j} class='board ${color}'>${i},${j}</div>`
+             html +=`<div id=${i},${j} class='board ${color}' onclick='movePiece(event)'>${i},${j}</div>`
              if (color == 'black'){
                  color = 'white'
              }  
