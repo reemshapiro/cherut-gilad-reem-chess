@@ -141,7 +141,6 @@ function checkOptionalmovements(type,location){
     let br = stepOverDiagonalRow(location,'br');
     let bl = stepOverDiagonalRow(location,'bl');
     let fl = stepOverDiagonalRow(location,'fl');
-    // optionalmovements.push(f,r,b,l,br,bl,fl);
     optionalmovements = f.concat(r,b,l,fr,br,bl,fl);
     optionalmovements = optionalmovements.filter(obg=> Object.keys(obg).length !==0 && obg.x == obg.x);
   }else if(type == 'king'){
