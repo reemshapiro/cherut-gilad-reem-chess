@@ -1,9 +1,10 @@
-let location1 = {x:4,y:4};
+let location1 = {x:5,y:1};
 let direction = "f";
 // fr,fl,bl,br
 
 function stepStraight(location,direction){
-  let newLocation = {};
+  let newLocation;
+  // console.log(newLocation);
   (direction === "f" && location.y!==8) ? newLocation = {x:location.x,y:(location.y+1)} :
     (direction === "r" && location.x!==8) ? newLocation = {x:(location.x+1),y:location.y} : 
       (direction === "b" && location.y!==1) ? newLocation = {x:location.x,y:(location.y-1)} :
@@ -12,7 +13,9 @@ function stepStraight(location,direction){
           console.log('יצאת מחוץ ללוח');
           
   // console.log(newLocation);
-  return newLocation;
+  // if(Object.keys(newLocation).length !==0){
+    return newLocation
+  // };
 }
 // stepStraight(location1,'l')
 
@@ -21,22 +24,21 @@ function stepDiagonally(location,direction){
   if(direction === "fr" && location.y!==8 && location.x!==8){
     newLocation = {x:(location.x+1),y:(location.y+1)};
     // return newLocation
-  }else  if(direction === "br" && location.y!==1 && location.x!==8){
+  }else if(direction === "br" && location.y!==1 && location.x!==8){
     newLocation = {x:(location.x+1),y:(location.y-1)};
     // return newLocation
-  }else  if(direction === "bl" && location.y!==1&& location.x!==1){
+  }else if(direction === "bl" && location.y!==1&& location.x!==1){
     newLocation = {x:(location.x-1),y:(location.y-1)};
     // return newLocation
-  }else  if(direction === "fl"&& location.y!==8 && location.x!==1){
+  }else if(direction === "fl"&& location.y!==8 && location.x!==1){
     newLocation = {x:(location.x-1),y:(location.y+1)};
     // return newLocation
   }else{
     console.log('יצאת מחוץ ללוח')
   }
 
-  // if(newLocation == ){
+  // if(Object.keys(newLocation).length !==0){
     return newLocation
-
   // }; 
   
 
@@ -66,7 +68,10 @@ function stepOverRow(location,direction){
     console.log('יצאת מחוץ ללוח');
   }
   // console.log(locations);
-  return locations;
+  if(locations){
+    return locations
+  }; 
+  // return locations;
   
 }
 // stepOverRow(location1,'f');
@@ -85,7 +90,7 @@ function stepOverDiagonalRow(location,direction){
       locations.push(newLocation);
     } 
   }else if(direction === "bl" && location.y!==1&& location.x!==1){
-    for (let i = location.y-1; 0 < i; i--) {
+    for (let i = location.y-1; 0 < i-1; i--) {
       newLocation = stepDiagonally(newLocation,direction);
       locations.push(newLocation);
     } 
@@ -98,7 +103,10 @@ function stepOverDiagonalRow(location,direction){
     console.log('יצאת מחוץ ללוח');
   }
   // console.log(locations);
-  return locations;
+  // return locations;
+  if(locations){
+    return locations
+  };
 }
 // stepOverDiagonalRow(location1, 'fl')
 
@@ -138,14 +146,33 @@ function checkOptionalmovements(type,location){
     console.log(newLocation)
     optionalmovements.push(stepDiagonally(newLocation,'bl'),stepDiagonally(newLocation,'fl'));
   }else if(type == 'queen'){
-
-
-  
+    let f = stepOverRow(location,'f');
+    let r = stepOverRow(location,'r');
+    let b = stepOverRow(location,'b');
+    let l = stepOverRow(location,'l');
+    let fr = stepOverDiagonalRow(location,'fr');
+    let br = stepOverDiagonalRow(location,'br');
+    let bl = stepOverDiagonalRow(location,'bl');
+    let fl = stepOverDiagonalRow(location,'fl');
+    // optionalmovements.push(f,r,b,l,br,bl,fl);
+    optionalmovements = f.concat(r,b,l,fr,br,bl,fl);
+    optionalmovements = optionalmovements.filter(obg=> Object.keys(obg).length !==0 && obg.x == obg.x);
+  }else if(type == 'king'){
+    let f = stepStraight(location,'f');
+    let r = stepStraight(location,'r');
+    let b = stepStraight(location,'b');
+    let l = stepStraight(location,'l');
+    let fr = stepDiagonally(location,'fr');
+    let br = stepDiagonally(location,'br');
+    let bl = stepDiagonally(location,'bl');
+    let fl = stepDiagonally(location,'fl');
+    optionalmovements.push(f,r,b,l,fr,br,bl,fl);
+    optionalmovements = optionalmovements.filter(obg=> obg && Object.keys(obg).length !==0);
+    }
   console.log(optionalmovements)
 }
 
-checkOptionalmovements('knight',location1);
-
+checkOptionalmovements('king',location1);
 
 
 
