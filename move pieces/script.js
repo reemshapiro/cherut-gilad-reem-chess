@@ -1,15 +1,67 @@
-let selectedLocation="4,4"
-let selectedPiece='4,4'
+let selectedPiece;
 
-function movePiece(event,,selectedLocation){
-    selectedLocation=event.target.id
-    document.getElementById(selectedLocation).innerHTML+= `<div class="pawn" id=${selectedLocation} onclick="selectPiece(event)"></div>`
-    document.getElementById(selectedPiece).innerHTML="";
-console.log(2559)
-}
-function selectPiece(event){
-    selectedPiece=event.target.id
-}
-document.getElementById("1,1").classList.add("pawn");
 
-// movePiece(selectedPiece,selectedLocation)
+// // Regular function vs arrow function;
+
+// function sayHello (name){
+//     // code to run
+//     console.log(name)
+// }
+
+// const sayBye = (name) =>{
+//     console.log(name)
+// }
+
+
+const  selectPiece = (event) =>{
+  selectedPiece = event.target.id;
+  event.cancelBubble = true;
+  console.log("פנימי");
+}
+
+function movePiece(event) {
+  const selectedLocation = event.target.id;
+
+  // clean old piece location
+  document.getElementById(selectedPiece).innerHTML = selectedPiece;
+
+  // set piece in new location
+  setPieceLocation(selectedLocation);
+
+  console.log("חיצוני");
+}
+
+const setPieceLocation = (selectedLocation) => {
+  document.getElementById(
+    selectedLocation
+  ).innerHTML += `<div class="pawn" id=${selectedLocation} onclick="selectPiece(event)"></div>`;
+};
+
+function createBoard() {
+  let colum = true;
+  let html = ``,
+    color = "black";
+  for (i = 1; i < 9; i++) {
+    if (i % 2) {
+      color = "white";
+    } else {
+      color = "black";
+    }
+    for (j = 1; j < 9; j++) {
+      html += `<div id=${i},${j} class='board ${color}' onclick='movePiece(event)'>${i},${j}</div>`;
+      if (color == "black") {
+        color = "white";
+      } else {
+        color = "black";
+      }
+    }
+  }
+  document.getElementById("root").innerHTML = html;
+}
+
+// onInit = first function to execute when app loaded..
+onInit = () => {
+  createBoard();
+  setPieceLocation("1,1");
+};
+

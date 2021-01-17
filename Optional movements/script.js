@@ -1,6 +1,8 @@
-let location1 = {x:2,y:1};
+let location1 = {x:5,y:4};
 let direction = "f";
-// fr,fl,bl,br
+const strateDirections = ['f','r','b','l'];
+const diagonallyDirections = ['fr','br','bl','fl']
+allDirections = strateDirections.concat(diagonallyDirections);
 
 function stepStraight(location,direction){
   let newLocation = {};
@@ -9,42 +11,28 @@ function stepStraight(location,direction){
     (direction === "r" && location.x!==8) ? newLocation = {x:(location.x+1),y:location.y} : 
       (direction === "b" && location.y!==1) ? newLocation = {x:location.x,y:(location.y-1)} :
         (direction === "l" && location.x!==1) ? newLocation = {x:(location.x-1),y:location.y} :
-
-          console.log('יצאת מחוץ ללוח');
-          
-  // console.log(newLocation);
+          console.log('יצאת מחוץ ללוח');      
   // if(Object.keys(newLocation).length !==0){
     return newLocation
   // };
 }
-// stepStraight(location1,'l')
 
 function stepDiagonally(location,direction){
   let newLocation = {};
-  if(direction === "fr" && location==location && location.y!==8 && location.x!==8 ){
-    newLocation = {x:(location.x+1),y:(location.y+1)};
-    // return newLocation
-  }else if(direction === "br" && location.y!==1 && location.x!==8){
-    newLocation = {x:(location.x+1),y:(location.y-1)};
-    // return newLocation
-  }else if(direction === "bl" && location.y!==1&& location.x!==1){
-    newLocation = {x:(location.x-1),y:(location.y-1)};
-    // return newLocation
-  }else if(direction === "fl"&& location.y!==8 && location.x!==1){
-    newLocation = {x:(location.x-1),y:(location.y+1)};
-    // return newLocation
-  }else{
-    console.log('יצאת מחוץ ללוח')
-  }
+  (direction === "fr" && location==location && location.y!==8 && location.x!==8) ?
+    newLocation = {x:(location.x+1),y:(location.y+1)} :
+  (direction === "br" && location.y!==1 && location.x!==8) ?
+    newLocation = {x:(location.x+1),y:(location.y-1)}:
+  (direction === "bl" && location.y!==1&& location.x!==1) ?
+    newLocation = {x:(location.x-1),y:(location.y-1)} :
+  (direction === "fl"&& location.y!==8 && location.x!==1)?
+    newLocation = {x:(location.x-1),y:(location.y+1)} :
+    console.log('יצאת מחוץ ללוח');
 
   // if(Object.keys(newLocation).length !==0){
     return newLocation
   // }; 
-  
-
 }
-// stepDiagonally(location1, 'bl');
-
 
 function stepOverRow(location,direction){
   let locations = [];
@@ -74,7 +62,6 @@ function stepOverRow(location,direction){
   // return locations;
   
 }
-// stepOverRow(location1,'f');
 
 function stepOverDiagonalRow(location,direction){
   let locations = [];
@@ -108,7 +95,6 @@ function stepOverDiagonalRow(location,direction){
     return locations
   };
 }
-// stepOverDiagonalRow(location1, 'fl')
 
 function checkOptionalmovements(type,location){
   let optionalmovements = [];
@@ -159,21 +145,18 @@ function checkOptionalmovements(type,location){
     optionalmovements = f.concat(r,b,l,fr,br,bl,fl);
     optionalmovements = optionalmovements.filter(obg=> Object.keys(obg).length !==0 && obg.x == obg.x);
   }else if(type == 'king'){
-    let f = stepStraight(location,'f');
-    let r = stepStraight(location,'r');
-    let b = stepStraight(location,'b');
-    let l = stepStraight(location,'l');
-    let fr = stepDiagonally(location,'fr');
-    let br = stepDiagonally(location,'br');
-    let bl = stepDiagonally(location,'bl');
-    let fl = stepDiagonally(location,'fl');
-    optionalmovements.push(f,r,b,l,fr,br,bl,fl);
+    strateDirections.forEach(dir => {
+      optionalmovements.push(stepStraight(location,dir));
+    });
+    diagonallyDirections.forEach(dir => {
+      optionalmovements.push(stepDiagonally(location,dir));
+    });
     optionalmovements = optionalmovements.filter(obg=> obg && Object.keys(obg).length !==0);
     }
   console.log(optionalmovements)
 }
 
-checkOptionalmovements('knight',location1);
+checkOptionalmovements('king',location1);
 
 
 
