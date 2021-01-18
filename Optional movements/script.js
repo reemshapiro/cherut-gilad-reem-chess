@@ -1,4 +1,3 @@
-let location1 = {x:5,y:4};
 let direction = "f";
 const strateDirections = ['f','r','b','l'];
 const diagonallyDirections = ['fr','br','bl','fl']
@@ -155,7 +154,24 @@ function checkOptionalmovements(type,location){
   console.log(optionalmovements)
 }
 
-checkOptionalmovements('king',location1);
+let location1 = {
+  x: 1,
+  y: 1
+};
+
+console.error('pawn')
+checkOptionalmovements("pawn", location1);
+console.error('knight')
+checkOptionalmovements("knight", location1);
+console.error('rook')
+checkOptionalmovements("rook", location1);
+console.error('bishop')
+checkOptionalmovements("bishop", location1);
+console.error('queen')
+checkOptionalmovements("queen", location1);
+console.error('king')
+checkOptionalmovements("king", location1);
+
 
 
 
