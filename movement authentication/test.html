@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        //--------------------------------------------------------game pieces information----------------------------------------------------
+
+       
+        let blackQueen = { color: "black", position: { i: 4, j: 4 }, name: 'blackQueen' }
+        
+        let whitePawn1 = { color: "white", position: { i: 3, j: 3 }, name: 'whitePawn1' }
+        let whitePawn2 = { color: "white", position: { i: 3, j: 4 }, name: 'whitePawn2' }
+        let whitePawn3 = { color: "white", position: { i: 3, j: 5 }, name: 'whitePawn3' }
+        let whitePawn4 = { color: "white", position: { i: 4, j: 3 }, name: 'whitePawn4' }
+        let whitePawn5 = { color: "white", position: { i: 4, j: 5 }, name: 'whitePawn5' }
+        let whitePawn6 = { color: "white", position: { i: 5, j: 3 }, name: 'whitePawn6' }
+        let whitePawn7 = { color: "white", position: { i: 5, j: 4 }, name: 'whitePawn7' }
+        let whitePawn8 = { color: "white", position: { i: 5, j: 5 }, name: 'whitePawn8' }
+        
+
+        let piecesArr = [blackQueen,whitePawn1,whitePawn2,whitePawn3,whitePawn4,whitePawn5,whitePawn6,whitePawn7,whitePawn8]
+        //--------------------------------------------------------randomly genenerated variales for testing------------------------------------------------------
+        let movementArr = [{ i: 3, j: 3 }, { i: 2, j: 2 }, { i: 1, j: 1 }, { i: 5, j: 5 }, { i: 6, j: 6 }, { i: 7, j: 7 }, { i: 8, j: 8 }, { i: 3, j: 5 }, { i: 2, j: 6 }, { i: 1, j: 7 }, { i: 5, j: 3 }, { i: 6, j: 2 }, { i: 7, j: 1 }, { i: 4, j: 3 }, { i: 4, j: 2 }, { i: 4, j: 1 }, { i: 4, j: 5 }, { i: 4, j: 6 }, { i: 4, j: 7 }, { i: 4, j: 8 }, { i: 6, j: 4 }, { i: 7, j: 4 }, { i: 8, j: 4 }, { i: 4, j: 5 }, { i: 4, j: 6 }, { i: 4, j: 7 }, { i: 4, j: 8 }]
+       
+        let clickedPiece = { color: "black", position: { i: 4, j: 4 }, name: 'blackQueen' }
+        //---------------------------------------------------------------------functions------------------------------------------------------------------------
+
+
+
+        function movementAuthentication(movementArr, clickedPiece) {
+            let pieceBlockedUp = false;
+            let pieceBlockedDown = false;
+            let pieceBlockedLeft = false;
+            let pieceBlockedRight = false;
+            let pieceBlockedUpLeft = false;
+            let pieceBlockedUpRight = false;
+            let pieceBlockedDownLeft = false;
+            let pieceBlockedDownRight = false;
+            let authenticatedMovementArr = [];
+
+            movementArr.forEach(position => {
+                let i = position.i
+                let j = position.j
+                .0
+                console.log(`i:${i},j:${j}`)
+                piecesArr.forEach(piece => {
+                    if (piece.position.i == i && piece.position.j == j) {
+                        console.log(`match i:${i},j:${j}`)
+                        if (piece.color == clickedPiece.color) {
+                            console.log('illegal move')
+                        }
+                        else {
+                            if (clickedPiece.position.i-piece.position.i >0 && clickedPiece.position.j - piece.position.j == 0 )// checking if piece is blocked from above
+                            {
+                                if(pieceBlockedUp == false){
+                                    console.log('legal movement from above')
+                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    pieceBlockedUp = true;
+                                }
+                                else{console.log('illegal movement, piece blocked from above')}
+                            }
+                            if (clickedPiece.position.i-piece.position.i <0 && clickedPiece.position.j - piece.position.j == 0 )// checking if piece is blocked from below
+                            {
+                                if(pieceBlockedDown== false){
+                                    console.log('legal movement from below')
+                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    pieceBlockedUp = true;
+                                }
+                                else{console.log('illegal movement, piece blocked from below ')}
+                            }
+                            if (clickedPiece.position.i-piece.position.i ==0 && clickedPiece.position.j - piece.position.j > 0 )// checking if piece is blocked from left
+                            {
+                                if(pieceBlockedLeft== false){
+                                    console.log('legal movement left')
+                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    pieceBlockedUp = true;
+                                }
+                                else{console.log('illegal movement, piece blocked from left ')}
+                            }
+                            if (clickedPiece.position.i-piece.position.i ==0 && clickedPiece.position.j - piece.position.j < 0 )// checking if piece is blocked from right
+                            {
+                                if(pieceBlockedRight== false){
+                                    console.log('legal movement right')
+                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    pieceBlockedUp = true;
+                                }
+                                else{console.log('illegal movement, piece blocked from right ')}
+                            }
+                            if (clickedPiece.position.i-piece.position.i <0 && clickedPiece.position.j - piece.position.j < 0 )// checking if piece is blocked from down/right
+                            {
+                                if(pieceBlockedDownRight== false){
+                                    console.log('legal movement down/right')
+                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    pieceBlockedUp = true;
+                                }
+                                else{console.log('illegal movement, piece blocked from down/right ')}
+                            }
+                            if (clickedPiece.position.i-piece.position.i <0 && clickedPiece.position.j - piece.position.j > 0 )// checking if piece is blocked from down/left
+                            {
+                                if(pieceBlockedDownLeft== false){
+                                    console.log('legal movement down/left')
+                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    pieceBlockedUp = true;
+                                }
+                                else{console.log('illegal movement, piece blocked from down/left ')}
+                            }
+                            if (clickedPiece.position.i-piece.position.i >0 && clickedPiece.position.j - piece.position.j < 0 )// checking if piece is blocked from up/right
+                            {
+                                if(pieceBlockedUpRight== false){
+                                    console.log('legal movement up/right')
+                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    pieceBlockedUp = true;
+                                }
+                                else{console.log('illegal movement, piece blocked from up/right ')}
+                            }
+                            if (clickedPiece.position.i-piece.position.i >0 && clickedPiece.position.j - piece.position.j > 0 )// checking if piece is blocked from up/left
+                            {
+                                if(pieceBlockedUpLeft== false){
+                                    console.log('legal movement/up left')
+                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    pieceBlockedUpLeft = true;
+                                }
+                                else{
+                                    console.log('illegal movement, piece blocked from up/left ')}
+                            }
+                        }
+
+
+                    }
+
+                });
+
+
+            });
+            console.log(authenticatedMovementArr)
+
+        }
+        movementAuthentication(movementArr, clickedPiece)
+    </script>
+</body>
+
+</html>
