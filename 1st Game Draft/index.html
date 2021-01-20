@@ -1,63 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>board</title>
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <style>
-        #root{
-            display: grid;
-         grid-template-columns: repeat(8, 50px);
-          
-        }
-        .black{
-            background-color: blue;
-        }
-        .white{
-            background-color: white;
-        }
-     .board{
-      
-      border: solid 1px black;
-      height: 50px;
-      
-     }
-    </style>
+   <div id='numbers'>
     <div id="root"></div>
+</div>
 
-    <script>
-        createBoard()
-        function createBoard(){
-            let colum = true
-        let html= ``,color= 'black'
-        for(i=1;i<9;i++){
-            if (i%2){color = 'white'}
-           else{color= 'black'}
-            for(j=1;j<9;j++){
-               
-             html +=`<div id=${i,j} class='board ${color}'>${i},${j}</div>`
-             if (color == 'black'){
-                 color = 'white'
-             }  
-             else{
-                 color = 'black'
-             }
-               
-               
-                
-            }  
-        }   
-        document.getElementById('root').innerHTML=html
-        
-        
-
-
-        }
-        
-        
-
-    </script>
+    <script src="script.js"></script>
 </body>
+
 </html>
