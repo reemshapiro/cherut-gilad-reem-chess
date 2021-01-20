@@ -5,48 +5,60 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body onload="onInit()">
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-            /* box-sizing: border-box; */
-        }
-        #root {
-            display: grid;
-            grid-template-columns: repeat(8, 50px);
-             border: solid 1px black;
-             width: 400px;
 
-        }
+    <div class="gameScreen">
+        <div class="players">
+            <!-- <div class="playersWrapper"> -->
+            <div class="player__profile">
+                <div class="player__profile--white">
+                    <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg">
+                    <h3>reem</h3>
+                    <h5>white</h5>
+                </div>
+                vs
+                <div class="player__profile--black">
+                    <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg">
+                    <h3>cherut</h3>
+                    <h5>black</h5>
+                </div>
+            </div>
+            <div class="turn">black turn</div>
+        </div>
+        <div class="wrapper">
+            <div id="root"></div>
+            <div class="columnsNumbers">
+                <div class="number"></div>
+                <div class="number">1</div>
+                <div class="number">2</div>
+                <div class="number">3</div>
+                <div class="number">4</div>
+                <div class="number">5</div>
+                <div class="number">6</div>
+                <div class="number">7</div>
+                <div class="number">8</div>
+            </div>
+            <div class="rowLetters">
+                <div class="letter">a</div>
+                <div class="letter">b</div>
+                <div class="letter">c</div>
+                <div class="letter">d</div>
+                <div class="letter">e</div>
+                <div class="letter">f</div>
+                <div class="letter">g</div>
+                <div class="letter">h</div>
+            </div>
+        </div>
 
-        .black {
-            background-color: rgba(0, 0, 0, 0.295);
-        }
-
-        .white {
-            background-color: white;
-        }
-
-        .board {
-
-           
-            height: 50px;
-
-        }
-
-        .pawn {
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            /* background-color: blueviolet; */
-            font-size: 40px;
-        }
-    </style>
-    <div id="root"></div>
-
+        <div class="outOfGamePieces">
+            <div class="outOfGamePieces__black">black</div>
+            <div class="outOfGamePieces__white">white</div>
+        </div>
+    </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
