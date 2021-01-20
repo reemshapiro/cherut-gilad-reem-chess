@@ -52,7 +52,7 @@ function stepOverRow(location,direction){
       locations.push({X:i ,y:location.y});
     } 
   }else {
-    console.log('יצאת מחוץ ללוח');
+    // console.log('יצאת מחוץ ללוח');
   }
   // console.log(locations);
   if(locations){
@@ -86,7 +86,7 @@ function stepOverDiagonalRow(location,direction){
       locations.push(newLocation);
     } 
   }else {
-    console.log('יצאת מחוץ ללוח');
+    // console.log('יצאת מחוץ ללוח');
   }
   // console.log(locations);
   // return locations;
@@ -155,8 +155,8 @@ function checkOptionalmovements(type,location){
 }
 
 let location1 = {
-  x: 1,
-  y: 1
+  x: 4,
+  y: 4
 };
 
 console.error('pawn')
