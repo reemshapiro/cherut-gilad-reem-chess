@@ -114,7 +114,7 @@
                             {
                                 if (pieceBlockedUp == false) {
                                     console.log(`legal movement from above saved movement i:${i},j:${j}`)
-                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    authenticatedMovementArr.push({i,j})
                                     pieceBlockedUp = true;
                                 }
                                 else {
@@ -126,7 +126,7 @@
                             {
                                 if (pieceBlockedDown == false) {
                                     console.log(`legal movement from below saved movement i:${i},j:${j}`)
-                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    authenticatedMovementArr.push({i,j})
                                     pieceBlockedDown = true;
                                 }
                                 else { console.log('illegal movement, piece blocked from below ') }
@@ -135,7 +135,7 @@
                             {
                                 if (pieceBlockedLeft == false) {
                                     console.log(`legal movement left saved movement i:${i},j:${j}`)
-                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    authenticatedMovementArr.push({i,j})
                                     pieceBlockedLeft = true;
                                 }
                                 else { console.log('illegal movement, piece blocked from left ') }
@@ -144,7 +144,7 @@
                             {
                                 if (pieceBlockedRight == false) {
                                     console.log(`legal movement right saved movement i:${i},j:${j}`)
-                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    authenticatedMovementArr.push({i,j})
                                     pieceBlockedRight = true;
                                 }
                                 else { console.log('illegal movement, piece blocked from right ') }
@@ -153,7 +153,7 @@
                             {
                                 if (pieceBlockedDownRight == false) {
                                     console.log(`legal movement down/right saved movement i:${i},j:${j}`)
-                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    authenticatedMovementArr.push({i,j})
                                     pieceBlockedDownRight = true;
                                 }
                                 else { console.log('illegal movement, piece blocked from down/right ') }
@@ -162,7 +162,7 @@
                             {
                                 if (pieceBlockedDownLeft == false) {
                                     console.log(`legal movement down/left saved movement i:${i},j:${j}`)
-                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    authenticatedMovementArr.push({i,j})
                                     pieceBlockedDownLeft = true;
                                 }
                                 else { console.log('illegal movement, piece blocked from down/left ') }
@@ -171,7 +171,7 @@
                             {
                                 if (pieceBlockedUpRight == false) {
                                     console.log(`legal movement up/right saved movement i:${i},j:${j}`)
-                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    authenticatedMovementArr.push({i,j})
                                     pieceBlockedUpRight = true;
                                 }
                                 else { console.log('illegal movement, piece blocked from up/right ') }
@@ -180,7 +180,7 @@
                             {
                                 if (pieceBlockedUpLeft == false) {
                                     console.log(`legal movement/up left saved movement i:${i},j:${j}`)
-                                    authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                    authenticatedMovementArr.push({i,j})
                                     pieceBlockedUpLeft = true;
                                 }
                                 else {
@@ -203,7 +203,7 @@
                         {
                             if (pieceBlockedUp == false) {
                                 console.log(`legal movement from above saved movement i:${i},j:${j}`)
-                                authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                authenticatedMovementArr.push({i,j})
                                
                             }
                             else {
@@ -215,7 +215,7 @@
                         {
                             if (pieceBlockedDown == false) {
                                 console.log(`legal movement from below saved movement i:${i},j:${j}`)
-                                authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                authenticatedMovementArr.push({i,j})
                                 
                             }
                             else { console.log('illegal movement, piece blocked from below ') }
@@ -224,7 +224,7 @@
                         {
                             if (pieceBlockedLeft == false) {
                                 console.log(`legal movement left saved movement i:${i},j:${j}`)
-                                authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                authenticatedMovementArr.push({i,j})
                                 
                             }
                             else { console.log('illegal movement, piece blocked from left ') }
@@ -233,7 +233,7 @@
                         {
                             if (pieceBlockedRight == false) {
                                 console.log(`legal movement right saved movement i:${i},j:${j}`)
-                                authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                authenticatedMovementArr.push({i,j})
                                 
                             }
                             else { console.log('illegal movement, piece blocked from right ') }
@@ -242,7 +242,7 @@
                         {
                             if (pieceBlockedDownRight == false) {
                                 console.log(`legal movement down/right saved movement i:${i},j:${j}`)
-                                authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                authenticatedMovementArr.push({i,j})
                                 
                             }
                             else { console.log('illegal movement, piece blocked from down/right ') }
@@ -251,7 +251,7 @@
                         {
                             if (pieceBlockedDownLeft == false) {
                                 console.log(`legal movement down/left saved movement i:${i},j:${j}`)
-                                authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                authenticatedMovementArr.push({i,j})
                                 
                             }
                             else { console.log('illegal movement, piece blocked from down/left ') }
@@ -260,7 +260,7 @@
                         {
                             if (pieceBlockedUpRight == false) {
                                 console.log(`legal movement up/right saved movement i:${i},j:${j}`)
-                                authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                authenticatedMovementArr.push({i,j})
                                 
                             }
                             else { console.log('illegal movement, piece blocked from up/right ') }
@@ -269,7 +269,7 @@
                         {
                             if (pieceBlockedUpLeft == false) {
                                 console.log(`legal movement/up left saved movement i:${i},j:${j}`)
-                                authenticatedMovementArr.push(`{i:${i},j:${j}}`)
+                                authenticatedMovementArr.push({i,j})
                                 
                             }
                             else {

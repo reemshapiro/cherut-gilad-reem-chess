@@ -81,7 +81,7 @@ const setPieceLocation = (selectedLocation, name, icon,type) => {
     // let newMove = JSON.parse(move)
     // console.log(newMove)
     console.log(document.getElementById(`${move.i},${move.j}`))
-    // document.getElementById(`${move.i},${move.j}`).style.backgroundColor = 'red';
+    document.getElementById(`${move.i},${move.j}`).style.backgroundColor = 'red';
   });
 
 }
