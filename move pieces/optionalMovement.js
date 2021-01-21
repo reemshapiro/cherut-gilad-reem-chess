@@ -76,6 +76,7 @@ function checkOptionalmovements(type, location) {
       break;
     case "knight":
       newLocation = stepStraight(location, "f");
+      console.log(newLocation)
       optionalmovements.push(
         stepDiagonally(newLocation, "fr"),
         stepDiagonally(newLocation, "fl")

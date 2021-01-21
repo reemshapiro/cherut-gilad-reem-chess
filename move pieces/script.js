@@ -6,6 +6,7 @@ let selectedPiece;
 let selectedPieceName;
 let pieceName;
 let icon;
+let type;
 
 function createBoard() {
   let colum = true;
@@ -36,6 +37,7 @@ function setPiecesStartPosition() {
 }
 
 const setPieceLocation = (selectedLocation, name, icon, type) => {
+  // console.log(selectedLocation, name, icon, type)
   document.getElementById(
     selectedLocation
   ).innerHTML += `<div name='${name}'  icon='${icon}' type='${type}' class="pawn" id=${selectedLocation} onclick="selectPiece(event)">${icon}</div>`;
@@ -45,23 +47,17 @@ const setPieceLocation = (selectedLocation, name, icon, type) => {
 function selectPiece(event) {
   selectedPiece = event.target.id;
   selectedPieceName = event.target.attributes[0].value;
- 
   selectedPiece = selectedPiece.split(',')
-  // console.log(typeof selectedPiece)
-  // console.log(selectedPiece)
   event.cancelBubble = true;
-  // console.log("פנימי");
-  isClicked = true;
   pieceName = event.target.attributes[0].value;
-  // console.log(pieceName)
   icon = event.target.attributes[1].value;
-  type = event.target.attributes[2].value
-  // console.log({x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
+  type = event.target.attributes[2].value;
   let objectifier = { i: selectedPiece[0], j: selectedPiece[1] }
-  console.log(objectifier)
   // let optionalmovements =  init(type,{x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
+
+
   let optionalmovements = checkOptionalmovements(type, { x: parseInt(selectedPiece[0], 10), y: parseInt(selectedPiece[1], 10) })
-  console.log(optionalmovements)
+
   let clickedpiece = {}
   piecesArr.forEach(piece => {
     if (piece.position.i == objectifier.i && piece.position.j == objectifier.j) {
@@ -72,15 +68,14 @@ function selectPiece(event) {
 
 
   });
-  console.log(clickedpiece)
+ 
 
   authenticatedMovements = movementAuthentication(optionalmovements, clickedpiece)
 
 
 
   authenticatedMovements.forEach(move => {
-    console.log(move)
-    console.log(document.getElementById(`${move.i},${move.j}`))
+
     document.getElementById(`${move.i},${move.j}`).addEventListener('click', movePiece);
     document.getElementById(`${move.i},${move.j}`).style.backgroundColor = 'red';
 
@@ -96,9 +91,8 @@ function movePiece(event) {
   document.getElementById(selectedPiece).innerHTML = '';
 
   // set piece in new location
-  setPieceLocation(selectedLocation, pieceName, icon);
-  console.log(selectedLocation)
-  console.log(selectedPiece)
+  setPieceLocation(selectedLocation, pieceName, icon, type);
+
 
   // console.log("חיצוני");
   isClicked = false;
@@ -109,7 +103,7 @@ function movePiece(event) {
     document.getElementById(`${move.i},${move.j}`).style.backgroundColor = '';
   })
 
-  console.log(newSL)
+
   piecesArr.map((piece, index) => {
     console.log(selectedPieceName, piece.name)
     if (selectedPieceName == piece.name) {
@@ -122,7 +116,7 @@ function movePiece(event) {
     }
   })
 
-  console.log(piecesArr)
+
 }
 
 

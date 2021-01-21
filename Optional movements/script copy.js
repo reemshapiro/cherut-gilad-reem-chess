@@ -112,13 +112,13 @@ function checkOptionalmovements(type,location){
     optionalmovements = optionalmovements.filter(obg=> Object.keys(obg).length !==0 && obg.x == obg.x);
   }else if(type == 'pawn'){
     let newLocation;
-    if(location.x == 7){
-    newLocation = stepStraight(location,'l');
+    if(location.y == 2){
+    newLocation = stepStraight(location,'f');
     optionalmovements.push(newLocation);
-    newLocation = stepStraight(newLocation,'l');
+    newLocation = stepStraight(newLocation,'f');
     optionalmovements.push(newLocation);
     }else{
-      optionalmovements.push(stepStraight(location,'l'));
+      optionalmovements.push(stepStraight(location,'f'));
     }
   }else if(type == 'knight'){
     let newLocation;
