@@ -41,7 +41,7 @@ const setPieceLocation = (selectedLocation, name, icon,type) => {
 };
 
 
-const selectPiece = (event) => {
+ const selectPiece = async  (event) => {
   selectedPiece = event.target.id;
   selectedPiece = selectedPiece.split(',')
   // console.log(typeof selectedPiece)
@@ -54,7 +54,16 @@ const selectPiece = (event) => {
   icon = event.target.attributes[1].value;
   type = event.target.attributes[2].value
   // console.log({x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
-  init(type,{x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
+  let objectifier = {i:selectedPiece[0],j:selectedPiece[1]}
+  console.log(objectifier)
+  let optionalmovements =  init(type,{x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
+  console.log(optionalmovements)
+
+  
+  // let authenticatedMovements =movementAuthentication(await init(type,{x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)}), objectifier)
+  // console.log(authenticatedMovements)
+  
+
 }
 
 function movePiece(event) {

@@ -127,8 +127,9 @@ function checkOptionalmovements(type, location) {
     default:
       break;
   }
+  console.log(optionalmovements)
 
-  console.table(optionalmovements);
+  return optionalmovements;
 }
 
 
