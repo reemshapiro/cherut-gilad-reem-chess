@@ -80,7 +80,14 @@
                         console.log(`match i:${i},j:${j}`)
                         if (piece.color == clickedPiece.color) {
                             console.log('illegal move')
+
+                            if(clickedPiece.position.i - piece.position.i > 0 && clickedPiece.position.j - piece.position.j == 0){
+                                pieceBlockedUp = true;
+                            }
+                            if(clickedPiece.position.i - piece.position.i < 0 && clickedPiece.position.j - piece.position.j == 0){}
                         }
+                        
+                                   
                         else {
 
                             if (clickedPiece.position.i - piece.position.i > 0 && clickedPiece.position.j - piece.position.j == 0)// checking if piece is blocked from above
@@ -92,7 +99,7 @@
                                 }
                                 else {
                                     console.log('illegal movement, piece blocked from above')
-
+                    
                                 }
                             }
                             if (clickedPiece.position.i - piece.position.i < 0 && clickedPiece.position.j - piece.position.j == 0)// checking if piece is blocked from below
