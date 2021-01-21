@@ -1,7 +1,7 @@
 
 
 let piecesArr = [blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7, blackPawn8, blackCastle1, blackCastle2, blackKnight1, blackKnight2, blackBishop1, blackBishop2, blackQueen, blackKing, whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8, whiteCastle1, WhiteCastle2, whiteKnight1, WhiteKnight2, whiteBishop1, WhiteBishop2, whiteQueen, whiteKing]
-
+// console.log(piecesArr)
 let selectedPiece;
 let pieceName;
 let icon;
@@ -59,10 +59,20 @@ const setPieceLocation = (selectedLocation, name, icon,type) => {
   // let optionalmovements =  init(type,{x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
   let optionalmovements =  checkOptionalmovements(type,{x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
   console.log(optionalmovements)
+  let clickedpiece = {}
+  piecesArr.forEach(piece => {
+    if(piece.position.i==objectifier.i&&piece.position.j==objectifier.j){
+      console.log(piece.position)
+      console.log(objectifier)
+     clickedpiece = piece
+    }
+    
 
+  });
+  console.log(clickedpiece)
   
-  // let authenticatedMovements =movementAuthentication(await init(type,{x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)}), objectifier)
-  // console.log(authenticatedMovements)
+   let authenticatedMovements =movementAuthentication(optionalmovements, clickedpiece)
+  console.log(authenticatedMovements)
   
 
 }
