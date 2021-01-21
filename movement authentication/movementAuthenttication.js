@@ -84,7 +84,27 @@
                             if(clickedPiece.position.i - piece.position.i > 0 && clickedPiece.position.j - piece.position.j == 0){
                                 pieceBlockedUp = true;
                             }
-                            if(clickedPiece.position.i - piece.position.i < 0 && clickedPiece.position.j - piece.position.j == 0){}
+                            if(clickedPiece.position.i - piece.position.i < 0 && clickedPiece.position.j - piece.position.j == 0){
+                                pieceBlockedDown = true;
+                            }
+                            if(clickedPiece.position.i - piece.position.i == 0 && clickedPiece.position.j - piece.position.j > 0){
+                                pieceBlockedLeft = true;
+                            }
+                            if(clickedPiece.position.i - piece.position.i == 0 && clickedPiece.position.j - piece.position.j < 0){
+                                pieceBlockedRight = true;
+                            }
+                            if(clickedPiece.position.i - piece.position.i < 0 && clickedPiece.position.j - piece.position.j < 0){
+                                pieceBlockedDownRight = true;
+                            }
+                            if(clickedPiece.position.i - piece.position.i < 0 && clickedPiece.position.j - piece.position.j > 0){
+                                pieceBlockedDownLeft = true;
+                            }
+                            if(clickedPiece.position.i - piece.position.i > 0 && clickedPiece.position.j - piece.position.j < 0){
+                                pieceBlockedUpRight = true;
+                            }
+                            if(clickedPiece.position.i - piece.position.i > 0 && clickedPiece.position.j - piece.position.j > 0){
+                                pieceBlockedUpLeft = true;
+                            }
                         }
                         
                                    

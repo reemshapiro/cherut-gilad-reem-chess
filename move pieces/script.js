@@ -71,7 +71,8 @@ const setPieceLocation = (selectedLocation, name, icon,type) => {
   });
   console.log(clickedpiece)
   
-   let authenticatedMovements =movementAuthentication(optionalmovements, clickedpiece)
+  let authenticatedMovements =movementAuthentication(optionalmovements, clickedpiece)
+
   console.log(authenticatedMovements)
   
 
