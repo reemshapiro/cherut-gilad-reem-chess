@@ -5,7 +5,9 @@ let blackPawn1 = {
     j: 1
   },
   name: 'blackPawn1',
-  icon: '♟'
+  icon: '♟',
+  type:`pawn`
+  
 }
 let blackPawn2 = {
   color: "black",
@@ -14,7 +16,8 @@ let blackPawn2 = {
     j: 2
   },
   name: 'blackPawn2',
-  icon: '♟'
+  icon: '♟',
+  type:`pawn`
 }
 let blackPawn3 = {
   color: "black",
@@ -23,7 +26,8 @@ let blackPawn3 = {
     j: 3
   },
   name: 'blackPawn3',
-  icon: '♟'
+  icon: '♟',
+  type:`pawn`
 }
 let blackPawn4 = {
   color: "black",
@@ -32,7 +36,8 @@ let blackPawn4 = {
     j: 4
   },
   name: 'blackPawn4',
-  icon: '♟'
+  icon: '♟',
+  type:`pawn`
 }
 let blackPawn5 = {
   color: "black",
@@ -41,7 +46,8 @@ let blackPawn5 = {
     j: 5
   },
   name: 'blackPawn5',
-  icon: '♟'
+  icon: '♟',
+  type:`pawn`
 }
 let blackPawn6 = {
   color: "black",
@@ -50,7 +56,8 @@ let blackPawn6 = {
     j: 6
   },
   name: 'blackPawn6',
-  icon: '♟'
+  icon: '♟',
+  type:`pawn`
 }
 let blackPawn7 = {
   color: "black",
@@ -59,7 +66,8 @@ let blackPawn7 = {
     j: 7
   },
   name: 'blackPawn7',
-  icon: '♟'
+  icon: '♟',
+  type:`pawn`
 }
 let blackPawn8 = {
   color: "black",
@@ -68,7 +76,8 @@ let blackPawn8 = {
     j: 8
   },
   name: 'blackPawn8',
-  icon: '♟'
+  icon: '♟',
+  type:`pawn`
 }
 let blackCastle1 = {
   color: "black",
@@ -77,7 +86,8 @@ let blackCastle1 = {
     j: 1
   },
   name: 'blackCastle1',
-  icon: '♜'
+  icon: '♜',
+  type:'rook'
 }
 let blackCastle2 = {
   color: "black",
@@ -86,7 +96,8 @@ let blackCastle2 = {
     j: 8
   },
   name: 'blackCastle2',
-  icon: '♜'
+  icon: '♜',
+  type:'rook'
 }
 let blackKnight1 = {
   color: "black",
@@ -95,7 +106,8 @@ let blackKnight1 = {
     j: 2
   },
   name: 'blackKnight1',
-  icon: '♞'
+  icon: '♞',
+  type: 'knight'
 }
 let blackKnight2 = {
   color: "black",
@@ -104,7 +116,8 @@ let blackKnight2 = {
     j: 7
   },
   name: 'blackKnight2',
-  icon: '♞'
+  icon: '♞',
+  type: 'knight'
 }
 let blackBishop1 = {
   color: "black",
@@ -113,7 +126,8 @@ let blackBishop1 = {
     j: 3
   },
   name: 'blackBishop1',
-  icon: '♝'
+  icon: '♝',
+  type:'bishop'
 }
 let blackBishop2 = {
   color: "black",
@@ -122,7 +136,8 @@ let blackBishop2 = {
     j: 6
   },
   name: 'blackBishop2',
-  icon: '♝'
+  icon: '♝',
+  type:'bishop'
 }
 let blackQueen = {
   color: "black",
@@ -131,7 +146,8 @@ let blackQueen = {
     j: 4
   },
   name: 'blackQueen',
-  icon: '♛'
+  icon: '♛',
+  type:'queen'
 }
 let blackKing = {
   color: "black",
@@ -140,7 +156,8 @@ let blackKing = {
     j: 5
   },
   name: 'blackKing',
-  icon:'♚'
+  icon: '♚',
+  type:'king'
 }
 let whitePawn1 = {
   color: "white",
@@ -149,7 +166,8 @@ let whitePawn1 = {
     j: 1
   },
   name: 'whitePawn1',
-  icon:'♙'
+  icon: '♙',
+  type:'pawn'
 }
 let whitePawn2 = {
   color: "white",
@@ -158,7 +176,8 @@ let whitePawn2 = {
     j: 2
   },
   name: 'whitePawn2',
-  icon:'♙'
+  icon: '♙',
+  type:'pawn'
 }
 let whitePawn3 = {
   color: "white",
@@ -167,7 +186,8 @@ let whitePawn3 = {
     j: 3
   },
   name: 'whitePawn3',
-  icon:'♙'
+  icon: '♙',
+  type:'pawn'
 }
 let whitePawn4 = {
   color: "white",
@@ -176,7 +196,8 @@ let whitePawn4 = {
     j: 4
   },
   name: 'whitePawn4',
-  icon:'♙'
+  icon: '♙',
+  type:'pawn'
 }
 let whitePawn5 = {
   color: "white",
@@ -185,7 +206,8 @@ let whitePawn5 = {
     j: 5
   },
   name: 'whitePawn5',
-  icon:'♙'
+  icon: '♙',
+  type:'pawn'
 }
 let whitePawn6 = {
   color: "white",
@@ -194,7 +216,8 @@ let whitePawn6 = {
     j: 6
   },
   name: 'whitePawn6',
-  icon:'♙'
+  icon: '♙',
+  type:'pawn'
 }
 let whitePawn7 = {
   color: "white",
@@ -203,7 +226,8 @@ let whitePawn7 = {
     j: 7
   },
   name: 'whitePawn7',
-  icon:'♙'
+  icon: '♙',
+  type:'pawn'
 }
 let whitePawn8 = {
   color: "white",
@@ -212,7 +236,8 @@ let whitePawn8 = {
     j: 8
   },
   name: 'whitePawn8',
-  icon:'♙'
+  icon: '♙',
+  type:'pawn'
 }
 let whiteCastle1 = {
   color: "white",
@@ -221,7 +246,8 @@ let whiteCastle1 = {
     j: 1
   },
   name: 'whiteCastle1',
-  icon:'♖'
+  icon: '♖',
+  type:'rook'
 }
 let WhiteCastle2 = {
   color: "white",
@@ -230,7 +256,8 @@ let WhiteCastle2 = {
     j: 8
   },
   name: 'whiteCastle2',
-  icon:'♖'
+  icon: '♖',
+  type:'rook'
 }
 let whiteKnight1 = {
   color: "white",
@@ -239,7 +266,8 @@ let whiteKnight1 = {
     j: 2
   },
   name: 'whiteKnight1',
-  icon:'♘'
+  icon: '♘',
+  type:'knight'
 }
 let WhiteKnight2 = {
   color: "white",
@@ -248,7 +276,8 @@ let WhiteKnight2 = {
     j: 7
   },
   name: 'whiteknight2',
-  icon:'♘'
+  icon: '♘',
+  type:'knight'
 }
 let whiteBishop1 = {
   color: "white",
@@ -257,7 +286,8 @@ let whiteBishop1 = {
     j: 3
   },
   name: 'whiteBishop1',
-  icon:'♗'
+  icon: '♗',
+  type:'bishop'
 }
 let WhiteBishop2 = {
   color: "white",
@@ -266,7 +296,8 @@ let WhiteBishop2 = {
     j: 6
   },
   name: 'whiteBishop2',
-  icon:'♗'
+  icon: '♗',
+  type:'bishop'
 }
 let whiteQueen = {
   color: "white",
@@ -275,7 +306,8 @@ let whiteQueen = {
     j: 4
   },
   name: 'whiteQueen',
-  icon:'♕'
+  icon: '♕',
+  type:'queen'
 }
 let whiteKing = {
   color: "white",
@@ -284,7 +316,8 @@ let whiteKing = {
     j: 5
   },
   name: 'whiteKing',
-  icon:'♔'
+  icon: '♔',
+  type:'king'
 }
 
 let piecesArr = [blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7, blackPawn8, blackCastle1, blackCastle2, blackKnight1, blackKnight2, blackBishop1, blackBishop2, blackQueen, blackKing, whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8, whiteCastle1, WhiteCastle2, whiteKnight1, WhiteKnight2, whiteBishop1, WhiteBishop2, whiteQueen, whiteKing]
@@ -340,21 +373,21 @@ const selectPiece = (event) => {
 }
 
 function movePiece(event) {
-    const selectedLocation = event.target.id;
+  const selectedLocation = event.target.id;
 
-    // clean old piece location
-    document.getElementById(selectedPiece).innerHTML = '';
+  // clean old piece location
+  document.getElementById(selectedPiece).innerHTML = '';
 
-    // set piece in new location
-    setPieceLocation(selectedLocation, pieceName, icon);
-    console.log(selectedLocation)
-    console.log(selectedPiece)
+  // set piece in new location
+  setPieceLocation(selectedLocation, pieceName, icon);
+  console.log(selectedLocation)
+  console.log(selectedPiece)
 
-    console.log("חיצוני");
-    isClicked = false;
-    selectedPiece = '';
+  console.log("חיצוני");
+  isClicked = false;
+  selectedPiece = '';
 
-  }
+}
 
 
 onInit = () => {

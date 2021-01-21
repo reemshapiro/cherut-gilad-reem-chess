@@ -1,15 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-
-<body>
-
-    <script>
         //--------------------------------------------------------------------game pieces information----------------------------------------------------
 
         let blackPawn1 = { color: "black", position: { i: 2, j: 1 }, name: 'blackPawn1' }
@@ -252,7 +241,4 @@
         }
         movementAuthentication(movementArr, clickedPiece)
         
-    </script>
-</body>
-
-</html>
+ 
