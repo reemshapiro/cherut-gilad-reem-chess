@@ -65,3 +65,6 @@ onInit = () => {
   setPieceLocation("1,1");
 };
 
+
+// אכילה של חייל יריב
+
