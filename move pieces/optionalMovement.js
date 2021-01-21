@@ -12,19 +12,19 @@ const init = async () => {
     x: 1,
     y: 1
   };
-
-  console.error('pawn')
-  checkOptionalmovements("pawn", location1);
-  console.error('knight')
-  checkOptionalmovements("knight", location1);
-  console.error('rook')
-  checkOptionalmovements("rook", location1);
-  console.error('bishop')
-  checkOptionalmovements("bishop", location1);
-  console.error('queen')
-  checkOptionalmovements("queen", location1);
-  console.error('king')
-  checkOptionalmovements("king", location1);
+checkOptionalmovements('pawn',location1)
+//   console.error('pawn')
+//   checkOptionalmovements("pawn", location1);
+//   console.error('knight')
+//   checkOptionalmovements("knight", location1);
+//   console.error('rook')
+//   checkOptionalmovements("rook", location1);
+//   console.error('bishop')
+//   checkOptionalmovements("bishop", location1);
+//   console.error('queen')
+//   checkOptionalmovements("queen", location1);
+//   console.error('king')
+//   checkOptionalmovements("king", location1);
 }
 
 function checkOptionalmovements(type, location) {
@@ -135,4 +135,3 @@ function checkOptionalmovements(type, location) {
 
 
 
-init();
