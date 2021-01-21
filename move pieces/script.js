@@ -3,6 +3,7 @@
 let piecesArr = [blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7, blackPawn8, blackCastle1, blackCastle2, blackKnight1, blackKnight2, blackBishop1, blackBishop2, blackQueen, blackKing, whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8, whiteCastle1, WhiteCastle2, whiteKnight1, WhiteKnight2, whiteBishop1, WhiteBishop2, whiteQueen, whiteKing]
 // console.log(piecesArr)
 let selectedPiece;
+let selectedPieceName;
 let pieceName;
 let icon;
 
@@ -17,7 +18,7 @@ function createBoard() {
       color = "black";
     }
     for (j = 1; j < 9; j++) {
-      html += `<div id=${i},${j} class='board ${color}' onclick='movePiece(event)'></div>`;
+      html += `<div id=${i},${j} class='board ${color}' ></div>`;
       if (color == "black") {
         color = "white";
       } else {
@@ -43,6 +44,7 @@ const setPieceLocation = (selectedLocation, name, icon,type) => {
 
  const selectPiece = async  (event) => {
   selectedPiece = event.target.id;
+  selectedPieceName = event.target.name;
   selectedPiece = selectedPiece.split(',')
   // console.log(typeof selectedPiece)
   // console.log(selectedPiece)
@@ -71,24 +73,24 @@ const setPieceLocation = (selectedLocation, name, icon,type) => {
   });
   console.log(clickedpiece)
   
-  let authenticatedMovements =movementAuthentication(optionalmovements, clickedpiece)
+  authenticatedMovements =movementAuthentication(optionalmovements, clickedpiece)
 
 
-  // console.log(parseInt(authenticatedMovements,10))
 
   authenticatedMovements.forEach(move => {
     console.log(move)
-    // let newMove = JSON.parse(move)
-    // console.log(newMove)
     console.log(document.getElementById(`${move.i},${move.j}`))
+    document.getElementById(`${move.i},${move.j}`).addEventListener('click', movePiece);
     document.getElementById(`${move.i},${move.j}`).style.backgroundColor = 'red';
+    
   });
 
 }
+let authenticatedMovements;
 
 function movePiece(event) {
-  const selectedLocation = event.target.id;
-
+  let selectedLocation = event.target.id;
+  let newSL = selectedLocation.split(',')
   // clean old piece location
   document.getElementById(selectedPiece).innerHTML = '';
 
@@ -101,6 +103,22 @@ function movePiece(event) {
   isClicked = false;
   selectedPiece = '';
 
+  authenticatedMovements.forEach(move =>{
+    document.getElementById(`${move.i},${move.j}`).removeEventListener('click', movePiece);
+    document.getElementById(`${move.i},${move.j}`).style.backgroundColor = '';
+  })
+
+  console.log(newSL)
+  piecesArr.forEach(piece=>{
+    if(selectedPieceName == piece.name){
+      piece.position = {
+        i: parseInt(newSL[0],10) ,
+        j: parseInt(newSL[1],10)
+      }
+    }
+  })
+
+  console.log(piecesArr)
 }
 
 
