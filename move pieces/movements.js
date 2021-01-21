@@ -1,11 +1,11 @@
 
-export const filterNonNumbers = (array) => {
+ const filterNonNumbers = (array) => {
   return array.filter(
       (obj) => Object.keys(obj).length !== 0 && obj.x == obj.x
     );
 }
 
-export function stepStraight(location, direction) {
+ function stepStraight(location, direction) {
   let newLocation = {};
 
   switch (direction) {
@@ -50,7 +50,7 @@ export function stepStraight(location, direction) {
   return newLocation;
 }
 
-export function stepDiagonally(location, direction) {
+ function stepDiagonally(location, direction) {
   let newLocation = {};
   switch (direction) {
     case "fr":
@@ -93,7 +93,7 @@ export function stepDiagonally(location, direction) {
   return newLocation;
 }
 
-export function stepOverRow(location, direction) {
+ function stepOverRow(location, direction) {
   let locations = [];
 
   switch (direction) {
@@ -154,7 +154,7 @@ const checkTheLocation = (newLocation)  =>{
   return (Number.isInteger(newLocation.x) && Number.isInteger(newLocation.y));
 }
 
-export function stepOverDiagonalRow(location, direction) {
+ function stepOverDiagonalRow(location, direction) {
   let locations = [];
   let newLocation = location;
 
@@ -205,7 +205,7 @@ export function stepOverDiagonalRow(location, direction) {
   }
 }
 
-export const helloEden= () => {
+ const helloEden= () => {
   console.log('hello eden')
 }
 
@@ -213,8 +213,8 @@ const helloHerut = () => {
   console.log('hello herut')
 }
 
-export const OBJNAME = () => {
+ const OBJNAME = () => {
   return {name:'eden',age:25,location:'tel aviv'}
 }
 
-export const herut = {name:'cherut', location:'jerusalem'}
+// export const herut = {name:'cherut', location:'jerusalem'}

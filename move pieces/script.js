@@ -56,7 +56,8 @@ const setPieceLocation = (selectedLocation, name, icon,type) => {
   // console.log({x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
   let objectifier = {i:selectedPiece[0],j:selectedPiece[1]}
   console.log(objectifier)
-  let optionalmovements =  init(type,{x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
+  // let optionalmovements =  init(type,{x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
+  let optionalmovements =  checkOptionalmovements(type,{x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
   console.log(optionalmovements)
 
   
