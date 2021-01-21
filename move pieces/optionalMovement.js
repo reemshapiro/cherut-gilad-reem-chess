@@ -5,14 +5,14 @@ const diagonallyDirections = ["fr", "br", "bl", "fl"];
 allDirections = straightDirections.concat(diagonallyDirections);
 
 
-const init = async () => {
+const init = async (type,location) => {
   movements = await import('./movements.js');
   console.log(movements)
   let location1 = {
     x: 1,
     y: 1
   };
-checkOptionalmovements('pawn',location1)
+checkOptionalmovements(type,location)
 //   console.error('pawn')
 //   checkOptionalmovements("pawn", location1);
 //   console.error('knight')
@@ -65,13 +65,13 @@ function checkOptionalmovements(type, location) {
       // );
       break;
     case "pawn":
-      if (location.y == 2) {
-        newLocation = movements.stepStraight(location, "f");
+      if (location.y == 7) {
+        newLocation = movements.stepStraight(location, "l");
         optionalmovements.push(newLocation);
-        newLocation = movements.stepStraight(newLocation, "f");
+        newLocation = movements.stepStraight(newLocation, "l");
         optionalmovements.push(newLocation);
       } else {
-        optionalmovements.push(movements.stepStraight(location, "f"));
+        optionalmovements.push(movements.stepStraight(location, "l"));
       }
       break;
     case "knight":

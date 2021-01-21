@@ -30,27 +30,31 @@ function createBoard() {
 
 function setPiecesStartPosition() {
   piecesArr.forEach(piece => {
-    setPieceLocation(`${piece.position.i},${piece.position.j}`, piece.name, piece.icon);
+    setPieceLocation(`${piece.position.i},${piece.position.j}`, piece.name, piece.icon,piece.type);
   })
 }
 
-const setPieceLocation = (selectedLocation, name, icon) => {
+const setPieceLocation = (selectedLocation, name, icon,type) => {
   document.getElementById(
     selectedLocation
-  ).innerHTML += `<div name='${name}' icon='${icon}' class="pawn" id=${selectedLocation} onclick="selectPiece(event)">${icon}</div>`;
+  ).innerHTML += `<div name='${name}'  icon='${icon}' type='${type}' class="pawn" id=${selectedLocation} onclick="selectPiece(event)">${icon}</div>`;
 };
 
 
 const selectPiece = (event) => {
   selectedPiece = event.target.id;
+  selectedPiece = selectedPiece.split(',')
+  // console.log(typeof selectedPiece)
+  // console.log(selectedPiece)
   event.cancelBubble = true;
-  console.log("פנימי");
+  // console.log("פנימי");
   isClicked = true;
   pieceName = event.target.attributes[0].value;
-  console.log(pieceName)
+  // console.log(pieceName)
   icon = event.target.attributes[1].value;
-  console.log(pieceName)
-  init()
+  type = event.target.attributes[2].value
+  // console.log({x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
+  init(type,{x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
 }
 
 function movePiece(event) {
@@ -64,7 +68,7 @@ function movePiece(event) {
   console.log(selectedLocation)
   console.log(selectedPiece)
 
-  console.log("חיצוני");
+  // console.log("חיצוני");
   isClicked = false;
   selectedPiece = '';
 
