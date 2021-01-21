@@ -73,8 +73,16 @@ const setPieceLocation = (selectedLocation, name, icon,type) => {
   
   let authenticatedMovements =movementAuthentication(optionalmovements, clickedpiece)
 
-  console.log(authenticatedMovements)
-  
+
+  // console.log(parseInt(authenticatedMovements,10))
+
+  authenticatedMovements.forEach(move => {
+    console.log(move)
+    // let newMove = JSON.parse(move)
+    // console.log(newMove)
+    console.log(document.getElementById(`${move.i},${move.j}`))
+    // document.getElementById(`${move.i},${move.j}`).style.backgroundColor = 'red';
+  });
 
 }
 
