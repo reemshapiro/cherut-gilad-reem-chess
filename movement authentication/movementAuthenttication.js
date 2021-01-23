@@ -44,8 +44,8 @@
 
 
         function movementAuthentication(movementArr, clickedPiece) {
-            console.log(movementArr)
-            console.log(clickedPiece)
+            // console.log(movementArr)
+            // console.log(clickedPiece)
             let movementArrIJ=[]
                     movementArr.forEach(movement => {
                         console.log(movement)
@@ -54,11 +54,11 @@
                         movementArrIJ.push(position)
                         
                     });
-                    console.log(movementArrIJ)
+                    // console.log(movementArrIJ)
             
          
 
-            console.log(clickedPiece)
+            // console.log(clickedPiece)
             let pieceBlockedUp = false;
             let pieceBlockedDown = false;
             let pieceBlockedLeft = false;
@@ -73,8 +73,8 @@
                 let i = position.i
                 let j = position.j
 
-                console.log(i)
-                console.log(j)
+                // console.log(i)
+                // console.log(j)
                 piecesArr.forEach(piece => {
                     if (piece.position.i == i && piece.position.j == j) {
                         console.log(`match i:${i},j:${j}`)
