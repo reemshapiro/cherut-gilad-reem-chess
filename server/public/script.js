@@ -52,10 +52,20 @@ function selectPiece(event) {
   selectedPiece = selectedPiece.split(',')
   event.cancelBubble = true;
   pieceName = event.target.attributes[0].value;
+  console.log(pieceName)
   icon = event.target.attributes[1].value;
   type = event.target.attributes[2].value;
   let objectifier = { i: selectedPiece[0], j: selectedPiece[1] }
   // let optionalmovements =  init(type,{x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
+  
+  for (let index = 0; index < 8; index++) {
+    if(pieceName == piecesArr[index].name){
+      console.log('blackPawn')
+    }
+    
+    
+  }
+
 
 
   let optionalmovements = checkOptionalmovements(type, { x: parseInt(selectedPiece[0], 10), y: parseInt(selectedPiece[1], 10) })
