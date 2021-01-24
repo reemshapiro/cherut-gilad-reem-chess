@@ -75,6 +75,11 @@ function selectPiece(event) {
   authenticatedMovements = movementAuthentication(optionalmovements, clickedpiece)
 console.log(authenticatedMovements)
 
+// let allBoardBox =  document.getElementById('root').children;
+// for (let index = 0; index < allBoardBox.length; index++) {
+//   allBoardBox[index].removeEventListener('click', movePiece);
+//   allBoardBox[index].style.backgroundColor = '';
+// }
 
   authenticatedMovements.forEach(move => {
 
