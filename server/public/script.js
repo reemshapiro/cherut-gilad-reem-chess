@@ -61,10 +61,16 @@ function selectPiece(event) {
   for (let index = 0; index < 8; index++) {
     if(pieceName == piecesArr[index].name){
       console.log('blackPawn')
+
+    
+
+
     }
-    
-    
+      
   }
+    
+    
+  
 
 
 
