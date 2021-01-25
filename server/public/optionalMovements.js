@@ -5,15 +5,12 @@ allDirections = strateDirections.concat(diagonallyDirections);
 
 function stepStraight(location,direction){
   let newLocation = {};
-  // console.log(newLocation);
   (direction === "f" && location.y!==8) ? newLocation = {x:location.x,y:(location.y+1)} :
     (direction === "r" && location.x!==8) ? newLocation = {x:(location.x+1),y:location.y} : 
       (direction === "b" && location.y!==1) ? newLocation = {x:location.x,y:(location.y-1)} :
         (direction === "l" && location.x!==1) ? newLocation = {x:(location.x-1),y:location.y} :
           console.log('יצאת מחוץ ללוח');      
-  // if(Object.keys(newLocation).length !==0){
     return newLocation
-  // };
 }
 
 function stepDiagonally(location,direction){
@@ -52,14 +49,11 @@ function stepOverRow(location,direction){
       locations.push({X:i ,y:location.y});
     } 
   }else {
-    // console.log('יצאת מחוץ ללוח');
+
   }
-  // console.log(locations);
   if(locations){
     return locations
   }; 
-  // return locations;
-  
 }
 
 function stepOverDiagonalRow(location,direction){
@@ -86,10 +80,9 @@ function stepOverDiagonalRow(location,direction){
       locations.push(newLocation);
     } 
   }else {
-    // console.log('יצאת מחוץ ללוח');
+
   }
-  // console.log(locations);
-  // return locations;
+
   if(locations){
     return locations
   };
@@ -151,27 +144,8 @@ function checkOptionalmovements(type,location){
     });
     optionalmovements = optionalmovements.filter(obg=> obg && Object.keys(obg).length !==0);
     }
-  console.log(optionalmovements)
   return optionalmovements;
 }
-
-// let location1 = {
-//   x: 4,
-//   y: 4
-// };
-
-// console.error('pawn')
-// checkOptionalmovements("pawn", location1);
-// console.error('knight')
-// checkOptionalmovements("knight", location1);
-// console.error('rook')
-// checkOptionalmovements("rook", location1);
-// console.error('bishop')
-// checkOptionalmovements("bishop", location1);
-// console.error('queen')
-// checkOptionalmovements("queen", location1);
-// console.error('king')
-// checkOptionalmovements("king", location1);
 
 
 

@@ -1,9 +1,9 @@
-function handlelogin(e) {
+function handlelogin(event) {
     event.preventDefault()
     let userID=''
 
-    let user = e.target.username.value;
-    let password = e.target.password.value;
+    let user = event.target.username.value;
+    let password = event.target.password.value;
     let auth = { user, password }
 
 
@@ -37,11 +37,11 @@ function handlelogin(e) {
         })
 }
 
-function handlesignup(e) {
+function handlesignup(event) {
     event.preventDefault()
 
-    let user = e.target.username.value;
-    let password = e.target.password.value;
+    let user = event.target.username.value;
+    let password = event.target.password.value;
     let auth = { user, password }
 
 
