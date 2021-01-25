@@ -189,6 +189,29 @@ function movePiece(event) {
 
 
 onInit = () => {
+
+  const socket = io()
+const roomId='room1'
+socket.on('connect', function () {
+
+    // Connected, let's sign-up for to receive messages for this room
+    socket.emit('join room', roomId);
+});
+
+ let userID = coo
+  fetch('/get-room', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+
+    },
+    body: JSON.stringify({})
+}).then(res => res.json())
+    .then(data => { 
+        console.log(data)
+    })
+  
+  
   createBoard();
   setPiecesStartPosition();
   // setPieceLocation(`${whiteKing.position.i},${whiteKing.position.j}`);
