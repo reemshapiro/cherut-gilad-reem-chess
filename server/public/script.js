@@ -4,6 +4,7 @@
 let piecesArr = [blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7, blackPawn8, blackCastle1, blackCastle2, blackKnight1, blackKnight2, blackBishop1, blackBishop2, blackQueen, blackKing, whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8, whiteCastle1, WhiteCastle2, whiteKnight1, WhiteKnight2, whiteBishop1, WhiteBishop2, whiteQueen, whiteKing]
 let outOfGamePiecesWhite = []
 let outOfGamePiecesBlack = []
+let authenticatedMovements;
 // console.log(piecesArr)
 let selectedPiece;
 let selectedPieceName;
@@ -60,16 +61,48 @@ function selectPiece(event) {
   let objectifier = { i: selectedPiece[0], j: selectedPiece[1] }
   // let optionalmovements =  init(type,{x:parseInt(selectedPiece[0], 10),y:parseInt(selectedPiece[1], 10)})
   
-  for (let index = 0; index < 8; index++) {
-    if(pieceName == piecesArr[index].name){
-      console.log('blackPawn')
 
+ // ===========================================================================
+  // for (let index = 0; index < 8; index++) {
+  //   if(pieceName == piecesArr[index].name){
+  //     console.log('blackPawn')
+  //     console.log(piecesArr[index].position.i)
+
+  //     let blackPawnsOptionalMoves = []; 
+  //     if( piecesArr[index].position.i == 2){
+  //       let blackPawnOptionalMove;
+  //       blackPawnOptionalMove = stepStraight({x: piecesArr[index].position.i,y: piecesArr[index].position.j},'r')
+  //       blackPawnsOptionalMoves.push(blackPawnOptionalMove)
+  //       blackPawnOptionalMove = stepStraight(blackPawnOptionalMove,'r')
+  //       blackPawnsOptionalMoves.push(blackPawnOptionalMove)
+  //       console.log(blackPawnsOptionalMoves)
+  //       }else{
+  //         blackPawnsOptionalMoves.push(stepStraight({x: piecesArr[index].position.i,y: piecesArr[index].position.j},'r'));
+  //       }
     
+  //       let clickedpiece = {}
+  //       piecesArr.forEach(piece => {
+  //       if (piece.position.i == objectifier.i && piece.position.j == objectifier.j) {
+  //       console.log(piece.position)
+  //       console.log(objectifier)
+  //       clickedpiece = piece
+  //       }
+  //       });
 
+  //       authenticatedMovements = movementAuthentication(blackPawnsOptionalMoves, clickedpiece)
+  //       console.log(authenticatedMovements)
 
-    }
+  //       authenticatedMovements.forEach(move => {
+
+  //         document.getElementById(`${move.i},${move.j}`).addEventListener('click', movePiece);
+  //         document.getElementById(`${move.i},${move.j}`).style.backgroundColor = 'red';
       
-  }
+  //       });
+
+  //   }
+  // }
+
+   // ===========================================================================
     
     
   
@@ -93,11 +126,11 @@ function selectPiece(event) {
   authenticatedMovements = movementAuthentication(optionalmovements, clickedpiece)
 console.log(authenticatedMovements)
 
-// let allBoardBox =  document.getElementById('root').children;
-// for (let index = 0; index < allBoardBox.length; index++) {
-//   allBoardBox[index].removeEventListener('click', movePiece);
-//   allBoardBox[index].style.backgroundColor = '';
-// }
+let allBoardBox =  document.getElementById('root').children;
+for (let index = 0; index < allBoardBox.length; index++) {
+  allBoardBox[index].removeEventListener('click', movePiece);
+  allBoardBox[index].style.backgroundColor = '';
+}
 
   authenticatedMovements.forEach(move => {
 
@@ -107,7 +140,7 @@ console.log(authenticatedMovements)
   });
 
 }
-let authenticatedMovements;
+
 
 function movePiece(event) {
   let selectedLocation = event.target.id;
