@@ -2,6 +2,8 @@
 
 
 let piecesArr = [blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7, blackPawn8, blackCastle1, blackCastle2, blackKnight1, blackKnight2, blackBishop1, blackBishop2, blackQueen, blackKing, whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8, whiteCastle1, WhiteCastle2, whiteKnight1, WhiteKnight2, whiteBishop1, WhiteBishop2, whiteQueen, whiteKing]
+let outOfGamePiecesWhite = []
+let outOfGamePiecesBlack = []
 // console.log(piecesArr)
 let selectedPiece;
 let selectedPieceName;
@@ -110,6 +112,16 @@ let authenticatedMovements;
 function movePiece(event) {
   let selectedLocation = event.target.id;
   let newSL = selectedLocation.split(',')
+  piecesArr.map((piece, index) => {
+    if (piecesArr[index].position.i==parseInt(newSL[0],10) && piecesArr[index].position.j==parseInt(newSL[1],10)){
+      document.getElementById(selectedLocation).innerHTML = '';
+       (piecesArr[index].color == 'black')? outOfGamePiecesBlack.push(piecesArr[index]):outOfGamePiecesWhite.push(piecesArr[index])
+     piecesArr.splice(index,1)
+
+      // console.log(piecesArr.length,outOfGamePiecesBlack)
+      return
+    }
+  })
   // clean old piece location
   document.getElementById(selectedPiece).innerHTML = '';
 
