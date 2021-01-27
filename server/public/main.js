@@ -1,9 +1,10 @@
-
+const socket = io()
+let roomID = ''
 function handleNewGame(e) {
 
 
-    const socket = io()
-    const roomId = 'room1'
+    
+    
     socket.on('connect', function () {
 
         // Connected, let's sign-up for to receive messages for this room
@@ -31,13 +32,26 @@ function handleNewGame(e) {
     }).then(res => res.json())
         .then(data => {
             console.log(data)
-            let roomID = data.roomnumber
+            roomID = data.roomnumber
             console.log(roomID)
             joinRoom(roomID);
+            
         })
 
     // window.location.href = "/game.html";
 
 
 }
+
+function handleMessege(e){
+    socket.emit('chat room message', JSON.stringify({ msg:'just checking', roomId:roomID }));
+
+}
+
+
+socket.on('chat room message',  msg=> {
+    
+    console.log(msg)
+        
+});
 
