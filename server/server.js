@@ -3,7 +3,8 @@ const app = express();
 const bodyParser = require('body-parser');
 const http = require('http').createServer(app);
 const io = require('socket.io')(http);
-const cookieParser = require('cookie-parser')
+const cookieParser = require('cookie-parser');
+const userRouter = require("./routes/userRoutes");
 // const { chmod } = require('fs');
 
 app.use(cookieParser());
@@ -15,53 +16,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //DB connection
 const url = "mongodb+srv://vanilachess:vanila123@cluster0.3d34s.mongodb.net/test";
 const mongoose = require('mongoose');
-mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true ,useCreateIndex: true,});
 
-
-//model
-const User = mongoose.model('User', {
-    userName: String,
-    passWord: String,
-    NOGP: Number,
-    victories: Number
-});
+app.use("/users", userRouter);
 
 //users routs
-app.post('/log-in',async (req, res) => {
-    try{
-        console.log(req.body);
-        const { user, password } = req.body
-       
-    
-        let ok = false;
-    
-         let logged = await User.findOne({userName:user,});
-          if (logged.passWord==password){
-              ok = true
-    
-          }
-         console.log(`logged: ${logged}`)
-         
-         res.cookie(`userID`,logged._id,{ maxAge: 500000, httpOnly: false })
-    
-        res.send({ ok,user,logged});
-    }
-    catch(e){console.log(e)}
 
 
-})
-
-app.post('/sign-up', (req, res) => {  ///on client post
-
-    console.log(req.body);
-    const { user, password } = req.body //deconstractor
-    const newUser = new User({ userName: user,passWord : password,NOGP:0,victories:0 })
-    newUser.save().then(() => console.log(`user: ${newUser} saved`));
-
-    
-
-    res.send({ ok:true,user});
-})
 
 
 //socket

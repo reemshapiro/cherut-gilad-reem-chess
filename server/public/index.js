@@ -2,13 +2,13 @@ function handlelogin(event) {
     event.preventDefault()
     let userID=''
 
-    let user = event.target.username.value;
+    let username = event.target.username.value;
     let password = event.target.password.value;
-    let auth = { user, password }
+    let auth = { username, password }
 
 
 
-    fetch('/log-in', {
+    fetch('users/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -18,7 +18,7 @@ function handlelogin(event) {
         .then(data => { 
             console.log(data)
             if(data.ok){
-             userID = data.logged._id
+             userID = data.user._id
              console.log(data)
              console.log(userID)
              window.location.href = "/main.html";
@@ -40,13 +40,13 @@ function handlelogin(event) {
 function handlesignup(event) {
     event.preventDefault()
 
-    let user = event.target.username.value;
+    let username = event.target.username.value;
     let password = event.target.password.value;
-    let auth = { user, password }
+    let auth = { username, password }
 
 
 
-    fetch('/sign-up', {
+    fetch('users/signup', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -55,7 +55,7 @@ function handlesignup(event) {
     }).then(res => res.json())
         .then(data => {
             console.log(data)
-            console.log(`welcome ${data.user}`)
+            console.log(`welcome ${data.newUser.username}`)
             
 
         })
