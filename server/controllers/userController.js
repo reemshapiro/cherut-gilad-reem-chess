@@ -11,7 +11,7 @@ exports.login = async (req, res) => {
           if ( !user || user.password !==password){
               throw new Error('unable to login')
           }
-         res.cookie(`userID`,user._id,{ maxAge: 500000, httpOnly: false })
+         res.cookie(`userID`,user._id,{ httpOnly: false })
     
         res.status(200).send({ ok:true,user});
     }

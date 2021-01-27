@@ -26,26 +26,53 @@ app.use("/users", userRouter);
 
 
 //socket
-const rooms=[{roomID:'klsjdhf23',players:[{black:'asdkjfasue'},{white:'asdfasd'}]}]
+let roomIdCounter = 1
+// const rooms=[{roomID:'',players:[{black:''},{white:''}]}]
+const rooms = [];
 
 app.post('/get-room', (req,res)=>{
     const{userID}=req.body
+    console.log(userID)
   const lastRoom= rooms[rooms.length-1]
-  if(lastRoom.players.length===2){
-      rooms.push({roomID:'RandomRoomNumber',players:[{black:userID}]})
+  console.log(lastRoom)
+  if(!lastRoom){
+    rooms.push({roomID:roomIdCounter,players:[{black:userID}]})
+    console.log('line 40')
+    res.send({roomnumber:roomIdCounter,color:'black'})
   }
   else{
-      rooms[rooms.length-1].players.push({white:userID})
+    if(lastRoom.players.length===2){
+        rooms.push({roomID:roomIdCounter,players:[{black:userID}]})
+        roomIdCounter++
+        
+        console.log('line 48')
+        res.send ({roomnumber:roomIdCounter++,color:'black'})
+    }
+    else{
+        rooms[rooms.length-1].players.push({white:userID})
+        console.log('line 52')
+        res.send({roomnumber:roomIdCounter,color:'white'})
+    }
+    
+
   }
-  res.send ({roomID})
+  
+//   res.send (rooms[rooms.length-1].roomID)
 
 })
-
+console.log(roomIdCounter)
 io.on('connection', socket => {
+    
     console.log(socket.rooms)
 
     console.log('a user connected');
+    socket.on('join room', roomId => {
+        socket.join(roomId); //the client is now in that room
+        console.log(`user has joined room `)
+    })
+
 })
+
 
 // app listen
 const port = process.env.PORT || 3000;
