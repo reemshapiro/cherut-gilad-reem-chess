@@ -15,6 +15,8 @@ let color;
 let username;
 let roomID;
 
+let currentTurn = 'white';
+let myColor;
 socket.on('move', move => {
   console.log('script.js line 17')
   createBoard()
@@ -28,7 +30,8 @@ socket.on('move', move => {
   console.log(rival)
   let turn = move[2];
   console.log(turn)
-  document.getElementById('turn').innerText = `its ${turn} turn`
+  currentTurn = turn;
+  document.getElementById('turn').innerText = `its ${currentTurn} turn`
 });
 
 // creat an empty game board
@@ -64,7 +67,10 @@ function setPiecesStartPosition() {
 //click on piece
 function selectPiece(event) {
 
-  //Reduces click to tool only
+  if(myColor == currentTurn){
+    console.log('its my turn')
+
+     //Reduces click to tool only
   // event.cancelBubble = true;
 
   selectedPiece = event.target.id;
@@ -106,6 +112,15 @@ function selectPiece(event) {
     document.getElementById(`${move.i},${move.j}`).addEventListener('click', movePiece);
     document.getElementById(`${move.i},${move.j}`).style.backgroundColor = 'red';
   });
+
+
+
+
+  }else{
+    console.log('it is not my turn')
+  }
+
+ 
 
 }
 
@@ -208,6 +223,7 @@ let turn = 'white';
       rival=data.rival;
       console.log(roomID)
       console.log(data.color)
+      myColor = data.color;
       console.log('step2')
       joinRoom(roomID);
       document.getElementById(`me`).innerText= `you play as ${userID}`
