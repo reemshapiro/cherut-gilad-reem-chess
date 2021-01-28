@@ -17,10 +17,11 @@ let roomID;
 socket.on('move', move => {
   console.log('script.js line 17')
   createBoard()
-  move.forEach(piece => {
+  piecesArr = move;
+  piecesArr.forEach(piece => {
     setPieceLocation(`${piece.position.i},${piece.position.j}`, piece.name, piece.icon, piece.type);
   })
-  console.log(move)
+  console.log(piecesArr)
 
 });
 
@@ -101,8 +102,8 @@ function selectPiece(event) {
 
 }
 
-//click on new location 
-function movePiece(event) {
+//click on new location a
+ function movePiece(event) {
   // get the selected location numbers
   let selectedLocation = event.target.id;
   let newSL = selectedLocation.split(',')// for matching later
@@ -134,7 +135,7 @@ function movePiece(event) {
   })
 
   //update the piece position in the pieces array
-  piecesArr.map((piece, index) => {
+   piecesArr.map((piece, index) => {
     if (selectedPieceName == piece.name) {
       piecesArr[index].position = {
         i: parseInt(newSL[0], 10),
@@ -181,7 +182,7 @@ function userDetails() {
 
 
 
-   fetch('room/getroom', {
+ fetch('room/getroom', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -194,6 +195,7 @@ function userDetails() {
       console.log(data)
       roomID = data.roomnumber
       console.log(roomID)
+      console.log(data.color)
       console.log('step2')
       joinRoom(roomID);
 
@@ -203,14 +205,14 @@ function userDetails() {
 
 
 
-  cookie = userDetails()
-  color = cookie[0]
-  username = cookie[1]
-  roomID = cookie[2]
+  // cookie = userDetails()
+  // color = cookie[0]
+  // username = cookie[1]
+  // roomID = cookie[2]
 
   //  document.getElementById(`${color}Player`).innerText= username
 
-  console.log(color, username, roomID)
+  // console.log(color, username, roomID)
 
 
 
