@@ -17,6 +17,7 @@ let roomID;
 
 let currentTurn = 'white';
 let myColor;
+
 socket.on('move', move => {
   console.log('script.js line 17')
   createBoard()
@@ -33,6 +34,19 @@ socket.on('move', move => {
   currentTurn = turn;
   document.getElementById('turn').innerText = `its ${currentTurn} turn`
 });
+
+socket.on('playerConnection', obj => {
+  console.log(`זה מה שרציתייי`)
+  console.log(obj)
+  if(obj !== userID){
+    document.getElementById(`rival`).innerText= `your rival is ${obj}`
+  }
+  
+  
+});
+
+
+
 
 // creat an empty game board
 function createBoard() {
@@ -197,48 +211,51 @@ function userDetails() {
 let turn = 'white';
  onInit =  () => {
 
-  // socket.on('connect', function () {
-  //   console.log('step1')
+  socket.on('connect', function () {
+    console.log('user connected')
 
-  //   // Connected, let's sign-up for to receive messages for this room
-  //   socket.emit('join room', roomId);
-  // });
+    userID = document.cookie.split('=')[1]
+    console.log(userID)
+
+    fetch('room/getroom', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+  
+      },
+      body: JSON.stringify({ userID })
+  
+    }).then(res => res.json())
+      .then(data => {
+        console.log(data)
+        roomID = data.roomnumber
+        rival=data.rival;
+        console.log(roomID)
+        console.log(data.color)
+        myColor = data.color;
+        console.log('step2')
+        joinRoom(roomID,userID);
+        document.getElementById(`me`).innerText= `you play as ${userID}`
+        if(rival){
+        document.getElementById(`rival`).innerText= `your rival is ${rival}`
+        }
+      })
+
+    // Connected, let's sign-up for to receive messages for this room
+    // socket.emit('players', {userID,rival});
+  });
 
 
-  function joinRoom(roomId) {
-    socket.emit('join room', roomId)
+  function joinRoom(roomId,userID) {
+    socket.emit('join room', {roomId,userID})
     userRoomId = roomId
   }
-  userID = document.cookie.split('=')[1]
-  console.log(userID)
+ 
   
 
 
 
- fetch('room/getroom', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-
-    },
-    body: JSON.stringify({ userID })
-
-  }).then(res => res.json())
-    .then(data => {
-      console.log(data)
-      roomID = data.roomnumber
-      rival=data.rival;
-      console.log(roomID)
-      console.log(data.color)
-      myColor = data.color;
-      console.log('step2')
-      joinRoom(roomID);
-      document.getElementById(`me`).innerText= `you play as ${userID}`
-      document.getElementById(`rival`).innerText= `your rival is ${rival}`
-
-      
-
-    })
+ 
 
 
 

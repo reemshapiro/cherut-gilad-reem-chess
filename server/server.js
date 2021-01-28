@@ -36,17 +36,19 @@ io.on('connection', socket => {
   console.log(socket.rooms)
 
   console.log('a user connected');
-  socket.on('join room', roomId => {
-    socket.join(roomId); //the client is now in that room
-    console.log(`user has joined room `)
+  socket.on('join room', obj => {
+    socket.join(obj.roomId); //the client is now in that room
+    console.log(`user has joined room ${obj.roomId} `)
+    io.sockets.in(obj.roomId).emit('playerConnection', obj.userID);
   })
-  socket.on(`chat room message`, msgObj => {
-    msgObj = JSON.parse(msgObj);
+  
+  // socket.on(`chat room message`, msgObj => {
+  //   msgObj = JSON.parse(msgObj);
 
-    console.log(msgObj);
+  //   console.log(msgObj);
 
-    io.sockets.in(msgObj.roomId).emit('chat room message', msgObj.msg);
-  })
+  //   io.sockets.in(msgObj.roomId).emit('chat room message', msgObj.msg);
+  // })
   socket.on('move',obj=>{
     // console.log(obj.piecesArr,obj.roomID)
     (turn =='white') ? turn ='black' : turn ='white';
