@@ -1,4 +1,5 @@
 const socket = io()
+
 let piecesArr = [blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7, blackPawn8, blackCastle1, blackCastle2, blackKnight1, blackKnight2, blackBishop1, blackBishop2, blackQueen, blackKing, whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8, whiteCastle1, WhiteCastle2, whiteKnight1, WhiteKnight2, whiteBishop1, WhiteBishop2, whiteQueen, whiteKing]
 let outOfGamePiecesWhite = []
 let outOfGamePiecesBlack = []
@@ -9,14 +10,18 @@ let pieceName;
 let icon;
 let type;
 let cookie;
-  let color;
-  let username;
-  let roomID;
+let color;
+let username;
+let roomID;
 
-  socket.on('move',  move=> {
-    console.log('script.js line 17')
-    console.log(move)
-        
+socket.on('move', move => {
+  console.log('script.js line 17')
+  createBoard()
+  move.forEach(piece => {
+    setPieceLocation(`${piece.position.i},${piece.position.j}`, piece.name, piece.icon, piece.type);
+  })
+  console.log(move)
+
 });
 
 // creat an empty game board
@@ -108,7 +113,7 @@ function movePiece(event) {
       document.getElementById(selectedLocation).innerHTML = '';
       (piecesArr[index].color == 'black') ? outOfGamePiecesBlack.push(piecesArr[index]) : outOfGamePiecesWhite.push(piecesArr[index])
       piecesArr.splice(index, 1)
-      
+
       return;
     }
   })
@@ -137,8 +142,8 @@ function movePiece(event) {
       }
     }
   })
-  socket.emit('move', {piecesArr,roomID})
-  
+  socket.emit('move', { piecesArr, roomID })
+
 }
 
 //set specific piece to specific location (Dom)
@@ -152,20 +157,58 @@ const setPieceLocation = (selectedLocation, name, icon, type) => {
 function userDetails() {
   let cookie = document.cookie.split('=')[1].split('-')
 
+
   return cookie
 }
 
 
-onInit = () => {
- 
+ onInit =  () => {
+
+  // socket.on('connect', function () {
+  //   console.log('step1')
+
+  //   // Connected, let's sign-up for to receive messages for this room
+  //   socket.emit('join room', roomId);
+  // });
 
 
-   cookie = userDetails()
-   color = cookie[0]
-   username = cookie[1]
-   roomID = cookie[2]
-   
-   document.getElementById(`${color}Player`).innerText= username
+  function joinRoom(roomId) {
+    socket.emit('join room', roomId)
+    userRoomId = roomId
+  }
+  let userID = document.cookie.split('=')[1]
+  console.log(userID)
+
+
+
+   fetch('room/getroom', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+
+    },
+    body: JSON.stringify({ userID })
+
+  }).then(res => res.json())
+    .then(data => {
+      console.log(data)
+      roomID = data.roomnumber
+      console.log(roomID)
+      console.log('step2')
+      joinRoom(roomID);
+
+    })
+
+
+
+
+
+  cookie = userDetails()
+  color = cookie[0]
+  username = cookie[1]
+  roomID = cookie[2]
+
+  //  document.getElementById(`${color}Player`).innerText= username
 
   console.log(color, username, roomID)
 

@@ -47,7 +47,7 @@ io.on('connection', socket => {
     io.sockets.in(msgObj.roomId).emit('chat room message', msgObj.msg);
   })
   socket.on('move',obj=>{
-    console.log(obj.piecesArr,obj.roomID)
+    // console.log(obj.piecesArr,obj.roomID)
     io.sockets.in(obj.roomID).emit('move', obj.piecesArr);
     
   })
