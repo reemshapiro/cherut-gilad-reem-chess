@@ -1,3 +1,4 @@
+const socket = io()
 let piecesArr = [blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7, blackPawn8, blackCastle1, blackCastle2, blackKnight1, blackKnight2, blackBishop1, blackBishop2, blackQueen, blackKing, whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8, whiteCastle1, WhiteCastle2, whiteKnight1, WhiteKnight2, whiteBishop1, WhiteBishop2, whiteQueen, whiteKing]
 let outOfGamePiecesWhite = []
 let outOfGamePiecesBlack = []
@@ -7,6 +8,16 @@ let selectedPieceName;
 let pieceName;
 let icon;
 let type;
+let cookie;
+  let color;
+  let username;
+  let roomID;
+
+  socket.on('move',  move=> {
+    console.log('script.js line 17')
+    console.log(move)
+        
+});
 
 // creat an empty game board
 function createBoard() {
@@ -66,12 +77,12 @@ function selectPiece(event) {
       clickedpiece = piece
     }
   });
- 
+
   //gets the legal movements only from all the optional movements
   authenticatedMovements = movementAuthentication(optionalmovements, clickedpiece)
 
   //catch all the board locations, clean them (in case its alredy marked) and remove the option to click it and locate there a piece ( in case the user clicked a piece right after another without move it )
-  let allBoardBox =  document.getElementById('root').children;
+  let allBoardBox = document.getElementById('root').children;
   for (let index = 0; index < allBoardBox.length; index++) {
     allBoardBox[index].removeEventListener('click', movePiece);
     allBoardBox[index].style.backgroundColor = '';
@@ -93,10 +104,11 @@ function movePiece(event) {
 
   // check if there is a rival piece located in the selected location and if so - do an "eating":remove the rival piece from the pieces array and push it the right 'out of game' array according to its color
   piecesArr.map((piece, index) => {
-    if (piecesArr[index].position.i==parseInt(newSL[0],10) && piecesArr[index].position.j==parseInt(newSL[1],10)){
+    if (piecesArr[index].position.i == parseInt(newSL[0], 10) && piecesArr[index].position.j == parseInt(newSL[1], 10)) {
       document.getElementById(selectedLocation).innerHTML = '';
-       (piecesArr[index].color == 'black')? outOfGamePiecesBlack.push(piecesArr[index]):outOfGamePiecesWhite.push(piecesArr[index])
-     piecesArr.splice(index,1)
+      (piecesArr[index].color == 'black') ? outOfGamePiecesBlack.push(piecesArr[index]) : outOfGamePiecesWhite.push(piecesArr[index])
+      piecesArr.splice(index, 1)
+      
       return;
     }
   })
@@ -125,7 +137,8 @@ function movePiece(event) {
       }
     }
   })
-
+  socket.emit('move', {piecesArr,roomID})
+  
 }
 
 //set specific piece to specific location (Dom)
@@ -136,14 +149,29 @@ const setPieceLocation = (selectedLocation, name, icon, type) => {
 };
 
 // on game page loading creat the bord and set the pieces (get your room, color and turns)
+function userDetails() {
+  let cookie = document.cookie.split('=')[1].split('-')
+
+  return cookie
+}
+
+
 onInit = () => {
-
-
-
-
  
-  
-  
+
+
+   cookie = userDetails()
+   color = cookie[0]
+   username = cookie[1]
+   roomID = cookie[2]
+   
+   document.getElementById(`${color}Player`).innerText= username
+
+  console.log(color, username, roomID)
+
+
+
+
   createBoard();
   setPiecesStartPosition();
 };

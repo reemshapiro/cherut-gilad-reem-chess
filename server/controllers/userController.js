@@ -11,7 +11,10 @@ exports.login = async (req, res) => {
           if ( !user || user.password !==password){
               throw new Error('unable to login')
           }
-         res.cookie(`userID`,user._id,{ httpOnly: false })
+          console.log('line14 usercontroller.js')
+          console.log(user.username)
+          
+         res.cookie(`userID`,user.username,{ httpOnly: false })
     
         res.status(200).send({ ok:true,user});
     }

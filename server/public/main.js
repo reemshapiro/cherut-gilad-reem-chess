@@ -16,12 +16,12 @@ function handleNewGame(e) {
         socket.emit('join room', roomId)
         userRoomId = roomId
     }
-    let userID = document.cookie.split(`%`)[2]
+    let userID = document.cookie.split('=')[1]
     console.log(userID)
 
 
 
-    fetch('/get-room', {
+    fetch('room/getroom', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -38,7 +38,7 @@ function handleNewGame(e) {
             
         })
 
-    // window.location.href = "/game.html";
+    window.location.href = "/game.html";
 
 
 }

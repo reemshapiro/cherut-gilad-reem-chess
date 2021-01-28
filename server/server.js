@@ -5,6 +5,7 @@ const http = require('http').createServer(app);
 const io = require('socket.io')(http);
 const cookieParser = require('cookie-parser');
 const userRouter = require("./routes/userRoutes");
+const roomRouter = require("./routes/roomRoutes");
 // const { chmod } = require('fs');
 
 app.use(cookieParser());
@@ -19,47 +20,16 @@ const mongoose = require('mongoose');
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, });
 
 app.use("/users", userRouter);
+app.use("/room",roomRouter);
 
 //users routs
 
 
 
-
+ 
 //socket
-let roomIdCounter = 1
-// const rooms=[{roomID:'',players:[{black:''},{white:''}]}]
-const rooms = [];
-
-app.post('/get-room', (req, res) => {
-  const { userID } = req.body
-  console.log(userID)
-  const lastRoom = rooms[rooms.length - 1]
-  console.log(lastRoom)
-  if (!lastRoom) {
-    rooms.push({ roomID: roomIdCounter, players: [{ black: userID }] })
-    console.log('line 40')
-    res.send({ roomnumber: roomIdCounter, color: 'black' })
-  }
-  else {
-    if (lastRoom.players.length === 2) {
-      roomIdCounter++
-      rooms.push({ roomID: roomIdCounter, players: [{ black: userID }] })
-      console.log('line 48')
-      res.send({ roomnumber: roomIdCounter, color: 'black' })
-    }
-    else {
-      rooms[rooms.length - 1].players.push({ white: userID })
-      console.log('line 52')
-      res.send({ roomnumber: roomIdCounter, color: 'white' })
-    }
 
 
-  }
-
-  //   res.send (rooms[rooms.length-1].roomID)
-
-})
-console.log(roomIdCounter)
 io.on('connection', socket => {
 
   console.log(socket.rooms)
@@ -76,8 +46,14 @@ io.on('connection', socket => {
 
     io.sockets.in(msgObj.roomId).emit('chat room message', msgObj.msg);
   })
+  socket.on('move',obj=>{
+    console.log(obj.piecesArr,obj.roomID)
+    io.sockets.in(obj.roomID).emit('move', obj.piecesArr);
+    
+  })
 
 })
+
 
 
 // app listen
