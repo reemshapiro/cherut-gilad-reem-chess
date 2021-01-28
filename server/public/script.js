@@ -67,7 +67,12 @@ function setPiecesStartPosition() {
 //click on piece
 function selectPiece(event) {
 
-  if(myColor == currentTurn){
+  pieceName = event.target.attributes[0].value
+  pieceColor = pieceName.slice(0,5);
+  console.log(pieceColor)
+
+
+  if(myColor == currentTurn && myColor == pieceColor){
     console.log('its my turn')
 
      //Reduces click to tool only
@@ -78,7 +83,7 @@ function selectPiece(event) {
 
   //catch piece details (from the DOM)
   selectedPieceName = event.target.attributes[0].value;
-  pieceName = event.target.attributes[0].value;
+
   icon = event.target.attributes[1].value;
   type = event.target.attributes[2].value;
 
@@ -115,9 +120,11 @@ function selectPiece(event) {
 
 
 
-
-  }else{
-    console.log('it is not my turn')
+ 
+  }else if(myColor !==currentTurn){
+    console.log('it is not your turn')
+  }else if(myColor !==pieceColor){
+    console.log('it is not your piece color')
   }
 
  
