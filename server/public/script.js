@@ -1,4 +1,5 @@
 const socket = io()
+let userID;
 
 let piecesArr = [blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7, blackPawn8, blackCastle1, blackCastle2, blackKnight1, blackKnight2, blackBishop1, blackBishop2, blackQueen, blackKing, whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8, whiteCastle1, WhiteCastle2, whiteKnight1, WhiteKnight2, whiteBishop1, WhiteBishop2, whiteQueen, whiteKing]
 let outOfGamePiecesWhite = []
@@ -17,12 +18,17 @@ let roomID;
 socket.on('move', move => {
   console.log('script.js line 17')
   createBoard()
-  piecesArr = move;
+  console.log(move)
+  piecesArr = move[0];
   piecesArr.forEach(piece => {
     setPieceLocation(`${piece.position.i},${piece.position.j}`, piece.name, piece.icon, piece.type);
   })
   console.log(piecesArr)
-
+  let rival = move[1];
+  console.log(rival)
+  let turn = move[2];
+  console.log(turn)
+  document.getElementById('turn').innerText = `its ${turn} turn`
 });
 
 // creat an empty game board
@@ -94,6 +100,7 @@ function selectPiece(event) {
     allBoardBox[index].style.backgroundColor = '';
   }
 
+
   // highlight the legal movement locations 
   authenticatedMovements.forEach(move => {
     document.getElementById(`${move.i},${move.j}`).addEventListener('click', movePiece);
@@ -143,7 +150,10 @@ function selectPiece(event) {
       }
     }
   })
-  socket.emit('move', { piecesArr, roomID })
+
+
+
+  socket.emit('move', { piecesArr, roomID, userID })
 
 }
 
@@ -162,7 +172,7 @@ function userDetails() {
   return cookie
 }
 
-
+let turn = 'white';
  onInit =  () => {
 
   // socket.on('connect', function () {
@@ -177,8 +187,9 @@ function userDetails() {
     socket.emit('join room', roomId)
     userRoomId = roomId
   }
-  let userID = document.cookie.split('=')[1]
+  userID = document.cookie.split('=')[1]
   console.log(userID)
+  
 
 
 
@@ -194,10 +205,15 @@ function userDetails() {
     .then(data => {
       console.log(data)
       roomID = data.roomnumber
+      rival=data.rival;
       console.log(roomID)
       console.log(data.color)
       console.log('step2')
       joinRoom(roomID);
+      document.getElementById(`me`).innerText= `you play as ${userID}`
+      document.getElementById(`rival`).innerText= `your rival is ${rival}`
+
+      
 
     })
 

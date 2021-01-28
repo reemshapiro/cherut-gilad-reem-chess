@@ -25,8 +25,10 @@ exports.getroom = async(req, res) => {
     else {
       rooms[rooms.length - 1].players.push({ white: userID })
       console.log('line 52')
+      let rival = rooms[rooms.length - 1].players[0].black;
+      console.log(rival)
       // res.cookie(`userID`,`white-${userID}-${roomIdCounter}`,{ httpOnly: false })
-      res.send({ roomnumber: roomIdCounter, color: 'white' })
+      res.send({ roomnumber: roomIdCounter, color: 'white' ,rival})
     }
 
 

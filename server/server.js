@@ -29,9 +29,10 @@ app.use("/room",roomRouter);
  
 //socket
 
-
+let turn = 'white';  
 io.on('connection', socket => {
 
+  
   console.log(socket.rooms)
 
   console.log('a user connected');
@@ -48,7 +49,9 @@ io.on('connection', socket => {
   })
   socket.on('move',obj=>{
     // console.log(obj.piecesArr,obj.roomID)
-    io.sockets.in(obj.roomID).emit('move', obj.piecesArr);
+    (turn =='white') ? turn ='black' : turn ='white';
+    console.log(`turn: ${turn}`)
+    io.sockets.in(obj.roomID).emit('move', [obj.piecesArr,obj.userID,turn]);
     
   })
 
