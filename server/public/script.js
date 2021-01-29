@@ -105,7 +105,7 @@ function selectPiece(event) {
   let objectifier = { i: selectedPiece[0], j: selectedPiece[1] }
 
   //get all the optional movements for the choosen piece by type and location. (the location is converting from string to number)
-  let optionalmovements = checkOptionalmovements(type, { x: parseInt(selectedPiece[0], 10), y: parseInt(selectedPiece[1], 10) })
+  let optionalmovements = checkOptionalmovements(type, { x: parseInt(selectedPiece[0], 10), y: parseInt(selectedPiece[1], 10) },pieceColor)
 
   //for match, catch all the piece object from the pieces array (and not only its details from the DOM)
   let clickedpiece = {}

@@ -88,7 +88,7 @@ function stepOverDiagonalRow(location,direction){
   };
 }
 
-function checkOptionalmovements(type,location){
+function checkOptionalmovements(type,location,color){
   let optionalmovements = [];
   if(type == 'rook'){
     let f = stepOverRow(location,'f');
@@ -104,14 +104,26 @@ function checkOptionalmovements(type,location){
     optionalmovements = fr.concat(br,bl,fl);
     optionalmovements = optionalmovements.filter(obg=> Object.keys(obg).length !==0 && obg.x == obg.x);
   }else if(type == 'pawn'){
-    let newLocation;
-    if(location.x == 7){
-    newLocation = stepStraight(location,'l');
-    optionalmovements.push(newLocation);
-    newLocation = stepStraight(newLocation,'l');
-    optionalmovements.push(newLocation);
+    if(color == 'black'){
+      let newLocation;
+      if(location.x == 2){
+      newLocation = stepStraight(location,'r');
+      optionalmovements.push(newLocation);
+      newLocation = stepStraight(newLocation,'r');
+      optionalmovements.push(newLocation);
+      }else{
+        optionalmovements.push(stepStraight(location,'r'));
+      }
     }else{
-      optionalmovements.push(stepStraight(location,'l'));
+      let newLocation;
+      if(location.x == 7){
+      newLocation = stepStraight(location,'l');
+      optionalmovements.push(newLocation);
+      newLocation = stepStraight(newLocation,'l');
+      optionalmovements.push(newLocation);
+      }else{
+        optionalmovements.push(stepStraight(location,'l'));
+      }
     }
   }else if(type == 'knight'){
     let newLocation;
