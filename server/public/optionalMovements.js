@@ -111,8 +111,12 @@ function checkOptionalmovements(type,location,color){
       optionalmovements.push(newLocation);
       newLocation = stepStraight(newLocation,'r');
       optionalmovements.push(newLocation);
+      optionalmovements.push(stepDiagonally(location,'fr'));
+      optionalmovements.push(stepDiagonally(location,'br'));
       }else{
         optionalmovements.push(stepStraight(location,'r'));
+        optionalmovements.push(stepDiagonally(location,'fr'));
+        optionalmovements.push(stepDiagonally(location,'br'));
       }
     }else{
       let newLocation;
@@ -121,8 +125,12 @@ function checkOptionalmovements(type,location,color){
       optionalmovements.push(newLocation);
       newLocation = stepStraight(newLocation,'l');
       optionalmovements.push(newLocation);
+      optionalmovements.push(stepDiagonally(location,'fl'));
+      optionalmovements.push(stepDiagonally(location,'bl'));
       }else{
         optionalmovements.push(stepStraight(location,'l'));
+        optionalmovements.push(stepDiagonally(location,'fl'));
+        optionalmovements.push(stepDiagonally(location,'bl'));
       }
     }
   }else if(type == 'knight'){
@@ -156,6 +164,7 @@ function checkOptionalmovements(type,location,color){
     });
     optionalmovements = optionalmovements.filter(obg=> obg && Object.keys(obg).length !==0);
     }
+    console.log(optionalmovements)
   return optionalmovements;
 }
 
