@@ -188,10 +188,24 @@ function selectPiece(event) {
   })
 
 
+  //enthronement
+  if(type == 'pawn' && (newSL[0] == 8 || newSL[0] == 1)){
+    console.log('הכתרהההההההההההה')
+      document.querySelector(`.${pieceColor}Enthronement`).style.display = 'block';
+  }
+
+  function enthronement(event){
+    console.log('2הכתרהההההההההההה')
+
+  }
+
+
 
   socket.emit('move', { piecesArr, roomID, userID })
 
 }
+
+
 
 //set specific piece to specific location (Dom)
 const setPieceLocation = (selectedLocation, name, icon, type) => {
