@@ -151,6 +151,11 @@ function selectPiece(event) {
   let selectedLocation = event.target.id;
   let newSL = selectedLocation.split(',')// for matching later
 
+
+
+
+
+
   // check if there is a rival piece located in the selected location and if so - do an "eating":remove the rival piece from the pieces array and push it the right 'out of game' array according to its color
   piecesArr.map((piece, index) => {
     if (piecesArr[index].position.i == parseInt(newSL[0], 10) && piecesArr[index].position.j == parseInt(newSL[1], 10)) {
@@ -188,20 +193,62 @@ function selectPiece(event) {
   })
 
 
-  //enthronement
-  if(type == 'pawn' && (newSL[0] == 8 || newSL[0] == 1)){
-    console.log('הכתרהההההההההההה')
-      document.querySelector(`.${pieceColor}Enthronement`).style.display = 'block';
-  }
 
-  function enthronement(event){
-    console.log('2הכתרהההההההההההה')
-
-  }
+  
 
 
 
-  socket.emit('move', { piecesArr, roomID, userID })
+    //enthronement
+    if(type == 'pawn' && (newSL[0] == 8 || newSL[0] == 1)){
+    
+      piecesArr.map((piece, index) => {
+        if (piecesArr[index].name == selectedPieceName){
+          piecesArr.splice(index,1)
+          console.log('נמחק סוף סוף')
+        }
+      })
+  
+      
+      console.log('הכתרהההההההההההה')
+        document.querySelector(`.${pieceColor}Enthronement`).style.display = 'block';
+        document.querySelectorAll(`.enthronementOption`).forEach(button =>{
+          button.onclick = enthronement = (e) =>{
+            console.log('לחיצה')
+            let enthronementChooseName = e.target.dataset.choose;
+            let enthronementChooseIcon = e.target.innerHTML;
+            let enthronementChoose= {
+              color: pieceColor,
+              position: {
+                i: newSL[0],
+                j: newSL[1]
+              },
+              name: enthronementChooseName,
+              icon: enthronementChooseIcon,
+              type: enthronementChooseName.slice(0,5)
+            }
+            piecesArr.push(enthronementChoose);
+            // array = [2, 9]
+            console.log(piecesArr);
+            // piecesArr.forEach(piece =>{
+            //   if(piece.name == selectedPieceName){
+            //     piecesArr.splice(index, 1)
+            //   }
+            // })
+            document.querySelector(`.${pieceColor}Enthronement`).style.display = 'none';
+            document.getElementById(selectedLocation).innerHTML = '';
+            setPieceLocation(selectedLocation, enthronementChooseName, enthronementChooseIcon, enthronementChooseName.slice(0,5))
+            socket.emit('move', { piecesArr, roomID, userID })
+            // console.log(piecesArr)
+          }
+        })
+      
+    }else{
+      socket.emit('move', { piecesArr, roomID, userID })
+    }
+
+
+
+  
 
 }
 
