@@ -47,7 +47,35 @@ socket.on('move', move => {
   let turn = move[2];
   console.log(`${turn} turn`)
   currentTurn = turn;
-  document.getElementById('turn').innerText = `its ${currentTurn} turn`
+  document.getElementById('turn').innerText = `its ${currentTurn} turn`;
+  outOfGamePiecesWhite = move[3];
+  outOfGamePiecesBlack  = move[4];
+  console.log(outOfGamePiecesWhite,outOfGamePiecesBlack)
+
+  // let movedPieceColor; 
+  // (move[2]=='black')?movedPieceColor='white':movedPieceColor='black';
+  // console.log(movedPieceColor)
+
+  // if(movedPieceColor=='black'){
+  //   console.log('נכנס לשחור')
+  //   let Html = '';
+  //   outOfGamePiecesBlack.forEach(element => {Html += `<div> ${element.icon} </div>` });
+  //   document.querySelector(`.outOfGamePieces__black`).innerHTML += Html
+  //   document.querySelector(`.outOfGamePieces__white`).innerHTML +=Html
+ 
+  // }else{
+  //   console.log('נכנס ללבן')
+  //   let Html = '';
+  //   outOfGamePiecesWhite.forEach(element => {Html += `<div> ${element.icon} </div>`});
+  //   document.querySelector(`.outOfGamePieces__white`).innerHTML +=Html
+  //   document.querySelector(`.outOfGamePieces__black`).innerHTML += Html   
+  // }
+  let HtmlBlack = '';
+  let HtmlWhite = '';
+  outOfGamePiecesBlack.forEach(element => {HtmlBlack += `<div> ${element.icon} </div>` });
+  document.querySelector(`.outOfGamePieces__black`).innerHTML = HtmlBlack;
+  outOfGamePiecesWhite.forEach(element => {HtmlWhite += `<div> ${element.icon} </div>`});
+  document.querySelector(`.outOfGamePieces__white`).innerHTML =HtmlWhite
 });
 
 socket.on('playerConnection', obj => {
@@ -180,15 +208,15 @@ function selectPiece(event) {
       (piecesArr[index].color == 'black') ? outOfGamePiecesBlack.push(piecesArr[index]) : outOfGamePiecesWhite.push(piecesArr[index])
       piecesArr.splice(index, 1)
       console.log(outOfGamePiecesBlack, outOfGamePiecesWhite)
-    let Html = '';
-      outOfGamePiecesWhite.forEach(element => {Html += `<div> ${element.icon} </div>`
+//     let Html = '';
+//       outOfGamePiecesWhite.forEach(element => {Html += `<div> ${element.icon} </div>`
         
-      });
-      outOfGamePiecesBlack.forEach(element => {Html += `<div> ${element.icon} </div>`
+//       });
+//       outOfGamePiecesBlack.forEach(element => {Html += `<div> ${element.icon} </div>`
         
-    });
-    if (piecesArr[index].color == 'black'){document.querySelector(`.outOfGamePieces__black`).innerHTML += Html}
-else {document.querySelector(`.outOfGamePieces__white`).innerHTML+=Html}
+//     });
+//     if (piecesArr[index].color == 'black'){document.querySelector(`.outOfGamePieces__black`).innerHTML += Html}
+// else {document.querySelector(`.outOfGamePieces__white`).innerHTML+=Html}
       return;
     }
   })
@@ -282,7 +310,7 @@ else {document.querySelector(`.outOfGamePieces__white`).innerHTML+=Html}
             document.querySelector(`.${pieceColor}Enthronement`).style.display = 'none';
       
             setPieceLocation(selectedLocation, enthronementChooseName, enthronementChooseIcon, enthronementChooseName.slice(0,5))
-            socket.emit('move', { piecesArr, roomID, userID })
+            socket.emit('move', { piecesArr, roomID, userID,outOfGamePiecesBlack })
             // console.log(piecesArr)
           }
         })
@@ -292,7 +320,7 @@ else {document.querySelector(`.outOfGamePieces__white`).innerHTML+=Html}
         // set piece in new location
     setPieceLocation(selectedLocation, pieceName, icon, type);
 
-      socket.emit('move', { piecesArr, roomID, userID })
+      socket.emit('move', { piecesArr, roomID, userID,outOfGamePiecesWhite,outOfGamePiecesBlack })
     }
 
 
