@@ -27,6 +27,15 @@
                 </div>
             </div>
             <div id="turn">its white turn</div>
+            <div id='chat'>
+                <div class="messages"></div>
+                <div class="form">
+                    <form onsubmit="handleSendMessage(event)">
+                        <input type="text" name="message" id="message">
+                        <input type="submit" value="send">
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="wrapper">
             <div id="root"></div>

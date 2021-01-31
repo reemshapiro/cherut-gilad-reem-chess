@@ -16,7 +16,7 @@
           grid-area: players;
           display: flex;
           flex-direction: column;
-          justify-content: space-between;
+          /* justify-content: space-between; */
           height: 45vw;
           align-items: center;
         }

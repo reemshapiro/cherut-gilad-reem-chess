@@ -20,6 +20,13 @@ let myColor;
 
 let boardRotates = false;
 
+handleSendMessage = (event =>{
+  event.preventDefault();
+  let message = event.target.children.message.value;
+  console.log(message)
+  socket.emit('chatMessage', [message,roomID])
+})
+
 document.getElementById('turnTheBoard').addEventListener('click',function() {
   (!boardRotates)?boardRotates = 'upsideDown':boardRotates = false;
   console.log(boardRotates)
@@ -31,6 +38,14 @@ document.getElementById('turnTheBoard').addEventListener('click',function() {
     elm.classList.toggle("upsideDown");
   }) 
 });
+
+socket.on('chatMessage', msg => {
+  console.log(msg)
+  document.querySelector('.messages').innerHTML += `<p>${msg}</p>`;
+  document.querySelector('#message').value = '';
+
+});
+
 
 
 socket.on('move', move => {
@@ -52,24 +67,6 @@ socket.on('move', move => {
   outOfGamePiecesBlack  = move[4];
   console.log(outOfGamePiecesWhite,outOfGamePiecesBlack)
 
-  // let movedPieceColor; 
-  // (move[2]=='black')?movedPieceColor='white':movedPieceColor='black';
-  // console.log(movedPieceColor)
-
-  // if(movedPieceColor=='black'){
-  //   console.log('נכנס לשחור')
-  //   let Html = '';
-  //   outOfGamePiecesBlack.forEach(element => {Html += `<div> ${element.icon} </div>` });
-  //   document.querySelector(`.outOfGamePieces__black`).innerHTML += Html
-  //   document.querySelector(`.outOfGamePieces__white`).innerHTML +=Html
- 
-  // }else{
-  //   console.log('נכנס ללבן')
-  //   let Html = '';
-  //   outOfGamePiecesWhite.forEach(element => {Html += `<div> ${element.icon} </div>`});
-  //   document.querySelector(`.outOfGamePieces__white`).innerHTML +=Html
-  //   document.querySelector(`.outOfGamePieces__black`).innerHTML += Html   
-  // }
   let HtmlBlack = '';
   let HtmlWhite = '';
   outOfGamePiecesBlack.forEach(element => {HtmlBlack += `<div> ${element.icon} </div>` });
