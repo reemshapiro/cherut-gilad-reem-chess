@@ -18,9 +18,24 @@ let roomID;
 let currentTurn = 'white';
 let myColor;
 
+let boardRotates = false;
+
+document.getElementById('turnTheBoard').addEventListener('click',function() {
+  (!boardRotates)?boardRotates = 'upsideDown':boardRotates = false;
+  console.log(boardRotates)
+  document.querySelector('#root').classList.toggle("upsideDown"); 
+  document.querySelector('.columnsNumbers').style.flexDirection = 'row-reverse'; 
+  document.querySelector('.rowLetters').style.flexDirection = 'column'; 
+  let pieces = document.querySelectorAll(".board");
+  pieces.forEach(elm=>{
+    elm.classList.toggle("upsideDown");
+  }) 
+});
+
+
 socket.on('move', move => {
   // console.log('script.js line 17')
-  createBoard()
+  createBoard(boardRotates)
   // console.log(move)
   piecesArr = move[0];
   piecesArr.forEach(piece => {
@@ -48,7 +63,8 @@ socket.on('playerConnection', obj => {
 
 
 // creat an empty game board
-function createBoard() {
+function createBoard(boardRotates) {
+
   let html = ``,
     color = "black";
   for (i = 1; i < 9; i++) {
@@ -58,7 +74,7 @@ function createBoard() {
       color = "black";
     }
     for (j = 1; j < 9; j++) {
-      html += `<div id=${i},${j} class='board ${color}' ></div>`;
+      html += `<div id=${i},${j} class='board ${color} ${boardRotates}' ></div>`;
       if (color == "black") {
         color = "white";
       } else {
@@ -66,6 +82,7 @@ function createBoard() {
       }
     }
   }
+
   document.getElementById("root").innerHTML = html;
 }
 

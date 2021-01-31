@@ -43,6 +43,10 @@
 
 
       
+      .upsideDown{
+        transform: rotate(180deg);
+        
+      }
 
 
 
@@ -59,10 +63,13 @@
           /* transform: translateY(-225px); */
 
           grid-template-areas: "rowLetters board"
-                       "columnsNumbers  columnsNumbers";
+                       "emptyBox  columnsNumbers";
           grid-template-rows:  40vw 5vw;
           grid-template-columns:  5vw 40vw;
           grid-area: wrapper;
+        }
+        .emptyBox{
+          grid-area: emptyBox;
         }
         #root {
             display: grid;
@@ -71,6 +78,7 @@
             width: 40.3VW;
             height: 40.5VW;
             grid-area: board;
+            transition: transform 1s ease-in-out;
 
         }
         #root:hover {
@@ -80,7 +88,7 @@
         .columnsNumbers{
           grid-area: columnsNumbers;
           display: flex;
-          flex-direction: row;
+          /* flex-direction: row; */
         }
 
         .letter, .number{
