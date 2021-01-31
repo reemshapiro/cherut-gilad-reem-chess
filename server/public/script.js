@@ -83,8 +83,6 @@ function selectPiece(event) {
   pieceName = event.target.attributes[0].value
   pieceColor = pieceName.slice(0,5);
   // console.log(pieceColor)
-  console.log(`בדיקה שם הכלי  ${pieceName}`)
-  console.log(`בדיקה  הצבע ${pieceColor}`)
 
   if(myColor == currentTurn && myColor == pieceColor){
     // console.log('its my turn')
@@ -94,17 +92,15 @@ function selectPiece(event) {
 
   selectedPiece = event.target.id;
   selectedPiece = selectedPiece.split(',')// for matching later
-  console.log(`בדיקה מיקום הכלי  ${selectedPiece}`)
 
 
   //catch piece details (from the DOM)
   selectedPieceName = event.target.attributes[0].value;
-  console.log(`בדיקה  שם הכלי ${selectedPieceName}`)
+
 
   icon = event.target.attributes[1].value;
   type = event.target.attributes[2].value;
-  console.log(`בדיקה  אייקון ${icon}`)
-  console.log(`בדיקה  סוג הכלי ${type}`)
+
 
   // for the match between functions  , Conversion from x & y to i & j
   let objectifier = { i: selectedPiece[0], j: selectedPiece[1] }
@@ -150,16 +146,15 @@ function selectPiece(event) {
 
 }
 
+
+
+
+
 //click on new location a
  function movePiece(event) {
   // get the selected location numbers
   let selectedLocation = event.target.id;
   let newSL = selectedLocation.split(',')// for matching later
-
-
-
-
-
 
   // check if there is a rival piece located in the selected location and if so - do an "eating":remove the rival piece from the pieces array and push it the right 'out of game' array according to its color
   piecesArr.map((piece, index) => {
@@ -204,6 +199,28 @@ function selectPiece(event) {
 
     //enthronement
     if(type == 'pawn' && (newSL[0] == 8 || newSL[0] == 1)){
+
+      if(pieceColor == 'black'){
+        let alignSelf;
+        (newSL[0] == 8)? alignSelf='flex-end' : alignSelf='end';
+        document.getElementById(selectedLocation).innerHTML  = `<div class="blackEnthronement" style="align-self:${alignSelf}">
+        <button class="enthronementOption"  data-choose="whiteCastle" data-type="rook">♖</button>
+        <button class="enthronementOption"  data-choose="whiteknight" data-type="knight">♘</button>
+        <button class="enthronementOption"  data-choose="WhiteBishop" data-type="bishop">♗</button>
+        <button class="enthronementOption"  data-choose="whiteQueen" data-type="queen">♕</button>
+        </div>`;
+      }else{
+        let alignSelf;
+        (newSL[0] == 8)? alignSelf='flex-end' : alignSelf='end';
+        document.getElementById(selectedLocation).innerHTML  = `<div class="whiteEnthronement" style="align-self:${alignSelf}">
+        <button class="enthronementOption"  data-choose="blackCastle" data-type="rook">♜</button>
+        <button class="enthronementOption"  data-choose="blackknight" data-type="knight">♞</button>
+        <button class="enthronementOption"  data-choose="blackBishop" data-type="bishop">♝</button>
+        <button class="enthronementOption"  data-choose="blackQueen" data-type="queen">♛</button>
+        </div>`;
+      }
+      
+      // document.getElementById(selectedLocation).innerHTML  = `nlvknslvknslknvldknvlskdnv`;
     
       piecesArr.map((piece, index) => {
         if (piecesArr[index].name == selectedPieceName){
@@ -237,7 +254,7 @@ function selectPiece(event) {
             //   }
             // })
             document.querySelector(`.${pieceColor}Enthronement`).style.display = 'none';
-            document.getElementById(selectedLocation).innerHTML = '';
+      
             setPieceLocation(selectedLocation, enthronementChooseName, enthronementChooseIcon, enthronementChooseName.slice(0,5))
             socket.emit('move', { piecesArr, roomID, userID })
             // console.log(piecesArr)
