@@ -345,7 +345,7 @@ let turn = 'white';
         myColor = data.color;
         // console.log('step2')
         joinRoom(roomID,userID);
-        document.getElementById(`me`).innerText= `you play as ${userID}`
+        document.getElementById(`me`).innerText= `you play as ${myColor},${userID} `
         if(rival){
         document.getElementById(`rival`).innerText= `your rival is ${rival}`
         }
