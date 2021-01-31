@@ -3,7 +3,7 @@ let userID;
 
 let piecesArr = [blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7, blackPawn8, blackCastle1, blackCastle2, blackKnight1, blackKnight2, blackBishop1, blackBishop2, blackQueen, blackKing, whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8, whiteCastle1, WhiteCastle2, whiteKnight1, WhiteKnight2, whiteBishop1, WhiteBishop2, whiteQueen, whiteKing]
 let outOfGamePiecesWhite = []
-let outOfGamePiecesBlack = []
+let outOfGamePiecesBlack  = []
 let authenticatedMovements;
 let selectedPiece;
 let selectedPieceName;
@@ -162,7 +162,16 @@ function selectPiece(event) {
       document.getElementById(selectedLocation).innerHTML = '';
       (piecesArr[index].color == 'black') ? outOfGamePiecesBlack.push(piecesArr[index]) : outOfGamePiecesWhite.push(piecesArr[index])
       piecesArr.splice(index, 1)
-
+      console.log(outOfGamePiecesBlack, outOfGamePiecesWhite)
+    let Html
+      outOfGamePiecesWhite.forEach(element => {Html += `<div> ${element.icon} </div>`
+        
+      });
+      outOfGamePiecesBlack.forEach(element => {Html += `<div> ${element.icon} </div>`
+        
+    });
+    if (piecesArr[index].color == 'black'){document.querySelector(`.outOfGamePieces__black`).innerHTML= Html}
+else {document.querySelector(`.outOfGamePieces__white`).innerHTML=Html}
       return;
     }
   })
