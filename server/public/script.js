@@ -163,15 +163,15 @@ function selectPiece(event) {
       (piecesArr[index].color == 'black') ? outOfGamePiecesBlack.push(piecesArr[index]) : outOfGamePiecesWhite.push(piecesArr[index])
       piecesArr.splice(index, 1)
       console.log(outOfGamePiecesBlack, outOfGamePiecesWhite)
-    let Html
+    let Html = '';
       outOfGamePiecesWhite.forEach(element => {Html += `<div> ${element.icon} </div>`
         
       });
       outOfGamePiecesBlack.forEach(element => {Html += `<div> ${element.icon} </div>`
         
     });
-    if (piecesArr[index].color == 'black'){document.querySelector(`.outOfGamePieces__black`).innerHTML= Html}
-else {document.querySelector(`.outOfGamePieces__white`).innerHTML=Html}
+    if (piecesArr[index].color == 'black'){document.querySelector(`.outOfGamePieces__black`).innerHTML += Html}
+else {document.querySelector(`.outOfGamePieces__white`).innerHTML+=Html}
       return;
     }
   })
