@@ -91,12 +91,14 @@ function stepOverDiagonalRow(location,direction){
 function checkOptionalmovements(type,location,color){
   let optionalmovements = [];
   if(type == 'rook'){
+    console.log('בדיקה צריח')
     let f = stepOverRow(location,'f');
     var r = stepOverRow(location,'r');
     var b = stepOverRow(location,'b');
     var l = stepOverRow(location,'l');
     optionalmovements = f.concat(r,b,l);
   }else if(type == 'bishop'){
+    console.log('בדיקה רץ')
     let fr = stepOverDiagonalRow(location,'fr');
     var br = stepOverDiagonalRow(location,'br');
     var bl = stepOverDiagonalRow(location,'bl');
@@ -134,6 +136,7 @@ function checkOptionalmovements(type,location,color){
       }
     }
   }else if(type == 'knight'){
+    console.log('בדיקה פרש')
     let newLocation;
     newLocation = stepStraight(location,'f');
     optionalmovements.push(stepDiagonally(newLocation,'fr'),stepDiagonally(newLocation,'fl'));
@@ -145,6 +148,7 @@ function checkOptionalmovements(type,location,color){
     optionalmovements.push(stepDiagonally(newLocation,'bl'),stepDiagonally(newLocation,'fl'));
     optionalmovements = optionalmovements.filter(obg=> Object.keys(obg).length !==0 && obg.x == obg.x);
   }else if(type == 'queen'){
+    console.log('בדיקה מלכה')
     let f = stepOverRow(location,'f');
     let r = stepOverRow(location,'r');
     let b = stepOverRow(location,'b');

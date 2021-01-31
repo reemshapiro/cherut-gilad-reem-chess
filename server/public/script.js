@@ -19,25 +19,24 @@ let currentTurn = 'white';
 let myColor;
 
 socket.on('move', move => {
-  console.log('script.js line 17')
+  // console.log('script.js line 17')
   createBoard()
-  console.log(move)
+  // console.log(move)
   piecesArr = move[0];
   piecesArr.forEach(piece => {
     setPieceLocation(`${piece.position.i},${piece.position.j}`, piece.name, piece.icon, piece.type);
   })
-  console.log(piecesArr)
+  // console.log(piecesArr)
   let rival = move[1];
-  console.log(rival)
+  console.log(`your rival is ${rival}`)
   let turn = move[2];
-  console.log(turn)
+  console.log(`${turn} turn`)
   currentTurn = turn;
   document.getElementById('turn').innerText = `its ${currentTurn} turn`
 });
 
 socket.on('playerConnection', obj => {
-  console.log(`זה מה שרציתייי`)
-  console.log(obj)
+  // console.log(obj)
   if(obj !== userID){
     document.getElementById(`rival`).innerText= `your rival is ${obj}`
   }
@@ -83,23 +82,29 @@ function selectPiece(event) {
 
   pieceName = event.target.attributes[0].value
   pieceColor = pieceName.slice(0,5);
-  console.log(pieceColor)
-
+  // console.log(pieceColor)
+  console.log(`בדיקה שם הכלי  ${pieceName}`)
+  console.log(`בדיקה  הצבע ${pieceColor}`)
 
   if(myColor == currentTurn && myColor == pieceColor){
-    console.log('its my turn')
+    // console.log('its my turn')
 
      //Reduces click to tool only
   // event.cancelBubble = true;
 
   selectedPiece = event.target.id;
   selectedPiece = selectedPiece.split(',')// for matching later
+  console.log(`בדיקה מיקום הכלי  ${selectedPiece}`)
+
 
   //catch piece details (from the DOM)
   selectedPieceName = event.target.attributes[0].value;
+  console.log(`בדיקה  שם הכלי ${selectedPieceName}`)
 
   icon = event.target.attributes[1].value;
   type = event.target.attributes[2].value;
+  console.log(`בדיקה  אייקון ${icon}`)
+  console.log(`בדיקה  סוג הכלי ${type}`)
 
   // for the match between functions  , Conversion from x & y to i & j
   let objectifier = { i: selectedPiece[0], j: selectedPiece[1] }
@@ -170,8 +175,7 @@ function selectPiece(event) {
   // clean old piece location
   document.getElementById(selectedPiece).innerHTML = '';
 
-  // set piece in new location
-  setPieceLocation(selectedLocation, pieceName, icon, type);
+
 
   //???
   // selectedPiece = '';
@@ -204,18 +208,16 @@ function selectPiece(event) {
       piecesArr.map((piece, index) => {
         if (piecesArr[index].name == selectedPieceName){
           piecesArr.splice(index,1)
-          console.log('נמחק סוף סוף')
         }
       })
   
       
-      console.log('הכתרהההההההההההה')
         document.querySelector(`.${pieceColor}Enthronement`).style.display = 'block';
         document.querySelectorAll(`.enthronementOption`).forEach(button =>{
           button.onclick = enthronement = (e) =>{
-            console.log('לחיצה')
-            let enthronementChooseName = e.target.dataset.choose;
+            let enthronementChooseName = `${e.target.dataset.choose}New`;
             let enthronementChooseIcon = e.target.innerHTML;
+            let enthronementChooseType = e.target.dataset.type;
             let enthronementChoose= {
               color: pieceColor,
               position: {
@@ -224,7 +226,7 @@ function selectPiece(event) {
               },
               name: enthronementChooseName,
               icon: enthronementChooseIcon,
-              type: enthronementChooseName.slice(0,5)
+              type: enthronementChooseType
             }
             piecesArr.push(enthronementChoose);
             // array = [2, 9]
@@ -243,6 +245,10 @@ function selectPiece(event) {
         })
       
     }else{
+
+        // set piece in new location
+    setPieceLocation(selectedLocation, pieceName, icon, type);
+
       socket.emit('move', { piecesArr, roomID, userID })
     }
 
@@ -276,7 +282,7 @@ let turn = 'white';
     console.log('user connected')
 
     userID = document.cookie.split('=')[1]
-    console.log(userID)
+    console.log(`you play as ${userID}`)
 
     fetch('room/getroom', {
       method: 'POST',
@@ -288,13 +294,13 @@ let turn = 'white';
   
     }).then(res => res.json())
       .then(data => {
-        console.log(data)
+        // console.log(data)
         roomID = data.roomnumber
         rival=data.rival;
-        console.log(roomID)
-        console.log(data.color)
+        console.log(`romm number ${roomID}`)
+        console.log(`your color is ${data.color}`)
         myColor = data.color;
-        console.log('step2')
+        // console.log('step2')
         joinRoom(roomID,userID);
         document.getElementById(`me`).innerText= `you play as ${userID}`
         if(rival){
