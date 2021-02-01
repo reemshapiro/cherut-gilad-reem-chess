@@ -1,0 +1,122 @@
+*{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+}
+
+body{
+        text-align: center;
+        background-image: url("./background.png");
+        // background-position: center; /* Center the image */
+        background-repeat: no-repeat; /* Do not repeat the image */
+
+        // background-size: contain;
+        background-size: cover; /* Resize the background image to cover the entire container */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        
+}
+
+.wrapper{
+  padding: 1em;
+  align-items: center;
+  position: absolute;
+  top: 50%;
+  // left: 50%;
+  // margin: auto;
+  transform: translateY(-50%);
+  // // transform: translateX(-50%);
+  // background-color: blanchedalmond;
+
+
+  .wrapper__title{
+    color: white;
+    font-size: 8em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    letter-spacing: .15em;
+    font-weight: bolder;
+    text-shadow: 2px 2px 8px #000000;
+    margin-bottom: .4em;
+  }
+
+  .wrapper__form{
+    width: 40vw;
+    height: 25vw;
+    background-color: rgba(245, 245, 245, 0.582);
+    margin: auto;
+    position: relative;
+    padding-top: 0;
+
+    .tabs{
+      height: 4em;
+      width: 100%;
+      position: relative;
+      top: 0%;
+      display: flex;
+  
+      .tab{
+        outline: none;
+        cursor: pointer;
+        width: 50%;
+        border: none;
+        font-size: 1em;
+  
+        &:hover{
+          background-color: rgba(0, 0, 0, 0.123);
+        }
+      }
+      .login{
+        background-color:  rgba(245, 245, 245, 0);
+      }
+    }
+  
+    .form{
+      margin: auto;
+      width: 40vw;
+      // height: 21vw;
+      // background-color: royalblue;
+      padding: 1em;
+      position: absolute;
+      top:4em;
+  
+  
+      .input{
+        width: 85%;
+        padding: .5em;
+        margin-bottom: 1em;
+        margin-top: 1em;
+        height: 4em;
+        border: none;
+        outline: none;
+        background-color: rgba(255, 255, 255, 0.295);
+        text-align: center;
+        font-size: 1em;
+      }
+  
+      .form-btn{
+        outline: none;
+        cursor: pointer;
+        width: 30%;
+        height: 3em;
+        border: none;
+        margin-top: 1.5em;
+        background-color: black;
+        color: white;
+        font-size:1em;
+        // transition: transform .2s ease-in-out;
+  
+        &:hover{
+          transform: scale(1.05);
+        }
+      }
+    }
+    #form-signup{
+      display: none;
+    }
+  }
+
+  
+
+}

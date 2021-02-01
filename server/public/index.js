@@ -1,3 +1,15 @@
+function handleLoginTab(){
+    console.log('handleLoginTab()')
+    document.getElementById('form-signup').style.display = 'none';
+    document.getElementById('form-login').style.display = 'block';
+}
+
+function handleSighupTab(){
+    console.log('handleSighupTab()')
+    document.getElementById('form-signup').style.display = 'block';
+    document.getElementById('form-login').style.display = 'none';
+}
+
 function handlelogin(event) {
     event.preventDefault()
     let userID=''

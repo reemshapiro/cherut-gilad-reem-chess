@@ -1,0 +1,123 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+body {
+  text-align: center;
+  background-image: url("./background.png");
+  background-repeat: no-repeat;
+  /* Do not repeat the image */
+  background-size: cover;
+  /* Resize the background image to cover the entire container */
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.wrapper {
+  padding: 1em;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+}
+
+.wrapper .wrapper__title {
+  color: white;
+  font-size: 8em;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  letter-spacing: .15em;
+  font-weight: bolder;
+  text-shadow: 2px 2px 8px #000000;
+  margin-bottom: .4em;
+}
+
+.wrapper .wrapper__form {
+  width: 40vw;
+  height: 25vw;
+  background-color: rgba(245, 245, 245, 0.582);
+  margin: auto;
+  position: relative;
+  padding-top: 0;
+}
+
+.wrapper .wrapper__form .tabs {
+  height: 4em;
+  width: 100%;
+  position: relative;
+  top: 0%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.wrapper .wrapper__form .tabs .tab {
+  outline: none;
+  cursor: pointer;
+  width: 50%;
+  border: none;
+  font-size: 1em;
+}
+
+.wrapper .wrapper__form .tabs .tab:hover {
+  background-color: rgba(0, 0, 0, 0.123);
+}
+
+.wrapper .wrapper__form .tabs .login {
+  background-color: rgba(245, 245, 245, 0);
+}
+
+.wrapper .wrapper__form .form {
+  margin: auto;
+  width: 40vw;
+  padding: 1em;
+  position: absolute;
+  top: 4em;
+}
+
+.wrapper .wrapper__form .form .input {
+  width: 85%;
+  padding: .5em;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  height: 4em;
+  border: none;
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.295);
+  text-align: center;
+  font-size: 1em;
+}
+
+.wrapper .wrapper__form .form .form-btn {
+  outline: none;
+  cursor: pointer;
+  width: 30%;
+  height: 3em;
+  border: none;
+  margin-top: 1.5em;
+  background-color: black;
+  color: white;
+  font-size: 1em;
+}
+
+.wrapper .wrapper__form .form .form-btn:hover {
+  -webkit-transform: scale(1.05);
+          transform: scale(1.05);
+}
+
+.wrapper .wrapper__form #form-signup {
+  display: none;
+}
+/*# sourceMappingURL=index.css.map */
