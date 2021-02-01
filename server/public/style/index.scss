@@ -48,6 +48,7 @@ body{
     margin: auto;
     position: relative;
     padding-top: 0;
+    border-radius: 1em;
 
     .tabs{
       height: 4em;
@@ -55,6 +56,9 @@ body{
       position: relative;
       top: 0%;
       display: flex;
+      border-radius: 1em;
+
+      
   
       .tab{
         outline: none;
@@ -62,6 +66,7 @@ body{
         width: 50%;
         border: none;
         font-size: 1em;
+        border-radius:  0px 1em 0px 0px ;
   
         &:hover{
           background-color: rgba(0, 0, 0, 0.123);
@@ -69,6 +74,7 @@ body{
       }
       .login{
         background-color:  rgba(245, 245, 245, 0);
+        border-radius:  1em 0px  0px 0px ;
       }
     }
   
@@ -93,6 +99,7 @@ body{
         background-color: rgba(255, 255, 255, 0.295);
         text-align: center;
         font-size: 1em;
+        border-radius: 1em;
       }
   
       .form-btn{
@@ -105,6 +112,7 @@ body{
         background-color: black;
         color: white;
         font-size:1em;
+        border-radius: 1em;
         // transition: transform .2s ease-in-out;
   
         &:hover{

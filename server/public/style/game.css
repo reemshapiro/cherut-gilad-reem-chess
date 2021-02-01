@@ -4,6 +4,16 @@
             padding: 0;
             box-sizing: border-box;
         }
+        body{
+          background-image: url("./background.png");
+          background-position: center; /* Center the image */
+          background-repeat: no-repeat; /* Do not repeat the image */
+  
+          background-size: contain;
+          background-size: cover;
+          color: white;
+
+        }
         .gameScreen{
           height: 100vh;
           display: grid;
@@ -51,8 +61,10 @@
 
 
         .wrapper{
+          /* background-color: rgba(252, 252, 252, 0.548); */
           width: 45vw;
           height: 45vw;
+          /* color: black; */
           /* background-color: aquamarine; */
           /* position: absolute;
           top:50%;
@@ -75,10 +87,13 @@
             display: grid;
             grid-template-columns: repeat(8, 5VW);
             border: solid 1px black;
-            width: 40.3VW;
-            height: 40.5VW;
+            /* width: 40.3VW; */
+            /* height: 40.5VW; */
+            border: 1px solid black;
             grid-area: board;
             transition: transform 1s ease-in-out;
+            background-color: rgba(255, 255, 255, 0.699);
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 
         }
         #root:hover {
@@ -109,7 +124,7 @@
 
 
         .black {
-            background-color: rgba(0, 0, 0, 0.295);
+            background-color: rgba(0, 0, 0, 0.445);
         }
 
         .white {
@@ -134,6 +149,7 @@
         .pawn {
             border-radius: 50%;
             font-size: 3.7VW;
+            color: black;
             /* font-weight: bold; */
 
            

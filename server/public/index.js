@@ -7,7 +7,11 @@ function handleLoginTab(){
 function handleSighupTab(){
     console.log('handleSighupTab()')
     document.getElementById('form-signup').style.display = 'block';
+    // document.getElementById('form-signup').style.backgroundColor= 'rgba(245, 245, 245, 0.582)';
     document.getElementById('form-login').style.display = 'none';
+
+
+
 }
 
 function handlelogin(event) {
@@ -17,8 +21,7 @@ function handlelogin(event) {
     let username = event.target.username.value;
     let password = event.target.password.value;
     let auth = { username, password }
-
-
+  
 
     fetch('users/login', {
         method: 'POST',
