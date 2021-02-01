@@ -34,19 +34,19 @@ function stepOverRow(location,direction){
   let locations = [];
   if(direction === "f" && location.y!==8){
     for (let i = location.y+1; i <= 8; i++) {
-      locations.push({X:location.x ,y:i});
+      locations.push({x:location.x ,y:i});
     } 
   }else if(direction === "r" && location.x!==8){
     for (let i = location.x+1; i <= 8; i++) {
-      locations.push({X:i ,y:location.y});
+      locations.push({x:i ,y:location.y});
     } 
   }else if(direction === "b" && location.y!==1){
     for (let i = location.y-1; 0 < i; i--) {
-      locations.push({X:location.x ,y:i});
+      locations.push({x:location.x ,y:i});
     } 
   }else if(direction === "l"  && location.x!==1){
     for (let i = location.x-1; 0 < i; i--) {
-      locations.push({X:i ,y:location.y});
+      locations.push({x:i ,y:location.y});
     } 
   }else {
 
