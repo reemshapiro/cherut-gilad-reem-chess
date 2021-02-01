@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/main.css">
+</head>
+<body>
+    <div class="userProfile">
+        <!-- <h1>welcome to the main page</h1> -->
+        
+        <div class="card">
+            <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg">
+            <h1></h1>
+            <h3></h3>
+            <h3></h3>
+        </div>
+    </div>
+    <div class="actions">
+        <button id="newGameButton" onclick="handleNewGame(event)">start new game</button>
+    </div>
+   <div id="room"></div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="./main.js"></script>
+</body>
+
+
+</html>

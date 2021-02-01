@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style/game.css">
+    <script src="https://kit.fontawesome.com/6ce3a21b4c.js" crossorigin="anonymous"></script>
+</head>
+
+<body onload="onInit()">
+
+    <div class="gameScreen">
+        <div class="players">
+            <!-- <div class="playersWrapper"> -->
+        <div class="cards">
+            <div class="player__profile">
+                <div class="player__profile--white">
+                    <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg">
+                    <h4 id="me"></h4>
+                    <!-- <h5>white</h5> -->
+                </div>
+                
+                <div class="player__profile--black">
+                    <img src="https://thumbs.dreamstime.com/b/default-avatar-profile-image-vector-social-media-user-icon-potrait-182347582.jpg">
+                    <h4 id="rival">Waiting for the opponent</h4>
+                    <!-- <h5>black</h5> -->
+                </div>
+            </div>
+            
+           
+        </div>
+       
+        <div id='chat'>
+            <div class="messages">
+                <h2>chat</h2>
+            </div>
+            <div class="form">
+                <form onsubmit="handleSendMessage(event)">
+                    <input type="text" name="message" id="message" >
+                    <input type="submit" value="send"id='chatBtn'>
+                </form>
+            </div>
+        </div>
+    </div>
+        <div class="wrapper">
+            <button id="turnTheBoard"><i style='font-size:24px;color:white' class='fas'>&#xf2f1;</i></button>
+            <h5 id='rotate'>turn the board</h5>
+            <div id="root"></div>
+            <div class="emptyBox"></div>
+            <div class="columnsNumbers">
+                <div class="number">a</div>
+                <div class="number">b</div>
+                <div class="number">c</div>
+                <div class="number">d</div>
+                <div class="number">e</div>
+                <div class="number">f</div>
+                <div class="number">g</div>
+                <div class="number">h</div>
+            </div>
+            <div class="rowLetters">
+                <div class="letter">1</div>
+                <div class="letter">2</div>
+                <div class="letter">3</div>
+                <div class="letter">4</div>
+                <div class="letter">5</div>
+                <div class="letter">6</div>
+                <div class="letter">7</div>
+                <div class="letter">8</div>
+            </div>
+     
+            <!-- <div class="blackEnthronement" style='display:none'>
+                <button class="enthronementOption"  data-choose="whiteCastle" data-type="rook">♖</button>
+                <button class="enthronementOption"  data-choose="whiteknight" data-type="knight">♘</button>
+                <button class="enthronementOption"  data-choose="WhiteBishop" data-type="bishop">♗</button>
+                <button class="enthronementOption"  data-choose="whiteQueen" data-type="queen">♕</button>
+            </div> -->
+            <!-- <div class="whiteEnthronement" style='display:none'>
+                <button class="enthronementOption"  data-choose="blackCastle" data-type="rook">♜</button>
+                <button class="enthronementOption"  data-choose="blackknight" data-type="knight">♞</button>
+                <button class="enthronementOption"  data-choose="blackBishop" data-type="bishop">♝</button>
+                <button class="enthronementOption"  data-choose="blackQueen" data-type="queen">♛</button>
+            </div> -->
+        </div>
+
+        <div class="outOfGamePieces">
+            <div id="turn">its white turn</div>
+            <div>
+                <h3>black</h3>
+                <div class="outOfGamePieces__black"></div>
+            </div>
+            <div>
+                <h3>white</h3>
+                <div class="outOfGamePieces__white"></div>
+            </div>
+            
+            
+            <!-- <button id="turnTheBoard"></button> -->
+         
+        </div>
+    </div>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    
+    <script src="./pieceArr.js"></script>
+    <!-- <script src="./movements.js"></script>
+    <script src="./optionalMovement.js"></script> -->
+    <script src="./optionalMovements.js"></script>
+    <script src="./movementAuthenttication.js"></script>
+    <script src="script.js"></script>
+    <script src="./index.js"></script>
+    
+    
+    
+    
+
+</body>
+
+</html>
