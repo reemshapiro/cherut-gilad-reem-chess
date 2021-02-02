@@ -59,7 +59,7 @@ io.on('connection', socket => {
 
     socket.on('chatMessage',msg=>{
     console.log(msg)
-    io.sockets.in(msg[1]).emit('chatMessage',msg[0]);
+    io.sockets.in(msg[1]).emit('chatMessage',[msg[0],msg[2]]);
     
   })
 

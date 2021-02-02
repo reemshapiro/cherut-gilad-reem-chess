@@ -24,7 +24,7 @@ handleSendMessage = (event =>{
   event.preventDefault();
   let message = event.target.children.message.value;
   if(message.trim()){
-  socket.emit('chatMessage', [message,roomID])
+  socket.emit('chatMessage', [message,roomID,myColor],)
   }
 })
 
@@ -54,7 +54,11 @@ document.getElementById('turnTheBoard').addEventListener('click',function() {
 
 socket.on('chatMessage', msg => {
   console.log(msg)
-  document.querySelector('.messages').innerHTML += `<p class='msg'>${msg}</p>`;
+  let textColor;
+  (msg[1]=='white')?textColor='black':textColor='white';
+  let direction;
+  (msg[1]==myColor)?direction='start':direction='end';
+  document.querySelector('.messages').innerHTML += `<h4 class='box' style="text-align: ${direction};"><p class='msg' style="background:${msg[1]}; color:${textColor}">${msg[0]}</p></h4>`;
   document.querySelector('#message').value = '';
   document.querySelector('.messages').scrollTop = document.querySelector('.messages').scrollHeight;
 
@@ -76,7 +80,14 @@ socket.on('move', move => {
   let turn = move[2];
   console.log(`${turn} turn`)
   currentTurn = turn;
-  document.getElementById('turn').innerText = `its ${currentTurn} turn`;
+  let WhoseTurn;
+  (currentTurn==myColor)?WhoseTurn='your':WhoseTurn='rival';
+  document.getElementById('turn').innerText = `${WhoseTurn} turn`;
+  if(WhoseTurn=='your'){
+    document.getElementById('turn').style.border = '2px solid white'
+  }else[
+    document.getElementById('turn').style.border = 'none'
+  ]
   outOfGamePiecesWhite = move[3];
   outOfGamePiecesBlack  = move[4];
   console.log(outOfGamePiecesWhite,outOfGamePiecesBlack)
@@ -385,7 +396,13 @@ let turn = 'white';
         myColor = data.color;
         // console.log('step2')
         joinRoom(roomID,userID);
-        document.getElementById(`me`).innerText= `you play as ${myColor},${userID} `
+        document.getElementById(`me`).innerText= `you play as ${userID} `
+        document.querySelector(`.player__profile--me`).style.backgroundColor = `${myColor}`;
+        let rivalColor;
+        (myColor=='black')?rivalColor='white':rivalColor='black';
+        document.querySelector(`.player__profile--me`).style.color = `${rivalColor}`;
+        document.querySelector(`.player__profile--rival`).style.backgroundColor = `${rivalColor}`;
+        document.querySelector(`.player__profile--rival`).style.color = `${myColor}`;
         if(rival){
         document.getElementById(`rival`).innerText= `your rival is ${rival}`
         }

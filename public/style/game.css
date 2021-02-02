@@ -211,7 +211,7 @@
      
         }
 
-        .player__profile--white{
+        .player__profile--me{
           width: 45%;
           background-color: white;
           color: black;
@@ -224,7 +224,7 @@
 
         }
 
-        .player__profile--black{
+        .player__profile--rival{
           width: 45%;
           background-color: white;
           color: black;
@@ -352,7 +352,7 @@
         #turn{
           text-align: center;
           width: 80%;
-          font-size: 2em;
+          font-size: 4vw;
           background-color: rgba(0, 0, 0, 0.521);
           padding: .3em;
           font-weight: bold;
@@ -361,6 +361,7 @@
 
         .messages{
           overflow:scroll;
+
    
         }
 
@@ -373,6 +374,8 @@
           background: #ff000000;
       }
 
+
+
       .msg{
       
         /* overflow: auto; */
@@ -384,9 +387,15 @@
 
       
         p{
-          margin: .5em 5em;
+          margin: .2em .5em  ;
           background: tomato;
           padding: .5em;
           border-radius: .3em;
           display: inline-block;
+          position: relative;
+        }
+
+        .box{
+
+         text-align: end;
         }
