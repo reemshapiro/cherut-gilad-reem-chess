@@ -10,8 +10,6 @@ body {
   background-image: url("./background.png");
   background-repeat: no-repeat;
   /* Do not repeat the image */
-  background-size: cover;
-  /* Resize the background image to cover the entire container */
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -47,7 +45,6 @@ body {
 .wrapper .wrapper__form {
   width: 40vw;
   height: 25vw;
-  background-color: rgba(245, 245, 245, 0.582);
   margin: auto;
   position: relative;
   padding-top: 0;
@@ -70,17 +67,23 @@ body {
   cursor: pointer;
   width: 50%;
   border: none;
-  font-size: 1em;
+  font-size: 1.1em;
+  font-weight: bold;
   border-radius: 0px 1em 0px 0px;
 }
 
 .wrapper .wrapper__form .tabs .tab:hover {
-  background-color: rgba(0, 0, 0, 0.123);
+  background-color: rgba(230, 230, 230, 0.226);
 }
 
 .wrapper .wrapper__form .tabs .login {
   background-color: rgba(245, 245, 245, 0);
   border-radius: 1em 0px  0px 0px;
+  background-color: rgba(245, 245, 245, 0.582);
+}
+
+.wrapper .wrapper__form .tabs .signup {
+  background-color: rgba(245, 245, 245, 0.281);
 }
 
 .wrapper .wrapper__form .form {
@@ -89,6 +92,8 @@ body {
   padding: 1em;
   position: absolute;
   top: 4em;
+  background-color: rgba(245, 245, 245, 0.582);
+  border-radius: 0px 0px 1em 1em;
 }
 
 .wrapper .wrapper__form .form .input {
@@ -125,5 +130,34 @@ body {
 
 .wrapper .wrapper__form #form-signup {
   display: none;
+  background-color: rgba(245, 245, 245, 0.281);
+}
+
+.wrapper .wrapper__form #form-signup .input::-webkit-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1;
+  /* Firefox */
+}
+
+.wrapper .wrapper__form #form-signup .input:-ms-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1;
+  /* Firefox */
+}
+
+.wrapper .wrapper__form #form-signup .input::-ms-input-placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1;
+  /* Firefox */
+}
+
+.wrapper .wrapper__form #form-signup .input::placeholder {
+  /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color: black;
+  opacity: 1;
+  /* Firefox */
 }
 /*# sourceMappingURL=index.css.map */

@@ -1,5 +1,12 @@
 const socket = io()
 
+function oninit(){
+    let username = document.cookie.split('=')[1];
+    document.getElementById('username').innerHTML=`welcome ${username}!`;
+    document.getElementById('nogp').innerHTML=`number of games played : 0`;
+    document.getElementById('victories').innerHTML=`number of victories : 0`;
+}
+
 function handleNewGame(e) {
 
     window.location.href = "/game.html";

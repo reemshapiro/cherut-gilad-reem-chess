@@ -149,6 +149,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            border: rgba(0, 0, 0, 0.575) .1px solid;
 
         }
         .board:hover {

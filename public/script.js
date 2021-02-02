@@ -31,12 +31,24 @@ document.getElementById('turnTheBoard').addEventListener('click',function() {
   (!boardRotates)?boardRotates = 'upsideDown':boardRotates = false;
   console.log(boardRotates)
   document.querySelector('#root').classList.toggle("upsideDown"); 
-  document.querySelector('.columnsNumbers').style.flexDirection = 'row-reverse'; 
-  document.querySelector('.rowLetters').style.flexDirection = 'column'; 
   let pieces = document.querySelectorAll(".board");
   pieces.forEach(elm=>{
     elm.classList.toggle("upsideDown");
   }) 
+
+  if(boardRotates){
+    document.querySelector('.columnsNumbers').style.flexDirection ='row-reverse';
+    document.querySelector('.rowLetters').style.flexDirection ='column';
+  }else{
+    document.querySelector('.columnsNumbers').style.flexDirection ='row';
+    document.querySelector('.rowLetters').style.flexDirection ='column-reverse';
+  }
+  // let columnsNumbers = document.querySelector('.columnsNumbers').style.flexDirection;
+  // console.log(columnsNumbers)
+  // (columnsNumbers=='row-reverse')? columnsNumbers='row':columnsNumbers='row-reverse';
+  // let rowLetters = document.querySelector('.rowLetters').style.flexDirection;
+  // console.log(rowLetters)
+  // (rowLetters=='column')? rowLetters='column-reverse':rowLetters='column';
 });
 
 socket.on('chatMessage', msg => {
@@ -172,7 +184,8 @@ function selectPiece(event) {
   // highlight the legal movement locations 
   authenticatedMovements.forEach(move => {
     document.getElementById(`${move.i},${move.j}`).addEventListener('click', movePiece);
-    document.getElementById(`${move.i},${move.j}`).style.backgroundColor = 'red';
+    document.getElementById(`${move.i},${move.j}`).style.backgroundColor = '#B5FF95';
+    document.getElementById(`${move.i},${move.j}`).style.boxShadow = '4px 4px 8px 4px #fff, 3px 6px 20px 3px #fff';
   });
 
 
