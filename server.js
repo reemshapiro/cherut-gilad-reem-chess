@@ -53,7 +53,7 @@ io.on('connection', socket => {
     // console.log(obj.piecesArr,obj.roomID)
     (turn =='white') ? turn ='black' : turn ='white';
     console.log(`turn: ${turn}`)
-    io.sockets.in(obj.roomID).emit('move', [obj.piecesArr,obj.userID,turn,obj.outOfGamePiecesWhite,obj.outOfGamePiecesBlack]);
+    io.sockets.in(obj.roomID).emit('move', [obj.piecesArr,obj.userID,turn,obj.outOfGamePiecesWhite,obj.outOfGamePiecesBlack,obj.check]);
     
   })
 
