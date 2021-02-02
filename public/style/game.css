@@ -286,7 +286,7 @@
         #chat{
           /* background-color: violet; */
           min-width: 100%;
-          mam-width: 100%;
+          max-width: 100%;
           height: 30vw;
           display: flex;
           flex-direction: column;
