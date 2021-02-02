@@ -23,8 +23,9 @@ let boardRotates = false;
 handleSendMessage = (event =>{
   event.preventDefault();
   let message = event.target.children.message.value;
-  console.log(message)
+  if(message.trim()){
   socket.emit('chatMessage', [message,roomID])
+  }
 })
 
 document.getElementById('turnTheBoard').addEventListener('click',function() {
@@ -53,8 +54,9 @@ document.getElementById('turnTheBoard').addEventListener('click',function() {
 
 socket.on('chatMessage', msg => {
   console.log(msg)
-  document.querySelector('.messages').innerHTML += `<p>${msg}</p>`;
+  document.querySelector('.messages').innerHTML += `<p class='msg'>${msg}</p>`;
   document.querySelector('#message').value = '';
+  document.querySelector('.messages').scrollTop = document.querySelector('.messages').scrollHeight;
 
 });
 
