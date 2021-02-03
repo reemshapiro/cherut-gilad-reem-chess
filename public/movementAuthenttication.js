@@ -126,15 +126,22 @@ function movementAuthentication(movementArr, clickedPiece) {
 
                         if (clickedPiece.position.i - piece.position.i > 0 && clickedPiece.position.j - piece.position.j == 0)// checking if piece is blocked from above
                         {
-                            if (pieceBlockedUp == false) {
-                                console.log(`legal movement from above saved movement i:${i},j:${j}`)
-                                authenticatedMovementArr.push({ i, j })
+                            if(clickedPiece.type!= 'pawn'){
+                                if (pieceBlockedUp == false) {
+                                    console.log(`legal movement from above saved movement i:${i},j:${j}`)
+                                    authenticatedMovementArr.push({ i, j })
+                                    pieceBlockedUp = true;
+                                }
+                                else {
+                                    console.log('illegal movement, piece blocked from above')
+    
+                                }
+
+                            }else{
+                            
                                 pieceBlockedUp = true;
                             }
-                            else {
-                                console.log('illegal movement, piece blocked from above')
-
-                            }
+                           
                         }
                         if (clickedPiece.position.i - piece.position.i < 0 && clickedPiece.position.j - piece.position.j == 0)// checking if piece is blocked from below
                         {
