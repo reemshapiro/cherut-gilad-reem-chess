@@ -39,17 +39,17 @@ function checkChecker(atackingColor) {
         }
 
     });
-    if (check.check) {
-        if (atackingColor == 'white') {
-            console.log('attacking color is white')
-            checkMateChecker('black')
-        }
-        else {
-            console.log('attacking color is black')
-            checkMateChecker('white')
-        }
+    // if (check.check) {
+    //     if (atackingColor == 'white') {
+    //         console.log('attacking color is white')
+    //         checkMateChecker('black')
+    //     }
+    //     else {
+    //         console.log('attacking color is black')
+    //         checkMateChecker('white')
+    //     }
        
-    }
+    // }
     
    
 
