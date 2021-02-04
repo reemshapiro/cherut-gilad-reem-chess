@@ -160,7 +160,7 @@ function setPiecesStartPosition() {
 
 // piece movement happens in two clicks. first click on the piece you want to move, and second click on the wanted new location
 //click on piece
-function selectPiece(event) {
+ function  selectPiece (event) {
 
   pieceName = event.target.attributes[0].value
   pieceColor = pieceName.slice(0, 5);
@@ -175,7 +175,8 @@ function selectPiece(event) {
     selectedPiece = event.target.id;
     selectedPiece = selectedPiece.split(',')// for matching later
 
-    checkIfDetention(selectedPiece,pieceColor);
+    let isDetention = checkIfDetention(selectedPiece,pieceColor);
+    console.error(isDetention)
 
     //catch piece details (from the DOM)
     selectedPieceName = event.target.attributes[0].value;

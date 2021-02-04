@@ -1,4 +1,5 @@
 checkIfDetention = (selectedPiece,pieceColor) => {
+  let isDetention=false;
 
   console.log('checkIfDetention')
   let clickedPiece = {};
@@ -57,50 +58,51 @@ checkIfDetention = (selectedPiece,pieceColor) => {
     console.log(options)
   }
 
-  options = options.filter(obg=> obg && Object.keys(obg).length !==0)
-  options = options.filter(obg=> typeof obg.x !== Number )
-  // (Number.isInteger(newLocation.x) && Number.isInteger(newLocation.y))
+  options = options.filter(obg=> obg && Object.keys(obg).length !==0 && !isNaN(obg.x))
   console.log(options)
 
-  // options.forEach(option => {
-  //   optionsij.push({i:option.x, j:option.y})
-  // });
-  // console.log(optionsij)
+  options.forEach(option => {
+    optionsij.push({i:option.x, j:option.y})
+  });
+  console.log(optionsij)
   
-  // for (let index = 0; index<optionsij.length; index++) {
-  //   console.log(optionsij[index])
-  //     piecesArr.forEach(piece => {
-  //     if(piece.position.i==optionsij[index].i && piece.position.j==optionsij[index].j ){
-  //       piecesFound.push(piece)
-  //       console.log('if')
-  //       return;
-  //     }else{
-  //       console.log('elsss')
-  //     }
+  for (let index = 0; index<optionsij.length; index++) {
+    console.log(optionsij[index])
+      piecesArr.forEach(piece => {
+      if(piece.position.i==optionsij[index].i && piece.position.j==optionsij[index].j ){
+        piecesFound.push(piece)
+        console.log('if')
+      }else{
+        console.log('elsss')
+      }
    
-  // });
-  // }
-  // console.log(piecesFound)
+  });
+  }
+  console.log(piecesFound)
+  piecesArr.splice(piecesArr.findIndex(piece => piece.name == clickedPiece.name),1);
+  console.log(piecesArr)
 
-  // piecesFound.forEach(piece => {
-  //   let optionalMoves = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},piece.color);
-  //   console.log(optionalMoves)
-  //   piecesArr.splice(piecesArr.findIndex(tool => tool.name == clickedPiece.name),1);
-  //   let authenticatedMoves = movementAuthentication(optionalMoves, piece)
-  //   console.log(authenticatedMoves)
-  //   authenticatedMoves.forEach(move =>{
-  //     if(move.i==kingLocation.i && move.j==kingLocation.j){
-  //       alert('מרותק')
-  //       piecesArr.push(clickedPiece);
-  //     }else{
-  //       console.error('לא מרותק ראשי לזוז')
-  //     }
+  piecesFound.forEach(piece => {
+    let optionalMoves = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},piece.color);
+    console.log(optionalMoves)
+    let authenticatedMoves = movementAuthentication(optionalMoves, piece)
+    console.log(authenticatedMoves)
+    authenticatedMoves.forEach(move =>{
+      if(move.i==kingLocation.i && move.j==kingLocation.j){
+        console.error('מרותק')
+        piecesArr.push(clickedPiece);
+        console.log(piecesArr)
+        isDetention = true
+        
+      }else{
+        console.error('לא מרותק ראשי לזוז')
+      }
       
-  //   })
+    })
     
-  // })
+  })
 
 
   
- 
+  return isDetention;
 }
