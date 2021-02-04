@@ -47,13 +47,19 @@ exports.updateUser = async (req, res) => {
     let winnerNOGP = winner[0].NOGP;  
     let winnerVictories = winner[0].victories ; 
     let updateWinner = await User.findOneAndUpdate({username:req.body.winner.username}, {NOGP:winnerNOGP+1,victories:winnerVictories+1});
-    // let user = await User.findOneAndUpdate({username:req.body.winner.username}, {NOGP:user.NOGP+1});
-    // const user = await User.find({ username: req.body.winner.username}).snapshot().forEach((doc) => {
-    //     doc.NOGP = doc.NOGP + 1;
-    //     User.save(doc);
-    // });
 
       res.status(200).send({ updateLoser,updateWinner});
+    } catch (err) {
+      res.status(404).send({ jk:'kgk' });
+    }
+  };
+
+  exports.getUserByName = async (req, res) => {
+    try {
+
+    let user = await User.findOne({username:req.params.username});
+
+      res.status(200).send({ user});
     } catch (err) {
       res.status(404).send({ jk:'kgk' });
     }
