@@ -470,4 +470,15 @@ onInit = () => {
 
   createBoard();
   setPiecesStartPosition();
+
+  let winner = {
+    username:'cherut',
+    status: 'winner'
+  }
+  let loser = {
+    username : 'or',
+    status: 'loser'
+  }
+
+  gameOver(winner, loser);
 };

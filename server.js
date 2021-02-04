@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const url = "mongodb+srv://vanilachess:vanila123@cluster0.3d34s.mongodb.net/test";
 const mongoose = require('mongoose');
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, });
+mongoose.set('useFindAndModify', false);
+mongoose.set('returnOriginal', false);
 
 app.use("/users", userRouter);
 app.use("/room",roomRouter);
