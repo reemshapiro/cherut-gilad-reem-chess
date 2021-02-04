@@ -90,8 +90,7 @@ checkIfDetention = (selectedPiece,pieceColor) => {
     authenticatedMoves.forEach(move =>{
       if(move.i==kingLocation.i && move.j==kingLocation.j){
         console.error('מרותק')
-        piecesArr.push(clickedPiece);
-        console.log(piecesArr)
+
         isDetention = true
         
       }else{
@@ -102,7 +101,7 @@ checkIfDetention = (selectedPiece,pieceColor) => {
     
   })
 
-
-  
+  piecesArr.push(clickedPiece);
+  console.log(piecesArr)
   return isDetention;
 }

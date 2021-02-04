@@ -142,8 +142,8 @@ let blackPawn1 = {
   let blackQueen = {
     color: "black",
     position: {
-      i: 5,
-      j: 8
+      i: 1,
+      j: 4
     },
     name: 'blackQueen',
     icon: '♛',

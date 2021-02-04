@@ -164,6 +164,14 @@ function setPiecesStartPosition() {
 
   pieceName = event.target.attributes[0].value
   pieceColor = pieceName.slice(0, 5);
+  selectedPiece = event.target.id;
+  selectedPiece = selectedPiece.split(',')// for matching later
+
+  let isDetention = checkIfDetention(selectedPiece,pieceColor);
+  console.error(isDetention)
+  if(isDetention){
+    alert('This tool is riveted')
+  }else{
   // console.log(pieceColor)
 
   if (myColor == currentTurn && myColor == pieceColor) {
@@ -172,11 +180,7 @@ function setPiecesStartPosition() {
     //Reduces click to tool only
     // event.cancelBubble = true;
 
-    selectedPiece = event.target.id;
-    selectedPiece = selectedPiece.split(',')// for matching later
-
-    let isDetention = checkIfDetention(selectedPiece,pieceColor);
-    console.error(isDetention)
+    
 
     //catch piece details (from the DOM)
     selectedPieceName = event.target.attributes[0].value;
@@ -226,6 +230,7 @@ function setPiecesStartPosition() {
   } else if (myColor !== pieceColor) {
     console.log('it is not your piece color')
   }
+}
 
 
 
