@@ -156,6 +156,10 @@
           cursor: pointer; 
         }
 
+        .board:-moz-drag-over {
+          color: red;
+        }
+
         .pawn {
             border-radius: 50%;
             font-size: 3.7VW;

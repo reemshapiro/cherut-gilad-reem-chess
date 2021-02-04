@@ -161,6 +161,8 @@ function setPiecesStartPosition() {
 // piece movement happens in two clicks. first click on the piece you want to move, and second click on the wanted new location
 //click on piece
  function  selectPiece (event) {
+  // setTimeout(() => (event.target.style.display = 'none'), 0);
+  
 
   pieceName = event.target.attributes[0].value
   pieceColor = pieceName.slice(0, 5);
@@ -211,6 +213,8 @@ function setPiecesStartPosition() {
     let allBoardBox = document.getElementById('root').children;
     for (let index = 0; index < allBoardBox.length; index++) {
       allBoardBox[index].removeEventListener('click', movePiece);
+      allBoardBox[index].removeEventListener('drop', movePiece);
+      allBoardBox[index].removeEventListener('dragover', allowDrop);
       allBoardBox[index].style.backgroundColor = '';
     }
 
@@ -218,6 +222,8 @@ function setPiecesStartPosition() {
     // highlight the legal movement locations 
     authenticatedMovements.forEach(move => {
       document.getElementById(`${move.i},${move.j}`).addEventListener('click', movePiece);
+      document.getElementById(`${move.i},${move.j}`).addEventListener('drop', movePiece);
+      document.getElementById(`${move.i},${move.j}`).addEventListener('dragover', allowDrop);
       document.getElementById(`${move.i},${move.j}`).style.backgroundColor = '#B5FF95';
       document.getElementById(`${move.i},${move.j}`).style.boxShadow = '4px 4px 8px 4px #fff, 3px 6px 20px 3px #fff';
     });
@@ -237,11 +243,14 @@ function setPiecesStartPosition() {
 }
 
 
-
+function allowDrop(event) {
+  event.preventDefault();
+}
 
 
 //click on new location a
 function movePiece(event) {
+  event.preventDefault();
   // get the selected location numbers
   let check = false
   let checkCheck 
@@ -271,7 +280,8 @@ function movePiece(event) {
   // clean old piece location
   document.getElementById(selectedPiece).innerHTML = '';
 
-
+ 
+  
 
   //???
   // selectedPiece = '';
@@ -279,6 +289,8 @@ function movePiece(event) {
   //catch all the board locations, clean them (in case its alredy marked) and remove the option to click it and locate there a piece ( in case the user clicked a piece right after another without move it )
   authenticatedMovements.forEach(move => {
     document.getElementById(`${move.i},${move.j}`).removeEventListener('click', movePiece);
+    document.getElementById(`${move.i},${move.j}`).removeEventListener('drop', movePiece);
+    document.getElementById(`${move.i},${move.j}`).removeEventListener('dragover', allowDrop);
     document.getElementById(`${move.i},${move.j}`).style.backgroundColor = '';
   })
 
@@ -392,7 +404,7 @@ function movePiece(event) {
 const setPieceLocation = (selectedLocation, name, icon, type) => {
   document.getElementById(
     selectedLocation
-  ).innerHTML += `<div name='${name}'  icon='${icon}' type='${type}' class="pawn" id=${selectedLocation} onclick="selectPiece(event)">${icon}</div>`;
+  ).innerHTML += `<div name='${name}'  icon='${icon}' type='${type}' class="pawn" id=${selectedLocation} onclick="selectPiece(event)" draggable="true" ondragstart="selectPiece(event)">${icon}</div>`;
 };
 
 // on game page loading creat the bord and set the pieces (get your room, color and turns)
