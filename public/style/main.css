@@ -45,6 +45,7 @@ body {
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   -webkit-transition: .5s;
   transition: .5s;
+  outline: none;
 }
 
 .actions #newGameButton:hover {
@@ -53,6 +54,7 @@ body {
   -webkit-box-shadow: 6px 6px 18px black;
           box-shadow: 6px 6px 18px black;
   cursor: pointer;
+  outline: none;
 }
 
 .userProfile {
@@ -68,7 +70,7 @@ body {
 }
 
 .userProfile .card {
-  background-color: rgba(255, 255, 255, 0.692);
+  background-color: rgba(255, 255, 255, 0.63);
   height: 40vw;
   width: 70%;
   margin: auto;
@@ -78,6 +80,22 @@ body {
   -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
           box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   border-radius: 1em;
+}
+
+.userProfile .card #username {
+  margin-top: 8vw;
+  font-size: 5vw;
+  font-weight: bold;
+}
+
+.userProfile .card #nogp {
+  margin-top: 5vw;
+  font-size: 1.5vw;
+}
+
+.userProfile .card #victories {
+  margin-top: 5vw;
+  font-size: 1.5vw;
 }
 
 .userProfile img {

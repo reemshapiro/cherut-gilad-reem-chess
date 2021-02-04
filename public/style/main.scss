@@ -34,11 +34,14 @@ body{
     border-radius: 1em;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     transition:  .5s;
+    outline: none;
 
     &:hover{
       transform: scale(1.05);
       box-shadow: 6px 6px 18px rgb(0, 0, 0);
       cursor: pointer;
+      outline: none;
+
     }
   }
 
@@ -54,7 +57,7 @@ body{
   
 
   .card{
-    background-color: rgba(255, 255, 255, 0.692);
+    background-color: rgba(255, 255, 255, 0.63);
     height: 40vw;
     width: 70%;
     margin: auto;
@@ -63,6 +66,24 @@ body{
     margin-left: 15em;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 1em;
+
+    #username{
+      margin-top: 8vw;
+      font-size: 5vw;
+      font-weight: bold;
+    }
+
+    #nogp{
+      margin-top: 5vw;
+      font-size: 1.5vw;
+
+    }
+
+    #victories{
+      margin-top: 5vw;
+      font-size: 1.5vw;
+
+    }
   }
 
   img{
