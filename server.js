@@ -42,13 +42,7 @@ io.on('connection', socket => {
     io.sockets.in(obj.roomId).emit('playerConnection', obj.userID);
   })
   
-  // socket.on(`chat room message`, msgObj => {
-  //   msgObj = JSON.parse(msgObj);
-
-  //   console.log(msgObj);
-
-  //   io.sockets.in(msgObj.roomId).emit('chat room message', msgObj.msg);
-  // })
+  
   socket.on('move',obj=>{
     // console.log(obj.piecesArr,obj.roomID)
     (turn =='white') ? turn ='black' : turn ='white';

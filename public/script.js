@@ -100,14 +100,18 @@ socket.on('move', move => {
   document.querySelector(`.outOfGamePieces__white`).innerHTML = HtmlWhite
   let defendingColor
   let attackingColor = move[5]
+  console.log(attackingColor)
+  
   if(attackingColor){
-    if(attackingColor==myColor){
-      defendingColor= `${rival} is in check`
+    if(attackingColor=='white'){
+      defendingColor= `Black is in check`  
     }
     else{
-      defendingColor = `${username} is in check`
+      defendingColor = `White is in check`
     }
-    alert(defendingColor)
+    // alert(defendingColor)
+    document.getElementById('turn').innerText=`${defendingColor}`
+    
   }
 });
 
