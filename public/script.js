@@ -175,6 +175,7 @@ function selectPiece(event) {
     selectedPiece = event.target.id;
     selectedPiece = selectedPiece.split(',')// for matching later
 
+    checkIfDetention(selectedPiece,pieceColor);
 
     //catch piece details (from the DOM)
     selectedPieceName = event.target.attributes[0].value;
