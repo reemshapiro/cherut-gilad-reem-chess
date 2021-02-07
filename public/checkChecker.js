@@ -43,6 +43,10 @@ function checkChecker(atackingColor) {
     });
     console.log(check.atackingPiece)
     let escapeFromChakeMate = false;
+
+    let escapeFromMateArr =[];
+
+
     if (check.check) {
 
             console.log(`הכלי שמאיים בשח הוא ${check.atackingPiece.name}`)
@@ -102,7 +106,9 @@ function checkChecker(atackingColor) {
                     piece.position.j = kingOriginalPosition.j;
                 }
             })
-            
+            if(motarLazuz){
+            escapeFromMateArr.push({defenderPieceName:`${king.name}`,authMove:auth})
+            }
         })
         // piecesArr.forEach(piece=>{
         //     if(piece.name == king.name){
@@ -111,11 +117,12 @@ function checkChecker(atackingColor) {
         //     }
         // })
 
-        if(motarLazuz){
-            console.error(" יש לאן לברוח")
-            alert(" יש לאן לברוח")
-        }else{
-            console.error("אין לאן לברוח")
+        // if(motarLazuz){
+        //     console.error(" יש לאן לברוח")
+        //     console.log(escapeFromMateArr)
+        //     alert(` יש לאן לברוח`)
+        // }else{
+        //     console.error("אין לאן לברוח")
             // alert("אין לאן לברוח")
         
 
@@ -196,19 +203,20 @@ function checkChecker(atackingColor) {
                 console.log(options)
 
                 piecesArr.forEach(piece=>{
-                    if(piece.color=='white'  && escapeFromChakeMate!=true){
+                    if(piece.color=='white' && piece.type != 'king'){
                         let optionalMovements = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},piece.color);
                         let authenticatedMovements = movementAuthentication(optionalMovements, piece);
                         
                         authenticatedMovements.forEach(move=>{
-                            if(escapeFromChakeMate!=true){
+                     
 
                                 let block = false;
                                 options.forEach(option=>{
                                     if(move.i==option.x && move.j==option.y){
                                         escapeFromChakeMate = true;
-                                        block = true
-                                        alert(`חסימה ${piece.name}`)
+                                        block = true;
+                                        escapeFromMateArr.push({defenderPieceName:`${piece.name}`,authMove:move})
+                                        (`חסימה ${piece.name}`)
                                         console.error(`${move.i},${move.j}`)
                                         console.error(piece)
                                     }
@@ -219,6 +227,7 @@ function checkChecker(atackingColor) {
 
                                 
                                 escapeFromChakeMate = true;
+                                escapeFromMateArr.push({defenderPieceName:`${piece.name}`,authMove:move})
                               
                                 console.error(`${move.i},${move.j}`)
                                 console.error(piece)
@@ -226,7 +235,7 @@ function checkChecker(atackingColor) {
                             }else{
                                 console.error('אףאחד לאיכול להציל אותך')
                             }
-                        }
+                        
                         })
                     }
                 })
@@ -297,7 +306,7 @@ function checkChecker(atackingColor) {
                 console.log(options)
 
                 piecesArr.forEach(piece=>{
-                    if(piece.color=='black' && escapeFromChakeMate!=true){
+                    if(piece.color=='black' && piece.type != 'king'){
                         console.error(piece)
                         console.log('שחור בשח')
                         let optionalMovements = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},piece.color);
@@ -306,7 +315,7 @@ function checkChecker(atackingColor) {
                         console.log(piece,authenticatedMovements)
                         authenticatedMovements.forEach(move=>{
 
-                            if( escapeFromChakeMate!=true){
+                        
 
                             console.log(move,check.atackingPiece.position)
 
@@ -316,6 +325,7 @@ function checkChecker(atackingColor) {
                                     escapeFromChakeMate = true;
                                     block = true
                                     alert(`חסימה ${piece.name}`)
+                                    escapeFromMateArr.push({defenderPieceName:`${piece.name}`,authMove:move})
                                     console.error(`${move.i},${move.j}`)
                                     console.error(piece)
                                 }
@@ -328,7 +338,7 @@ function checkChecker(atackingColor) {
 
                                 
                                 escapeFromChakeMate = true;
-                               
+                                escapeFromMateArr.push({defenderPieceName:`${piece.name}`,authMove:move})
                              
                                 console.error(`${move.i},${move.j}`)
                                 console.error(piece)
@@ -336,7 +346,7 @@ function checkChecker(atackingColor) {
                             }else{
                                 console.error('אףאחד לאיכול להציל אותך')
                             }
-                        }
+                        
                         })
                     }
                 })
@@ -346,7 +356,7 @@ function checkChecker(atackingColor) {
             }else{
              alert(' מט')
             }
-        }
+        // }
        
 
             
@@ -356,7 +366,7 @@ function checkChecker(atackingColor) {
  
   
     
-
+    console.log(escapeFromMateArr)
     return check
 
 }
