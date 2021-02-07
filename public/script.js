@@ -212,6 +212,8 @@ function setPiecesStartPosition() {
       authenticatedMovements = [{i:isDetention[1].move.i,j:isDetention[1].move.j}]
     }
 
+    
+
     //catch all the board locations, clean them (in case its alredy marked) and remove the option to click it and locate there a piece ( in case the user clicked a piece right after another without move it )
     let allBoardBox = document.getElementById('root').children;
     for (let index = 0; index < allBoardBox.length; index++) {
