@@ -170,9 +170,9 @@ function setPiecesStartPosition() {
   selectedPiece = selectedPiece.split(',')// for matching later
 
   let isDetention = checkIfDetention(selectedPiece,pieceColor);
-  console.error(isDetention)
-  if(isDetention){
-    alert('This tool is riveted')
+  console.error(isDetention[0])
+  if(isDetention[0]){
+    alert('כלי מרותק')
   }else{
   // console.log(pieceColor)
 
@@ -191,7 +191,7 @@ function setPiecesStartPosition() {
     icon = event.target.attributes[1].value;
     type = event.target.attributes[2].value;
 
-
+    if(!isDetention[1]){
     // for the match between functions  , Conversion from x & y to i & j
     let objectifier = { i: selectedPiece[0], j: selectedPiece[1] }
 
@@ -208,6 +208,9 @@ function setPiecesStartPosition() {
 
     //gets the legal movements only from all the optional movements
     authenticatedMovements = movementAuthentication(optionalmovements, clickedpiece)
+    }else{
+      authenticatedMovements = [{i:isDetention[1].move.i,j:isDetention[1].move.j}]
+    }
 
     //catch all the board locations, clean them (in case its alredy marked) and remove the option to click it and locate there a piece ( in case the user clicked a piece right after another without move it )
     let allBoardBox = document.getElementById('root').children;
