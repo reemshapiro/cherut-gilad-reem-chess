@@ -203,7 +203,7 @@ function checkChecker(atackingColor) {
                 console.log(options)
 
                 piecesArr.forEach(piece=>{
-                    if(piece.color=='white' && piece.type != 'king'){
+                    if(piece.color=='white' ){
                         let optionalMovements = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},piece.color);
                         let authenticatedMovements = movementAuthentication(optionalMovements, piece);
                         
@@ -212,6 +212,7 @@ function checkChecker(atackingColor) {
 
                                 let block = false;
                                 options.forEach(option=>{
+                                  if(piece.type != 'king'){
                                     if(move.i==option.x && move.j==option.y){
                                         escapeFromChakeMate = true;
                                         block = true;
@@ -220,6 +221,7 @@ function checkChecker(atackingColor) {
                                         console.error(`${move.i},${move.j}`)
                                         console.error(piece)
                                     }
+                                  }
                                 })
 
                             console.log(move,check.atackingPiece.position)
@@ -306,8 +308,7 @@ function checkChecker(atackingColor) {
                 console.log(options)
 
                 piecesArr.forEach(piece=>{
-                    if(piece.color=='black' && piece.type != 'king'){
-                        console.error(piece)
+                    if(piece.color=='black' ){                        console.error(piece)
                         console.log('שחור בשח')
                         let optionalMovements = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},piece.color);
                         console.log(optionalMovements)
@@ -321,6 +322,7 @@ function checkChecker(atackingColor) {
 
                             let block = false;
                             options.forEach(option=>{
+                              if(piece.type != 'king'){
                                 if(move.i==option.x && move.j==option.y){
                                     escapeFromChakeMate = true;
                                     block = true
@@ -329,6 +331,7 @@ function checkChecker(atackingColor) {
                                     console.error(`${move.i},${move.j}`)
                                     console.error(piece)
                                 }
+                              }
                             })
                           
                             // console.log(move.i,options.filter(option=>option.x==move.i))
