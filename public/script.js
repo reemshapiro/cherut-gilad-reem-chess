@@ -101,6 +101,9 @@ socket.on('move', move => {
   let defendingColor
   let attackingColor = move[5]
   console.log(attackingColor)
+  let escapeFromMateArr = move[6]
+  console.log(escapeFromMateArr);
+  console.log(move);
   
   if(attackingColor){
     if(attackingColor=='white'){
@@ -208,6 +211,69 @@ function setPiecesStartPosition() {
 
     //gets the legal movements only from all the optional movements
     authenticatedMovements = movementAuthentication(optionalmovements, clickedpiece)
+
+       if(type == 'king'){
+        console.log('king')
+        let finalAuthMoves =[];
+
+        authenticatedMovements.forEach(authMove=>{
+          let legalMove = true;
+          piecesArr.forEach(piece=>{
+            if(piece.name == pieceName){
+              piece.position.i = authMove.i;
+              piece.position.j = authMove.j;
+            }
+          })
+
+          console.log(piecesArr);
+
+          if(pieceColor=='white'){
+            piecesArr.forEach(piece=>{
+              if(piece.color=='black'){
+                let optionalMovements44 = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},'black');
+                let authenticatedMovements44 = movementAuthentication(optionalMovements44, piece);
+                console.log(authenticatedMovements44);
+                authenticatedMovements44.forEach(auth44=>{
+                  if(auth44.i==authMove.i&&auth44.j==authMove.j){
+                    legalMove = false;
+                  }
+                })
+              }
+            }) 
+          }else{
+            piecesArr.forEach(piece=>{
+              if(piece.color=='white'){
+                let optionalMovements44 = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},'white');
+                let authenticatedMovements44 = movementAuthentication(optionalMovements44, piece);
+                console.log(authenticatedMovements44);
+                authenticatedMovements44.forEach(auth44=>{
+                  if(auth44.i==authMove.i&&auth44.j==authMove.j){
+                    legalMove = false;
+                  }
+                })
+              }
+            })
+
+          }
+         
+          piecesArr.forEach(piece=>{
+            if(piece.name == pieceName){
+              piece.position.i = selectedPiece[0];
+              piece.position.j = selectedPiece[1];
+            }
+          })
+          console.log(piecesArr);
+
+          console.log(legalMove)
+          if(legalMove){
+            finalAuthMoves.push(authMove)
+          }
+
+        })
+
+        console.log(finalAuthMoves);
+        authenticatedMovements=finalAuthMoves;
+       }
 
       //   if(type == 'king'){
       //     console.log('king')
@@ -458,15 +524,17 @@ function movePiece(event) {
         //     piecesArr.splice(index, 1)
         //   }
         // })
+        let escapeFromMateArr=['jj'];
         document.querySelector(`.${pieceColor}Enthronement`).style.display = 'none';
         checkCheck = checkChecker(myColor)
         if(checkCheck.check){
           check = checkCheck.atackingColor
+          escapeFromMateArr = checkCheck.escapeFromMateArr;
           
         }
 
         setPieceLocation(selectedLocation, enthronementChooseName, enthronementChooseIcon, enthronementChooseName.slice(0, 5))
-        socket.emit('move', { piecesArr, roomID, userID, outOfGamePiecesBlack,check })
+        socket.emit('move', { piecesArr, roomID, userID, outOfGamePiecesBlack,check,escapeFromMateArr })
         // console.log(piecesArr)
       }
     })
@@ -474,14 +542,17 @@ function movePiece(event) {
   } else {
 
     // set piece in new location
+    let escapeFromMateArr;
     setPieceLocation(selectedLocation, pieceName, icon, type);
     checkCheck = checkChecker(myColor)
         if(checkCheck.check){
           check = checkCheck.atackingColor
+          escapeFromMateArr = checkCheck.escapeFromMateArr;
+          
           
         }
 
-    socket.emit('move', { piecesArr, roomID, userID, outOfGamePiecesWhite, outOfGamePiecesBlack,check })
+    socket.emit('move', { piecesArr, roomID, userID, outOfGamePiecesWhite, outOfGamePiecesBlack,check,escapeFromMateArr })
   }
 
 

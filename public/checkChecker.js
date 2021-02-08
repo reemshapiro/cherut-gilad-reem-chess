@@ -1,6 +1,6 @@
 function checkChecker(atackingColor) {
 
-    let check = { check: false, atackingColor, atackingPiece:[] }
+    let check = { check: false, atackingColor, atackingPiece:[],escapeFromMateArr:[] }
     console.log(atackingColor)
     piecesArr.forEach(piece => {
         if (piece.color == atackingColor) {
@@ -382,6 +382,8 @@ function checkChecker(atackingColor) {
   
     
     console.log(escapeFromMateArr)
+    check.escapeFromMateArr = escapeFromMateArr;
+    console.log(check)
     return check
 
 }
