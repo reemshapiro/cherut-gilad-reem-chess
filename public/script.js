@@ -578,6 +578,10 @@ function userDetails() {
   return cookie
 }
 
+function returnToMainPage(event){
+  window.location.href = "/main.html";
+}
+
 let turn = 'white';
 onInit = () => {
 

@@ -403,3 +403,34 @@
 
          text-align: end;
         }
+
+        #gameOver{
+          display: none;
+          position: absolute;
+          top: 40vh;
+          right: 40vw;
+          background-color: rgb(0, 0, 0);
+          text-align: center;
+          padding: 2em;
+          box-shadow: 0 4px 8px 0 rgb(255, 255, 255), 0 6px 20px 0 rgb(255, 255, 255);
+          border-radius: 1em;
+
+        }
+
+        #gameOver>h1{
+          margin-bottom:1em;
+        }
+        #gameOver>h3{
+          margin: auto;
+        }
+
+
+        #gameOver> button{
+          background-color:white;
+          color: black;
+          padding: 1em;
+          margin-top: 1em;
+          margin-bottom: 1em;
+          border-radius: 1em;
+          outline: none;
+        }

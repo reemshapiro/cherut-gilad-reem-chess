@@ -326,7 +326,7 @@ function checkChecker(atackingColor) {
                                 if(move.i==option.x && move.j==option.y){
                                     escapeFromChakeMate = true;
                                     block = true
-                                    alert(`חסימה ${piece.name}`)
+                                    // alert(`חסימה ${piece.name}`)
                                     escapeFromMateArr.push({defenderPieceName:`${piece.name}`,authMove:move})
                                     console.error(`${move.i},${move.j}`)
                                     console.error(piece)
@@ -355,9 +355,13 @@ function checkChecker(atackingColor) {
                 })
             }
             if(escapeFromChakeMate){
-                alert('לא מט')
+                // alert('לא מט')
             }else{
-             alert(' מט')
+            //  alert(' מט')
+            document.getElementById('gameOver').style.display = 'block';
+            document.getElementById('gameOver').innerHTML += `<h3>congratulations!! you are the winner</h3>`;
+            // document.getElementById('gameOver').innerHTML += `<h3>the loser is ${rival}</h3>`;
+            document.getElementById('gameOver').innerHTML += `<button onclick='returnToMainPage(event)'>return to main page</button>`;
 
              let winner = {
               username: userID,
