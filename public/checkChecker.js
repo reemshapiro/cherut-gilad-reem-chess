@@ -53,7 +53,7 @@ function checkChecker(atackingColor) {
             
             // ______________________________ בדיקה שהמלך לא יכול לברוח
 
-// כל אפשרויותהתנועה של המלך
+  // כל אפשרויותהתנועה של המלך
             let motarLazuz =true;
             let king;
             let kingOriginalPosition;
