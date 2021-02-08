@@ -358,6 +358,18 @@ function checkChecker(atackingColor) {
                 alert('לא מט')
             }else{
              alert(' מט')
+
+             let winner = {
+              username: userID,
+              status: 'winner'
+            }
+            let loser = {
+              username :rival,
+              status: 'loser'
+            }
+            console.log(winner,loser)
+             gameOver(winner, loser);
+
             }
         // }
        
