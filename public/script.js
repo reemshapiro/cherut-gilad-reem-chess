@@ -208,6 +208,93 @@ function setPiecesStartPosition() {
 
     //gets the legal movements only from all the optional movements
     authenticatedMovements = movementAuthentication(optionalmovements, clickedpiece)
+
+      //   if(type == 'king'){
+      //     console.log('king')
+      //    let finalAuthMoves;
+      //   //  finalAuthMoves =  checkKingMoves();
+      //    console.log(checkKingMoves())
+      //    console.log(finalAuthMoves)
+      //     function checkKingMoves(){
+      //       let escapeFromMateArr =[];
+      //       let atackingColor;
+      //       if(pieceColor=='black'){
+      //         atackingColor='white'
+      //       }else{
+      //         atackingColor='black'
+      //       }
+      //       console.log(atackingColor)
+
+      //     let motarLazuz =true;
+      //     let king;
+      //     let kingOriginalPosition;
+      //     let optionalMovements;
+      //     let authenticatedMovements;
+      // if(atackingColor == 'black'){
+      //     king = piecesArr.find(piece=>piece.name == 'whiteKing');
+      //     kingOriginalPosition = {i:king.position.i,j:king.position.j};
+      //     optionalMovements = checkOptionalmovements('king',{x:king.position.i,y:king.position.j},'white');
+      //     authenticatedMovements = movementAuthentication(optionalMovements, king);
+      //     console.log(authenticatedMovements) 
+      // }else{
+      //     king = piecesArr.find(piece=>piece.name == 'blackKing');
+      //     kingOriginalPosition = {i:king.position.i,j:king.position.j};
+      //     optionalMovements = checkOptionalmovements('king',{x:king.position.i,y:king.position.j},'black');
+      //     authenticatedMovements = movementAuthentication(optionalMovements, king);
+      //     console.log(authenticatedMovements) 
+      // }
+
+      // // לדמןתלוח על כל אחתמהן
+      // // לבוק אםמישהי לאמחזירה שח
+
+      // authenticatedMovements.forEach(auth=>{
+      //     motarLazuz =true;
+      //     piecesArr.forEach(piece=>{
+      //         if(piece.name == king.name){
+      //             piece.position.i = auth.i;
+      //             piece.position.j = auth.j;
+      //         }
+      //         if(piece.color==atackingColor){
+      //            let optionalMovements2 = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},piece.name);
+      //            let authenticatedMovements2 = movementAuthentication(optionalMovements2, piece);
+      //            authenticatedMovements2.forEach(auth => {
+      //             //    console.log(piecesArr.find(piece=>piece.name==king.name),king.name)
+      //                if(auth.i == piecesArr.find(piece=>piece.name==king.name).position.i&& auth.j ==piecesArr.find(piece=>piece.name==king.name).position.j){
+      //                 motarLazuz=false;
+      //                }
+      //            });
+      //         }
+      //         console.log(kingOriginalPosition)
+      //         // if(piece.name == king.name){
+      //         //     piece.position.i = kingOriginalPosition.i;
+      //         //     piece.position.j =kingOriginalPosition.j;
+      //         // }
+      //     })
+      //     console.log(piecesArr)
+      //     piecesArr.forEach(piece=>{
+      //         if(piece.name == king.name){
+      //             piece.position.i = kingOriginalPosition.i;
+      //             piece.position.j = kingOriginalPosition.j;
+      //         }
+      //     })
+      //     if(motarLazuz){
+      //     escapeFromMateArr.push({defenderPieceName:`${king.name}`,authMove:auth})
+      //     console.log(escapeFromMateArr)
+          
+      //     }
+       
+      //       authenticatedMovements = [];
+      //       escapeFromMateArr.forEach(obj=>{
+      //         authenticatedMovements.push(obj.authMove)
+      //       })
+
+      //     console.log(authenticatedMovements)
+      // })
+      // return escapeFromMateArr
+      //     }
+          
+      //   }
+    
     }else{
       authenticatedMovements = [{i:isDetention[1].move.i,j:isDetention[1].move.j}]
     }
