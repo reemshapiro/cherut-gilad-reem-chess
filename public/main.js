@@ -3,8 +3,17 @@ const socket = io()
 function oninit(){
     let username = document.cookie.split('=')[1];
     document.getElementById('username').innerHTML=`welcome ${username}!`;
-    document.getElementById('nogp').innerHTML=`number of games played : 0`;
-    document.getElementById('victories').innerHTML=`number of victories : 0`;
+
+    fetch(`users/${username}`)
+    .then(res => res.json())
+    .then(data => {
+        console.log(data)
+        document.getElementById('nogp').innerHTML=`number of games played : ${data.user.NOGP}`;
+        document.getElementById('victories').innerHTML=`number of victories : ${data.user.victories}`;
+    })
+
+    
+    
 }
 
 function handleNewGame(e) {

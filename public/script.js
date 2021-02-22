@@ -101,6 +101,9 @@ socket.on('move', move => {
   let defendingColor
   let attackingColor = move[5]
   console.log(attackingColor)
+  let escapeFromMateArr = move[6]
+  console.log(escapeFromMateArr);
+  console.log(move);
   
   if(attackingColor){
     if(attackingColor=='white'){
@@ -160,10 +163,20 @@ function setPiecesStartPosition() {
 
 // piece movement happens in two clicks. first click on the piece you want to move, and second click on the wanted new location
 //click on piece
-function selectPiece(event) {
+ function  selectPiece (event) {
+  // setTimeout(() => (event.target.style.display = 'none'), 0);
+  
 
   pieceName = event.target.attributes[0].value
   pieceColor = pieceName.slice(0, 5);
+  selectedPiece = event.target.id;
+  selectedPiece = selectedPiece.split(',')// for matching later
+
+  let isDetention = checkIfDetention(selectedPiece,pieceColor);
+  console.error(isDetention[0])
+  if(isDetention[0]){
+    alert('כלי מרותק')
+  }else{
   // console.log(pieceColor)
 
   if (myColor == currentTurn && myColor == pieceColor) {
@@ -172,9 +185,7 @@ function selectPiece(event) {
     //Reduces click to tool only
     // event.cancelBubble = true;
 
-    selectedPiece = event.target.id;
-    selectedPiece = selectedPiece.split(',')// for matching later
-
+    
 
     //catch piece details (from the DOM)
     selectedPieceName = event.target.attributes[0].value;
@@ -183,7 +194,7 @@ function selectPiece(event) {
     icon = event.target.attributes[1].value;
     type = event.target.attributes[2].value;
 
-
+    if(!isDetention[1]){
     // for the match between functions  , Conversion from x & y to i & j
     let objectifier = { i: selectedPiece[0], j: selectedPiece[1] }
 
@@ -201,10 +212,167 @@ function selectPiece(event) {
     //gets the legal movements only from all the optional movements
     authenticatedMovements = movementAuthentication(optionalmovements, clickedpiece)
 
+       if(type == 'king'){
+        console.log('king')
+        let finalAuthMoves =[];
+
+        authenticatedMovements.forEach(authMove=>{
+          let legalMove = true;
+          piecesArr.forEach(piece=>{
+            if(piece.name == pieceName){
+              piece.position.i = authMove.i;
+              piece.position.j = authMove.j;
+            }
+          })
+
+          console.log(piecesArr);
+
+          if(pieceColor=='white'){
+            piecesArr.forEach(piece=>{
+              if(piece.color=='black'){
+                let optionalMovements44 = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},'black');
+                let authenticatedMovements44 = movementAuthentication(optionalMovements44, piece);
+                console.log(authenticatedMovements44);
+                authenticatedMovements44.forEach(auth44=>{
+                  if(auth44.i==authMove.i&&auth44.j==authMove.j){
+                    legalMove = false;
+                  }
+                })
+              }
+            }) 
+          }else{
+            piecesArr.forEach(piece=>{
+              if(piece.color=='white'){
+                let optionalMovements44 = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},'white');
+                let authenticatedMovements44 = movementAuthentication(optionalMovements44, piece);
+                console.log(authenticatedMovements44);
+                authenticatedMovements44.forEach(auth44=>{
+                  if(auth44.i==authMove.i&&auth44.j==authMove.j){
+                    legalMove = false;
+                  }
+                })
+              }
+            })
+
+          }
+         
+          piecesArr.forEach(piece=>{
+            if(piece.name == pieceName){
+              piece.position.i = selectedPiece[0];
+              piece.position.j = selectedPiece[1];
+            }
+          })
+          console.log(piecesArr);
+
+          console.log(legalMove)
+          if(legalMove){
+            finalAuthMoves.push(authMove)
+          }
+
+        })
+
+        console.log(finalAuthMoves);
+        authenticatedMovements=finalAuthMoves;
+       }
+
+      //   if(type == 'king'){
+      //     console.log('king')
+      //    let finalAuthMoves;
+      //   //  finalAuthMoves =  checkKingMoves();
+      //    console.log(checkKingMoves())
+      //    console.log(finalAuthMoves)
+      //     function checkKingMoves(){
+      //       let escapeFromMateArr =[];
+      //       let atackingColor;
+      //       if(pieceColor=='black'){
+      //         atackingColor='white'
+      //       }else{
+      //         atackingColor='black'
+      //       }
+      //       console.log(atackingColor)
+
+      //     let motarLazuz =true;
+      //     let king;
+      //     let kingOriginalPosition;
+      //     let optionalMovements;
+      //     let authenticatedMovements;
+      // if(atackingColor == 'black'){
+      //     king = piecesArr.find(piece=>piece.name == 'whiteKing');
+      //     kingOriginalPosition = {i:king.position.i,j:king.position.j};
+      //     optionalMovements = checkOptionalmovements('king',{x:king.position.i,y:king.position.j},'white');
+      //     authenticatedMovements = movementAuthentication(optionalMovements, king);
+      //     console.log(authenticatedMovements) 
+      // }else{
+      //     king = piecesArr.find(piece=>piece.name == 'blackKing');
+      //     kingOriginalPosition = {i:king.position.i,j:king.position.j};
+      //     optionalMovements = checkOptionalmovements('king',{x:king.position.i,y:king.position.j},'black');
+      //     authenticatedMovements = movementAuthentication(optionalMovements, king);
+      //     console.log(authenticatedMovements) 
+      // }
+
+      // // לדמןתלוח על כל אחתמהן
+      // // לבוק אםמישהי לאמחזירה שח
+
+      // authenticatedMovements.forEach(auth=>{
+      //     motarLazuz =true;
+      //     piecesArr.forEach(piece=>{
+      //         if(piece.name == king.name){
+      //             piece.position.i = auth.i;
+      //             piece.position.j = auth.j;
+      //         }
+      //         if(piece.color==atackingColor){
+      //            let optionalMovements2 = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},piece.name);
+      //            let authenticatedMovements2 = movementAuthentication(optionalMovements2, piece);
+      //            authenticatedMovements2.forEach(auth => {
+      //             //    console.log(piecesArr.find(piece=>piece.name==king.name),king.name)
+      //                if(auth.i == piecesArr.find(piece=>piece.name==king.name).position.i&& auth.j ==piecesArr.find(piece=>piece.name==king.name).position.j){
+      //                 motarLazuz=false;
+      //                }
+      //            });
+      //         }
+      //         console.log(kingOriginalPosition)
+      //         // if(piece.name == king.name){
+      //         //     piece.position.i = kingOriginalPosition.i;
+      //         //     piece.position.j =kingOriginalPosition.j;
+      //         // }
+      //     })
+      //     console.log(piecesArr)
+      //     piecesArr.forEach(piece=>{
+      //         if(piece.name == king.name){
+      //             piece.position.i = kingOriginalPosition.i;
+      //             piece.position.j = kingOriginalPosition.j;
+      //         }
+      //     })
+      //     if(motarLazuz){
+      //     escapeFromMateArr.push({defenderPieceName:`${king.name}`,authMove:auth})
+      //     console.log(escapeFromMateArr)
+          
+      //     }
+       
+      //       authenticatedMovements = [];
+      //       escapeFromMateArr.forEach(obj=>{
+      //         authenticatedMovements.push(obj.authMove)
+      //       })
+
+      //     console.log(authenticatedMovements)
+      // })
+      // return escapeFromMateArr
+      //     }
+          
+      //   }
+    
+    }else{
+      authenticatedMovements = [{i:isDetention[1].move.i,j:isDetention[1].move.j}]
+    }
+
+    
+
     //catch all the board locations, clean them (in case its alredy marked) and remove the option to click it and locate there a piece ( in case the user clicked a piece right after another without move it )
     let allBoardBox = document.getElementById('root').children;
     for (let index = 0; index < allBoardBox.length; index++) {
       allBoardBox[index].removeEventListener('click', movePiece);
+      allBoardBox[index].removeEventListener('drop', movePiece);
+      allBoardBox[index].removeEventListener('dragover', allowDrop);
       allBoardBox[index].style.backgroundColor = '';
     }
 
@@ -212,6 +380,8 @@ function selectPiece(event) {
     // highlight the legal movement locations 
     authenticatedMovements.forEach(move => {
       document.getElementById(`${move.i},${move.j}`).addEventListener('click', movePiece);
+      document.getElementById(`${move.i},${move.j}`).addEventListener('drop', movePiece);
+      document.getElementById(`${move.i},${move.j}`).addEventListener('dragover', allowDrop);
       document.getElementById(`${move.i},${move.j}`).style.backgroundColor = '#B5FF95';
       document.getElementById(`${move.i},${move.j}`).style.boxShadow = '4px 4px 8px 4px #fff, 3px 6px 20px 3px #fff';
     });
@@ -224,17 +394,21 @@ function selectPiece(event) {
   } else if (myColor !== pieceColor) {
     console.log('it is not your piece color')
   }
+}
 
 
 
 }
 
 
-
+function allowDrop(event) {
+  event.preventDefault();
+}
 
 
 //click on new location a
 function movePiece(event) {
+  event.preventDefault();
   // get the selected location numbers
   let check = false
   let checkCheck 
@@ -264,7 +438,8 @@ function movePiece(event) {
   // clean old piece location
   document.getElementById(selectedPiece).innerHTML = '';
 
-
+ 
+  
 
   //???
   // selectedPiece = '';
@@ -272,6 +447,8 @@ function movePiece(event) {
   //catch all the board locations, clean them (in case its alredy marked) and remove the option to click it and locate there a piece ( in case the user clicked a piece right after another without move it )
   authenticatedMovements.forEach(move => {
     document.getElementById(`${move.i},${move.j}`).removeEventListener('click', movePiece);
+    document.getElementById(`${move.i},${move.j}`).removeEventListener('drop', movePiece);
+    document.getElementById(`${move.i},${move.j}`).removeEventListener('dragover', allowDrop);
     document.getElementById(`${move.i},${move.j}`).style.backgroundColor = '';
   })
 
@@ -347,15 +524,17 @@ function movePiece(event) {
         //     piecesArr.splice(index, 1)
         //   }
         // })
+        let escapeFromMateArr=['jj'];
         document.querySelector(`.${pieceColor}Enthronement`).style.display = 'none';
         checkCheck = checkChecker(myColor)
         if(checkCheck.check){
           check = checkCheck.atackingColor
+          escapeFromMateArr = checkCheck.escapeFromMateArr;
           
         }
 
         setPieceLocation(selectedLocation, enthronementChooseName, enthronementChooseIcon, enthronementChooseName.slice(0, 5))
-        socket.emit('move', { piecesArr, roomID, userID, outOfGamePiecesBlack,check })
+        socket.emit('move', { piecesArr, roomID, userID, outOfGamePiecesBlack,check,escapeFromMateArr })
         // console.log(piecesArr)
       }
     })
@@ -363,14 +542,17 @@ function movePiece(event) {
   } else {
 
     // set piece in new location
+    let escapeFromMateArr;
     setPieceLocation(selectedLocation, pieceName, icon, type);
     checkCheck = checkChecker(myColor)
         if(checkCheck.check){
           check = checkCheck.atackingColor
+          escapeFromMateArr = checkCheck.escapeFromMateArr;
+          
           
         }
 
-    socket.emit('move', { piecesArr, roomID, userID, outOfGamePiecesWhite, outOfGamePiecesBlack,check })
+    socket.emit('move', { piecesArr, roomID, userID, outOfGamePiecesWhite, outOfGamePiecesBlack,check,escapeFromMateArr })
   }
 
 
@@ -385,7 +567,7 @@ function movePiece(event) {
 const setPieceLocation = (selectedLocation, name, icon, type) => {
   document.getElementById(
     selectedLocation
-  ).innerHTML += `<div name='${name}'  icon='${icon}' type='${type}' class="pawn" id=${selectedLocation} onclick="selectPiece(event)">${icon}</div>`;
+  ).innerHTML += `<div name='${name}'  icon='${icon}' type='${type}' class="pawn" id=${selectedLocation} onclick="selectPiece(event)" draggable="true" ondragstart="selectPiece(event)">${icon}</div>`;
 };
 
 // on game page loading creat the bord and set the pieces (get your room, color and turns)
@@ -394,6 +576,10 @@ function userDetails() {
 
 
   return cookie
+}
+
+function returnToMainPage(event){
+  window.location.href = "/main.html";
 }
 
 let turn = 'white';
@@ -469,4 +655,8 @@ onInit = () => {
 
   createBoard();
   setPiecesStartPosition();
+
+ 
+
+
 };
