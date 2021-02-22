@@ -18,6 +18,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const url = "mongodb+srv://vanilachess:vanila123@cluster0.3d34s.mongodb.net/test";
 const mongoose = require('mongoose');
 mongoose.connect(url, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, });
+mongoose.set('useFindAndModify', false);
+mongoose.set('returnOriginal', false);
 
 app.use("/users", userRouter);
 app.use("/room",roomRouter);
@@ -42,24 +44,18 @@ io.on('connection', socket => {
     io.sockets.in(obj.roomId).emit('playerConnection', obj.userID);
   })
   
-  // socket.on(`chat room message`, msgObj => {
-  //   msgObj = JSON.parse(msgObj);
-
-  //   console.log(msgObj);
-
-  //   io.sockets.in(msgObj.roomId).emit('chat room message', msgObj.msg);
-  // })
+  
   socket.on('move',obj=>{
     // console.log(obj.piecesArr,obj.roomID)
     (turn =='white') ? turn ='black' : turn ='white';
     console.log(`turn: ${turn}`)
-    io.sockets.in(obj.roomID).emit('move', [obj.piecesArr,obj.userID,turn,obj.outOfGamePiecesWhite,obj.outOfGamePiecesBlack]);
+    io.sockets.in(obj.roomID).emit('move', [obj.piecesArr,obj.userID,turn,obj.outOfGamePiecesWhite,obj.outOfGamePiecesBlack,obj.check]);
     
   })
 
     socket.on('chatMessage',msg=>{
     console.log(msg)
-    io.sockets.in(msg[1]).emit('chatMessage',msg[0]);
+    io.sockets.in(msg[1]).emit('chatMessage',[msg[0],msg[2]]);
     
   })
 

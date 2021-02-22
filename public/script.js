@@ -3,7 +3,7 @@ let userID;
 
 let piecesArr = [blackPawn1, blackPawn2, blackPawn3, blackPawn4, blackPawn5, blackPawn6, blackPawn7, blackPawn8, blackCastle1, blackCastle2, blackKnight1, blackKnight2, blackBishop1, blackBishop2, blackQueen, blackKing, whitePawn1, whitePawn2, whitePawn3, whitePawn4, whitePawn5, whitePawn6, whitePawn7, whitePawn8, whiteCastle1, WhiteCastle2, whiteKnight1, WhiteKnight2, whiteBishop1, WhiteBishop2, whiteQueen, whiteKing]
 let outOfGamePiecesWhite = []
-let outOfGamePiecesBlack  = []
+let outOfGamePiecesBlack = []
 let authenticatedMovements;
 let selectedPiece;
 let selectedPieceName;
@@ -20,29 +20,47 @@ let myColor;
 
 let boardRotates = false;
 
-handleSendMessage = (event =>{
+handleSendMessage = (event => {
   event.preventDefault();
   let message = event.target.children.message.value;
-  console.log(message)
-  socket.emit('chatMessage', [message,roomID])
+  if (message.trim()) {
+    socket.emit('chatMessage', [message, roomID, myColor],)
+  }
 })
 
-document.getElementById('turnTheBoard').addEventListener('click',function() {
-  (!boardRotates)?boardRotates = 'upsideDown':boardRotates = false;
+document.getElementById('turnTheBoard').addEventListener('click', function () {
+  (!boardRotates) ? boardRotates = 'upsideDown' : boardRotates = false;
   console.log(boardRotates)
-  document.querySelector('#root').classList.toggle("upsideDown"); 
-  document.querySelector('.columnsNumbers').style.flexDirection = 'row-reverse'; 
-  document.querySelector('.rowLetters').style.flexDirection = 'column'; 
+  document.querySelector('#root').classList.toggle("upsideDown");
   let pieces = document.querySelectorAll(".board");
-  pieces.forEach(elm=>{
+  pieces.forEach(elm => {
     elm.classList.toggle("upsideDown");
-  }) 
+  })
+
+  if (boardRotates) {
+    document.querySelector('.columnsNumbers').style.flexDirection = 'row-reverse';
+    document.querySelector('.rowLetters').style.flexDirection = 'column';
+  } else {
+    document.querySelector('.columnsNumbers').style.flexDirection = 'row';
+    document.querySelector('.rowLetters').style.flexDirection = 'column-reverse';
+  }
+  // let columnsNumbers = document.querySelector('.columnsNumbers').style.flexDirection;
+  // console.log(columnsNumbers)
+  // (columnsNumbers=='row-reverse')? columnsNumbers='row':columnsNumbers='row-reverse';
+  // let rowLetters = document.querySelector('.rowLetters').style.flexDirection;
+  // console.log(rowLetters)
+  // (rowLetters=='column')? rowLetters='column-reverse':rowLetters='column';
 });
 
 socket.on('chatMessage', msg => {
   console.log(msg)
-  document.querySelector('.messages').innerHTML += `<p>${msg}</p>`;
+  let textColor;
+  (msg[1] == 'white') ? textColor = 'black' : textColor = 'white';
+  let direction;
+  (msg[1] == myColor) ? direction = 'start' : direction = 'end';
+  document.querySelector('.messages').innerHTML += `<h4 class='box' style="text-align: ${direction};"><p class='msg' style="background:${msg[1]}; color:${textColor}">${msg[0]}</p></h4>`;
   document.querySelector('#message').value = '';
+  document.querySelector('.messages').scrollTop = document.querySelector('.messages').scrollHeight;
 
 });
 
@@ -62,26 +80,51 @@ socket.on('move', move => {
   let turn = move[2];
   console.log(`${turn} turn`)
   currentTurn = turn;
-  document.getElementById('turn').innerText = `its ${currentTurn} turn`;
+  let WhoseTurn;
+  (currentTurn == myColor) ? WhoseTurn = 'your' : WhoseTurn = 'rival';
+  document.getElementById('turn').innerText = `${WhoseTurn} turn`;
+  if (WhoseTurn == 'your') {
+    document.getElementById('turn').style.border = '2px solid white'
+  } else[
+    document.getElementById('turn').style.border = 'none'
+  ]
   outOfGamePiecesWhite = move[3];
-  outOfGamePiecesBlack  = move[4];
-  console.log(outOfGamePiecesWhite,outOfGamePiecesBlack)
+  outOfGamePiecesBlack = move[4];
+  console.log(outOfGamePiecesWhite, outOfGamePiecesBlack)
 
   let HtmlBlack = '';
   let HtmlWhite = '';
-  outOfGamePiecesBlack.forEach(element => {HtmlBlack += `<div> ${element.icon} </div>` });
+  outOfGamePiecesBlack.forEach(element => { HtmlBlack += `<div> ${element.icon} </div>` });
   document.querySelector(`.outOfGamePieces__black`).innerHTML = HtmlBlack;
-  outOfGamePiecesWhite.forEach(element => {HtmlWhite += `<div> ${element.icon} </div>`});
-  document.querySelector(`.outOfGamePieces__white`).innerHTML =HtmlWhite
+  outOfGamePiecesWhite.forEach(element => { HtmlWhite += `<div> ${element.icon} </div>` });
+  document.querySelector(`.outOfGamePieces__white`).innerHTML = HtmlWhite
+  let defendingColor
+  let attackingColor = move[5]
+  console.log(attackingColor)
+  let escapeFromMateArr = move[6]
+  console.log(escapeFromMateArr);
+  console.log(move);
+  
+  if(attackingColor){
+    if(attackingColor=='white'){
+      defendingColor= `Black is in check`  
+    }
+    else{
+      defendingColor = `White is in check`
+    }
+    // alert(defendingColor)
+    document.getElementById('turn').innerText=`${defendingColor}`
+    
+  }
 });
 
 socket.on('playerConnection', obj => {
   // console.log(obj)
-  if(obj !== userID){
-    document.getElementById(`rival`).innerText= `your rival is ${obj}`
+  if (obj !== userID) {
+    document.getElementById(`rival`).innerText = `your rival is ${obj}`
   }
-  
-  
+
+
 });
 
 
@@ -120,81 +163,255 @@ function setPiecesStartPosition() {
 
 // piece movement happens in two clicks. first click on the piece you want to move, and second click on the wanted new location
 //click on piece
-function selectPiece(event) {
+ function  selectPiece (event) {
+  // setTimeout(() => (event.target.style.display = 'none'), 0);
+  
 
   pieceName = event.target.attributes[0].value
-  pieceColor = pieceName.slice(0,5);
-  // console.log(pieceColor)
-
-  if(myColor == currentTurn && myColor == pieceColor){
-    // console.log('its my turn')
-
-     //Reduces click to tool only
-  // event.cancelBubble = true;
-
+  pieceColor = pieceName.slice(0, 5);
   selectedPiece = event.target.id;
   selectedPiece = selectedPiece.split(',')// for matching later
 
+  let isDetention = checkIfDetention(selectedPiece,pieceColor);
+  console.error(isDetention[0])
+  if(isDetention[0]){
+    alert('כלי מרותק')
+  }else{
+  // console.log(pieceColor)
 
-  //catch piece details (from the DOM)
-  selectedPieceName = event.target.attributes[0].value;
+  if (myColor == currentTurn && myColor == pieceColor) {
+    // console.log('its my turn')
+
+    //Reduces click to tool only
+    // event.cancelBubble = true;
+
+    
+
+    //catch piece details (from the DOM)
+    selectedPieceName = event.target.attributes[0].value;
 
 
-  icon = event.target.attributes[1].value;
-  type = event.target.attributes[2].value;
+    icon = event.target.attributes[1].value;
+    type = event.target.attributes[2].value;
 
+    if(!isDetention[1]){
+    // for the match between functions  , Conversion from x & y to i & j
+    let objectifier = { i: selectedPiece[0], j: selectedPiece[1] }
 
-  // for the match between functions  , Conversion from x & y to i & j
-  let objectifier = { i: selectedPiece[0], j: selectedPiece[1] }
+    //get all the optional movements for the choosen piece by type and location. (the location is converting from string to number)
+    let optionalmovements = checkOptionalmovements(type, { x: parseInt(selectedPiece[0], 10), y: parseInt(selectedPiece[1], 10) }, pieceColor)
 
-  //get all the optional movements for the choosen piece by type and location. (the location is converting from string to number)
-  let optionalmovements = checkOptionalmovements(type, { x: parseInt(selectedPiece[0], 10), y: parseInt(selectedPiece[1], 10) },pieceColor)
+    //for match, catch all the piece object from the pieces array (and not only its details from the DOM)
+    let clickedpiece = {}
+    piecesArr.forEach(piece => {
+      if (piece.position.i == objectifier.i && piece.position.j == objectifier.j) {
+        clickedpiece = piece
+      }
+    });
 
-  //for match, catch all the piece object from the pieces array (and not only its details from the DOM)
-  let clickedpiece = {}
-  piecesArr.forEach(piece => {
-    if (piece.position.i == objectifier.i && piece.position.j == objectifier.j) {
-      clickedpiece = piece
+    //gets the legal movements only from all the optional movements
+    authenticatedMovements = movementAuthentication(optionalmovements, clickedpiece)
+
+       if(type == 'king'){
+        console.log('king')
+        let finalAuthMoves =[];
+
+        authenticatedMovements.forEach(authMove=>{
+          let legalMove = true;
+          piecesArr.forEach(piece=>{
+            if(piece.name == pieceName){
+              piece.position.i = authMove.i;
+              piece.position.j = authMove.j;
+            }
+          })
+
+          console.log(piecesArr);
+
+          if(pieceColor=='white'){
+            piecesArr.forEach(piece=>{
+              if(piece.color=='black'){
+                let optionalMovements44 = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},'black');
+                let authenticatedMovements44 = movementAuthentication(optionalMovements44, piece);
+                console.log(authenticatedMovements44);
+                authenticatedMovements44.forEach(auth44=>{
+                  if(auth44.i==authMove.i&&auth44.j==authMove.j){
+                    legalMove = false;
+                  }
+                })
+              }
+            }) 
+          }else{
+            piecesArr.forEach(piece=>{
+              if(piece.color=='white'){
+                let optionalMovements44 = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},'white');
+                let authenticatedMovements44 = movementAuthentication(optionalMovements44, piece);
+                console.log(authenticatedMovements44);
+                authenticatedMovements44.forEach(auth44=>{
+                  if(auth44.i==authMove.i&&auth44.j==authMove.j){
+                    legalMove = false;
+                  }
+                })
+              }
+            })
+
+          }
+         
+          piecesArr.forEach(piece=>{
+            if(piece.name == pieceName){
+              piece.position.i = selectedPiece[0];
+              piece.position.j = selectedPiece[1];
+            }
+          })
+          console.log(piecesArr);
+
+          console.log(legalMove)
+          if(legalMove){
+            finalAuthMoves.push(authMove)
+          }
+
+        })
+
+        console.log(finalAuthMoves);
+        authenticatedMovements=finalAuthMoves;
+       }
+
+      //   if(type == 'king'){
+      //     console.log('king')
+      //    let finalAuthMoves;
+      //   //  finalAuthMoves =  checkKingMoves();
+      //    console.log(checkKingMoves())
+      //    console.log(finalAuthMoves)
+      //     function checkKingMoves(){
+      //       let escapeFromMateArr =[];
+      //       let atackingColor;
+      //       if(pieceColor=='black'){
+      //         atackingColor='white'
+      //       }else{
+      //         atackingColor='black'
+      //       }
+      //       console.log(atackingColor)
+
+      //     let motarLazuz =true;
+      //     let king;
+      //     let kingOriginalPosition;
+      //     let optionalMovements;
+      //     let authenticatedMovements;
+      // if(atackingColor == 'black'){
+      //     king = piecesArr.find(piece=>piece.name == 'whiteKing');
+      //     kingOriginalPosition = {i:king.position.i,j:king.position.j};
+      //     optionalMovements = checkOptionalmovements('king',{x:king.position.i,y:king.position.j},'white');
+      //     authenticatedMovements = movementAuthentication(optionalMovements, king);
+      //     console.log(authenticatedMovements) 
+      // }else{
+      //     king = piecesArr.find(piece=>piece.name == 'blackKing');
+      //     kingOriginalPosition = {i:king.position.i,j:king.position.j};
+      //     optionalMovements = checkOptionalmovements('king',{x:king.position.i,y:king.position.j},'black');
+      //     authenticatedMovements = movementAuthentication(optionalMovements, king);
+      //     console.log(authenticatedMovements) 
+      // }
+
+      // // לדמןתלוח על כל אחתמהן
+      // // לבוק אםמישהי לאמחזירה שח
+
+      // authenticatedMovements.forEach(auth=>{
+      //     motarLazuz =true;
+      //     piecesArr.forEach(piece=>{
+      //         if(piece.name == king.name){
+      //             piece.position.i = auth.i;
+      //             piece.position.j = auth.j;
+      //         }
+      //         if(piece.color==atackingColor){
+      //            let optionalMovements2 = checkOptionalmovements(piece.type,{x:piece.position.i,y:piece.position.j},piece.name);
+      //            let authenticatedMovements2 = movementAuthentication(optionalMovements2, piece);
+      //            authenticatedMovements2.forEach(auth => {
+      //             //    console.log(piecesArr.find(piece=>piece.name==king.name),king.name)
+      //                if(auth.i == piecesArr.find(piece=>piece.name==king.name).position.i&& auth.j ==piecesArr.find(piece=>piece.name==king.name).position.j){
+      //                 motarLazuz=false;
+      //                }
+      //            });
+      //         }
+      //         console.log(kingOriginalPosition)
+      //         // if(piece.name == king.name){
+      //         //     piece.position.i = kingOriginalPosition.i;
+      //         //     piece.position.j =kingOriginalPosition.j;
+      //         // }
+      //     })
+      //     console.log(piecesArr)
+      //     piecesArr.forEach(piece=>{
+      //         if(piece.name == king.name){
+      //             piece.position.i = kingOriginalPosition.i;
+      //             piece.position.j = kingOriginalPosition.j;
+      //         }
+      //     })
+      //     if(motarLazuz){
+      //     escapeFromMateArr.push({defenderPieceName:`${king.name}`,authMove:auth})
+      //     console.log(escapeFromMateArr)
+          
+      //     }
+       
+      //       authenticatedMovements = [];
+      //       escapeFromMateArr.forEach(obj=>{
+      //         authenticatedMovements.push(obj.authMove)
+      //       })
+
+      //     console.log(authenticatedMovements)
+      // })
+      // return escapeFromMateArr
+      //     }
+          
+      //   }
+    
+    }else{
+      authenticatedMovements = [{i:isDetention[1].move.i,j:isDetention[1].move.j}]
     }
-  });
 
-  //gets the legal movements only from all the optional movements
-  authenticatedMovements = movementAuthentication(optionalmovements, clickedpiece)
+    
 
-  //catch all the board locations, clean them (in case its alredy marked) and remove the option to click it and locate there a piece ( in case the user clicked a piece right after another without move it )
-  let allBoardBox = document.getElementById('root').children;
-  for (let index = 0; index < allBoardBox.length; index++) {
-    allBoardBox[index].removeEventListener('click', movePiece);
-    allBoardBox[index].style.backgroundColor = '';
-  }
-
-
-  // highlight the legal movement locations 
-  authenticatedMovements.forEach(move => {
-    document.getElementById(`${move.i},${move.j}`).addEventListener('click', movePiece);
-    document.getElementById(`${move.i},${move.j}`).style.backgroundColor = 'red';
-  });
+    //catch all the board locations, clean them (in case its alredy marked) and remove the option to click it and locate there a piece ( in case the user clicked a piece right after another without move it )
+    let allBoardBox = document.getElementById('root').children;
+    for (let index = 0; index < allBoardBox.length; index++) {
+      allBoardBox[index].removeEventListener('click', movePiece);
+      allBoardBox[index].removeEventListener('drop', movePiece);
+      allBoardBox[index].removeEventListener('dragover', allowDrop);
+      allBoardBox[index].style.backgroundColor = '';
+    }
 
 
+    // highlight the legal movement locations 
+    authenticatedMovements.forEach(move => {
+      document.getElementById(`${move.i},${move.j}`).addEventListener('click', movePiece);
+      document.getElementById(`${move.i},${move.j}`).addEventListener('drop', movePiece);
+      document.getElementById(`${move.i},${move.j}`).addEventListener('dragover', allowDrop);
+      document.getElementById(`${move.i},${move.j}`).style.backgroundColor = '#B5FF95';
+      document.getElementById(`${move.i},${move.j}`).style.boxShadow = '4px 4px 8px 4px #fff, 3px 6px 20px 3px #fff';
+    });
 
- 
-  }else if(myColor !==currentTurn){
+
+
+
+  } else if (myColor !== currentTurn) {
     console.log('it is not your turn')
-  }else if(myColor !==pieceColor){
+  } else if (myColor !== pieceColor) {
     console.log('it is not your piece color')
   }
-
- 
-
 }
 
 
 
+}
+
+
+function allowDrop(event) {
+  event.preventDefault();
+}
 
 
 //click on new location a
- function movePiece(event) {
+function movePiece(event) {
+  event.preventDefault();
   // get the selected location numbers
+  let check = false
+  let checkCheck 
   let selectedLocation = event.target.id;
   let newSL = selectedLocation.split(',')// for matching later
 
@@ -205,15 +422,15 @@ function selectPiece(event) {
       (piecesArr[index].color == 'black') ? outOfGamePiecesBlack.push(piecesArr[index]) : outOfGamePiecesWhite.push(piecesArr[index])
       piecesArr.splice(index, 1)
       console.log(outOfGamePiecesBlack, outOfGamePiecesWhite)
-//     let Html = '';
-//       outOfGamePiecesWhite.forEach(element => {Html += `<div> ${element.icon} </div>`
-        
-//       });
-//       outOfGamePiecesBlack.forEach(element => {Html += `<div> ${element.icon} </div>`
-        
-//     });
-//     if (piecesArr[index].color == 'black'){document.querySelector(`.outOfGamePieces__black`).innerHTML += Html}
-// else {document.querySelector(`.outOfGamePieces__white`).innerHTML+=Html}
+      //     let Html = '';
+      //       outOfGamePiecesWhite.forEach(element => {Html += `<div> ${element.icon} </div>`
+
+      //       });
+      //       outOfGamePiecesBlack.forEach(element => {Html += `<div> ${element.icon} </div>`
+
+      //     });
+      //     if (piecesArr[index].color == 'black'){document.querySelector(`.outOfGamePieces__black`).innerHTML += Html}
+      // else {document.querySelector(`.outOfGamePieces__white`).innerHTML+=Html}
       return;
     }
   })
@@ -221,7 +438,8 @@ function selectPiece(event) {
   // clean old piece location
   document.getElementById(selectedPiece).innerHTML = '';
 
-
+ 
+  
 
   //???
   // selectedPiece = '';
@@ -229,11 +447,13 @@ function selectPiece(event) {
   //catch all the board locations, clean them (in case its alredy marked) and remove the option to click it and locate there a piece ( in case the user clicked a piece right after another without move it )
   authenticatedMovements.forEach(move => {
     document.getElementById(`${move.i},${move.j}`).removeEventListener('click', movePiece);
+    document.getElementById(`${move.i},${move.j}`).removeEventListener('drop', movePiece);
+    document.getElementById(`${move.i},${move.j}`).removeEventListener('dragover', allowDrop);
     document.getElementById(`${move.i},${move.j}`).style.backgroundColor = '';
   })
 
   //update the piece position in the pieces array
-   piecesArr.map((piece, index) => {
+  piecesArr.map((piece, index) => {
     if (selectedPieceName == piece.name) {
       piecesArr[index].position = {
         i: parseInt(newSL[0], 10),
@@ -244,85 +464,100 @@ function selectPiece(event) {
 
 
 
-  
 
 
 
-    //enthronement
-    if(type == 'pawn' && (newSL[0] == 8 || newSL[0] == 1)){
 
-      if(pieceColor == 'black'){
-        let alignSelf;
-        (newSL[0] == 8)? alignSelf='flex-end' : alignSelf='end';
-        document.getElementById(selectedLocation).innerHTML  = `<div class="blackEnthronement" style="align-self:${alignSelf}">
+  //enthronement
+  if (type == 'pawn' && (newSL[0] == 8 || newSL[0] == 1)) {
+
+    if (pieceColor == 'black') {
+      let alignSelf;
+      (newSL[0] == 8) ? alignSelf = 'flex-end' : alignSelf = 'end';
+      document.getElementById(selectedLocation).innerHTML = `<div class="blackEnthronement" style="align-self:${alignSelf}">
         <button class="enthronementOption"  data-choose="whiteCastle" data-type="rook">♖</button>
         <button class="enthronementOption"  data-choose="whiteknight" data-type="knight">♘</button>
         <button class="enthronementOption"  data-choose="WhiteBishop" data-type="bishop">♗</button>
         <button class="enthronementOption"  data-choose="whiteQueen" data-type="queen">♕</button>
         </div>`;
-      }else{
-        let alignSelf;
-        (newSL[0] == 8)? alignSelf='flex-end' : alignSelf='end';
-        document.getElementById(selectedLocation).innerHTML  = `<div class="whiteEnthronement" style="align-self:${alignSelf}">
+    } else {
+      let alignSelf;
+      (newSL[0] == 8) ? alignSelf = 'flex-end' : alignSelf = 'end';
+      document.getElementById(selectedLocation).innerHTML = `<div class="whiteEnthronement" style="align-self:${alignSelf}">
         <button class="enthronementOption"  data-choose="blackCastle" data-type="rook">♜</button>
         <button class="enthronementOption"  data-choose="blackknight" data-type="knight">♞</button>
         <button class="enthronementOption"  data-choose="blackBishop" data-type="bishop">♝</button>
         <button class="enthronementOption"  data-choose="blackQueen" data-type="queen">♛</button>
         </div>`;
-      }
-      
-      // document.getElementById(selectedLocation).innerHTML  = `nlvknslvknslknvldknvlskdnv`;
-    
-      piecesArr.map((piece, index) => {
-        if (piecesArr[index].name == selectedPieceName){
-          piecesArr.splice(index,1)
-        }
-      })
-  
-      
-        document.querySelector(`.${pieceColor}Enthronement`).style.display = 'block';
-        document.querySelectorAll(`.enthronementOption`).forEach(button =>{
-          button.onclick = enthronement = (e) =>{
-            let enthronementChooseName = `${e.target.dataset.choose}New`;
-            let enthronementChooseIcon = e.target.innerHTML;
-            let enthronementChooseType = e.target.dataset.type;
-            let enthronementChoose= {
-              color: pieceColor,
-              position: {
-                i: newSL[0],
-                j: newSL[1]
-              },
-              name: enthronementChooseName,
-              icon: enthronementChooseIcon,
-              type: enthronementChooseType
-            }
-            piecesArr.push(enthronementChoose);
-            // array = [2, 9]
-            console.log(piecesArr);
-            // piecesArr.forEach(piece =>{
-            //   if(piece.name == selectedPieceName){
-            //     piecesArr.splice(index, 1)
-            //   }
-            // })
-            document.querySelector(`.${pieceColor}Enthronement`).style.display = 'none';
-      
-            setPieceLocation(selectedLocation, enthronementChooseName, enthronementChooseIcon, enthronementChooseName.slice(0,5))
-            socket.emit('move', { piecesArr, roomID, userID,outOfGamePiecesBlack })
-            // console.log(piecesArr)
-          }
-        })
-      
-    }else{
-
-        // set piece in new location
-    setPieceLocation(selectedLocation, pieceName, icon, type);
-
-      socket.emit('move', { piecesArr, roomID, userID,outOfGamePiecesWhite,outOfGamePiecesBlack })
     }
 
+    // document.getElementById(selectedLocation).innerHTML  = `nlvknslvknslknvldknvlskdnv`;
+
+    piecesArr.map((piece, index) => {
+      if (piecesArr[index].name == selectedPieceName) {
+        piecesArr.splice(index, 1)
+      }
+    })
 
 
-  
+    document.querySelector(`.${pieceColor}Enthronement`).style.display = 'block';
+    document.querySelectorAll(`.enthronementOption`).forEach(button => {
+      button.onclick = enthronement = (e) => {
+        let enthronementChooseName = `${e.target.dataset.choose}New`;
+        let enthronementChooseIcon = e.target.innerHTML;
+        let enthronementChooseType = e.target.dataset.type;
+        let enthronementChoose = {
+          color: pieceColor,
+          position: {
+            i: newSL[0],
+            j: newSL[1]
+          },
+          name: enthronementChooseName,
+          icon: enthronementChooseIcon,
+          type: enthronementChooseType
+        }
+        piecesArr.push(enthronementChoose);
+        // array = [2, 9]
+        console.log(piecesArr);
+        // piecesArr.forEach(piece =>{
+        //   if(piece.name == selectedPieceName){
+        //     piecesArr.splice(index, 1)
+        //   }
+        // })
+        let escapeFromMateArr=['jj'];
+        document.querySelector(`.${pieceColor}Enthronement`).style.display = 'none';
+        checkCheck = checkChecker(myColor)
+        if(checkCheck.check){
+          check = checkCheck.atackingColor
+          escapeFromMateArr = checkCheck.escapeFromMateArr;
+          
+        }
+
+        setPieceLocation(selectedLocation, enthronementChooseName, enthronementChooseIcon, enthronementChooseName.slice(0, 5))
+        socket.emit('move', { piecesArr, roomID, userID, outOfGamePiecesBlack,check,escapeFromMateArr })
+        // console.log(piecesArr)
+      }
+    })
+
+  } else {
+
+    // set piece in new location
+    let escapeFromMateArr;
+    setPieceLocation(selectedLocation, pieceName, icon, type);
+    checkCheck = checkChecker(myColor)
+        if(checkCheck.check){
+          check = checkCheck.atackingColor
+          escapeFromMateArr = checkCheck.escapeFromMateArr;
+          
+          
+        }
+
+    socket.emit('move', { piecesArr, roomID, userID, outOfGamePiecesWhite, outOfGamePiecesBlack,check,escapeFromMateArr })
+  }
+
+
+ 
+
 
 }
 
@@ -332,7 +567,7 @@ function selectPiece(event) {
 const setPieceLocation = (selectedLocation, name, icon, type) => {
   document.getElementById(
     selectedLocation
-  ).innerHTML += `<div name='${name}'  icon='${icon}' type='${type}' class="pawn" id=${selectedLocation} onclick="selectPiece(event)">${icon}</div>`;
+  ).innerHTML += `<div name='${name}'  icon='${icon}' type='${type}' class="pawn" id=${selectedLocation} onclick="selectPiece(event)" draggable="true" ondragstart="selectPiece(event)">${icon}</div>`;
 };
 
 // on game page loading creat the bord and set the pieces (get your room, color and turns)
@@ -343,8 +578,12 @@ function userDetails() {
   return cookie
 }
 
+function returnToMainPage(event){
+  window.location.href = "/main.html";
+}
+
 let turn = 'white';
- onInit =  () => {
+onInit = () => {
 
   socket.on('connect', function () {
     console.log('user connected')
@@ -356,23 +595,29 @@ let turn = 'white';
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
-  
+
       },
       body: JSON.stringify({ userID })
-  
+
     }).then(res => res.json())
       .then(data => {
         // console.log(data)
         roomID = data.roomnumber
-        rival=data.rival;
+        rival = data.rival;
         console.log(`romm number ${roomID}`)
         console.log(`your color is ${data.color}`)
         myColor = data.color;
         // console.log('step2')
-        joinRoom(roomID,userID);
-        document.getElementById(`me`).innerText= `you play as ${myColor},${userID} `
-        if(rival){
-        document.getElementById(`rival`).innerText= `your rival is ${rival}`
+        joinRoom(roomID, userID);
+        document.getElementById(`me`).innerText = `you play as ${userID} `
+        document.querySelector(`.player__profile--me`).style.backgroundColor = `${myColor}`;
+        let rivalColor;
+        (myColor == 'black') ? rivalColor = 'white' : rivalColor = 'black';
+        document.querySelector(`.player__profile--me`).style.color = `${rivalColor}`;
+        document.querySelector(`.player__profile--rival`).style.backgroundColor = `${rivalColor}`;
+        document.querySelector(`.player__profile--rival`).style.color = `${myColor}`;
+        if (rival) {
+          document.getElementById(`rival`).innerText = `your rival is ${rival}`
         }
       })
 
@@ -381,16 +626,16 @@ let turn = 'white';
   });
 
 
-  function joinRoom(roomId,userID) {
-    socket.emit('join room', {roomId,userID})
+  function joinRoom(roomId, userID) {
+    socket.emit('join room', { roomId, userID })
     userRoomId = roomId
   }
- 
-  
 
 
 
- 
+
+
+
 
 
 
@@ -410,4 +655,8 @@ let turn = 'white';
 
   createBoard();
   setPiecesStartPosition();
+
+ 
+
+
 };
